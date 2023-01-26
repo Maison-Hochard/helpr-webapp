@@ -1,5 +1,5 @@
 {
-  "name": "nuxt3-boilerplate",
+  "name": "helpr-webapp",
   "version": "1.0.0",
   "description": "",
   "author": "Hugo Richard",
@@ -16,8 +16,6 @@
     "format": "prettier --write \"**/*.js\" \"**/*.vue\" ",
     "prisma:generate": "prisma generate",
     "prisma:pull": "prisma db pull",
-    "prisma:migrate": "prisma migrate dev",
-    "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:push": "prisma db push"
   },
   "prisma": {
