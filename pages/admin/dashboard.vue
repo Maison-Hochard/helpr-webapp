@@ -1,8 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  name: "Admin",
-  title: "Admin",
-  description: "Admin",
+  name: "Dashboard",
+  title: "Dashboard",
 });
 
 const { data, pending } = await useLazyFetch("/api/user/listUsers", {

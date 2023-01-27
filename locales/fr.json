@@ -14,7 +14,9 @@
     "signup": "Inscription",
     "profile": "Profil",
     "settings": "Paramètres",
-    "admin": "Admin"
+    "admin": "Admin",
+    "dashboard": "Tableau de bord",
+    "app-settings": "Paramètres de l'application"
   },
   "pages": {
     "profile": {

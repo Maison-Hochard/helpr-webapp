@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { MenuButton, Menu, MenuItems } from "@headlessui/vue";
 
+const user = useSupabaseUser();
+
 const profile_navigation = [
   { name: "Home" },
   { name: "Profile" },
   { name: "Settings" },
 ];
 
-const user = useSupabaseUser();
+if (user.value?.email === "hrichard206@icloud.com") {
+  profile_navigation.push({ name: "Dashboard" });
+}
 
 const profile = computed(() => user.value?.user_metadata.avatar_url);
 

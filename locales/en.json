@@ -14,7 +14,9 @@
     "signup": "Sign Up",
     "profile": "Profile",
     "settings": "Settings",
-    "admin": "Admin"
+    "admin": "Admin",
+    "dashboard": "Dashboard",
+    "app-settings": "App Settings"
   },
   "pages": {
     "profile": {
