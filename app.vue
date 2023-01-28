@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useUser } from "~/composables/UseAuth";
+
 const { locale } = useI18n();
 
 useHead({
@@ -32,6 +34,8 @@ onMounted(() => {
   locale.value = userLocale.value;
   theme.value = userTheme.value;
 });
+
+await useUser();
 </script>
 
 <template>

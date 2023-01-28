@@ -5,35 +5,16 @@ definePageMeta({
   description: "Profile",
 });
 
-const user = useSupabaseUser();
-const supabase = useSupabaseClient();
-
 const email = ref("");
 const fullname = ref("");
 
-if (user.value) {
-  email.value = user.value.email || "";
-  fullname.value = user.value.user_metadata.full_name || "";
-}
+const user = useUser();
 
-const updateProfile = async () => {
-  const { error } = await supabase.auth.updateUser({
-    email: email.value,
-    data: {
-      full_name: fullname.value,
-    }
-  });
-  if (error) console.log("Error updating user: ", error);
-};
+const updateProfile = async () => {};
 
-const deleteAccount = async () => {
-  await useDeleteAccount();
-};
+const deleteAccount = async () => {};
 
-const whoAmI = async () => {
-  const response = await useCurrentUser();
-  console.log(response.value);
-};
+const whoAmI = async () => {};
 </script>
 
 <template>
@@ -45,33 +26,35 @@ const whoAmI = async () => {
       <p class="mt-1 text-sm text-muted">
         Use a permanent address where you can receive mail.
       </p>
-      <div class="flex flex-row mt-10 gap-5">
-        <div class="w-1/2">
-          <label for="firstname" class="block text-sm font-medium text-muted"
+      <div>
+        <div class="flex flex-row mt-10 gap-5">
+          <div class="w-1/2">
+            <label for="firstname" class="block text-sm font-medium text-muted"
             >Full name</label
+            >
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              autocomplete="firstname"
+              v-model="fullname"
+              class="input mt-1"
+            />
+          </div>
+        </div>
+        <div class="mt-6 w-1/2">
+          <label for="email" class="block text-sm font-medium text-muted"
+          >Email address</label
           >
           <input
-            type="text"
-            name="firstname"
-            id="firstname"
-            autocomplete="firstname"
-            v-model="fullname"
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            v-model="email"
             class="input mt-1"
           />
         </div>
-      </div>
-      <div class="mt-6 w-1/2">
-        <label for="email" class="block text-sm font-medium text-muted"
-          >Email address</label
-        >
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autocomplete="email"
-          v-model="email"
-          class="input mt-1"
-        />
       </div>
     </div>
 

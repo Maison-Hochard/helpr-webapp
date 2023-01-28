@@ -1,3 +1,5 @@
-import { users } from ".prisma/client";
+import { Session, User } from "@prisma/client";
 
-export type User = users & { admin: boolean }
+export type SessionWithUser = Session & {
+  user: User;
+}

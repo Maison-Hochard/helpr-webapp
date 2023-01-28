@@ -21,8 +21,7 @@ export default defineNuxtConfig({
     "nuxt-headlessui",
     "@nuxtjs/i18n",
     "@nuxtjs/tailwindcss",
-    "@vueuse/nuxt",
-    "@nuxtjs/supabase",
+    "@vueuse/nuxt"
   ],
 
   runtimeConfig: {

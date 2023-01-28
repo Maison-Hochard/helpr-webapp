@@ -5,14 +5,9 @@ definePageMeta({
   description: "Forgot Password",
 });
 
-const { auth } = useSupabaseClient();
-
 const email = ref("");
 
-const sendResetPasswordEmail = async () => {
-  const { error } = await auth.resetPasswordForEmail(email.value);
-  if (error) console.log("Error sending password reset email: ", error);
-};
+const sendResetPasswordEmail = async () => {};
 </script>
 
 <template>
