@@ -9,20 +9,14 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 
-RUN apk add --update --no-cache python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
+RUN apk add --update --no-cache openssl1.1-compat python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
 
 COPY . .
 
 RUN pnpm install
 RUN pnpm build
 
-FROM node:18-alpine as nuxt-app
-
-WORKDIR /app
-
-RUN npm install -g pnpm
-
-COPY --from=builder /app .
+RUN npx prisma generate
 
 CMD ["pnpm", "start"]
 
