@@ -20,8 +20,10 @@ const updateProfile = async () => {
 
 const deleteAccount = async () => {
   if (confirm("Are you sure you want to delete your account?")) {
-    const response = await useAPI<User>("user/" + user.id, "DELETE");
-    if (response) {
+    if (user) {
+      await useFetch("/api/user/" + user.id, {
+        method: "DELETE",
+      });
       useState("user").value = null;
       useRouter().push("/");
     }

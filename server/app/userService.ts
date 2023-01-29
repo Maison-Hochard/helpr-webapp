@@ -5,6 +5,7 @@ import { isString } from "@vueuse/core";
 import { H3Event } from "h3";
 import { Role } from "~/types/Role";
 import jwt from "jsonwebtoken";
+import { createStripeCustomer } from "~/server/app/stripeService";
 
 export interface createUserInput {
   username: string
@@ -18,10 +19,12 @@ export interface createUserInput {
 
 export async function createUser(userData: createUserInput): Promise<User> {
   const password = await bcrypt.hash(userData.password, 10);
+  const customerId = await createStripeCustomer(userData.email);
   return await prisma.user.create({
     data: {
       ...userData,
       password,
+      stripeCustomerId: customerId.stripeCustomerId,
     }
   });
 }
@@ -76,4 +79,12 @@ export async function adminCheck(event: H3Event): Promise<boolean> {
   const user  = await getUserByAuthToken(authToken);
   if (!user) return false;
   return user.role === Role.ADMIN;
+}
+
+export async function deleteUser(userId: number): Promise<User> {
+  return await prisma.user.delete({
+    where: {
+      id: userId,
+    },
+  });
 }
