@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useLogin } from "~/composables/UseAuth";
-
 definePageMeta({
   name: "Login",
   title: "Login",
@@ -14,7 +12,17 @@ const loading = ref(false);
 
 async function signin () {
   loading.value = true;
-  await useLogin(login.value, password.value);
+  const { data } = await useFetch("/api/auth/login", {
+    method: "POST",
+    body: {
+      login: login.value,
+      password: password.value,
+    }
+  });
+  if (data.value) {
+    useState("user").value = data.value;
+    useRouter().push("/app/profile");
+  }
   loading.value = false;
 }
 </script>

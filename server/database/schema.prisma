@@ -9,24 +9,24 @@ datasource db {
 }
 
 model EmailVerification {
-  id        String   @id
+  id        Int      @id @default(autoincrement())
   token     String   @unique
-  userId    String
+  userId    Int
   createdAt DateTime @default(now())
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ResetPassword {
-  id        String   @id
+  id        Int      @id @default(autoincrement())
   token     String   @unique
-  userId    String
+  userId    Int
   createdAt DateTime @default(now())
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {
-  id            String  @id
-  userId        String
+  id            Int     @id @default(autoincrement())
+  userId        Int
   stripeId      String  @unique
   stripeStatus  String?
   stripePriceId String?
@@ -38,7 +38,7 @@ model Subscription {
 }
 
 model User {
-  id                String              @id
+  id                Int                 @id @default(autoincrement())
   loginType         String?             @default("email")
   username          String              @unique
   email             String              @unique
@@ -48,7 +48,7 @@ model User {
   stripeCustomerId  String?
   createdAt         DateTime            @default(now())
   profilePicture    String?
-  updatedAt         DateTime
+  updatedAt         DateTime?           @updatedAt
   role              Int?                @default(1)
   isVerified        Boolean             @default(false)
   refreshToken      String?             @unique

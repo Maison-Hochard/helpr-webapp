@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MenuButton, Menu, MenuItems } from "@headlessui/vue";
 import { User } from "@prisma/client";
-import { Role } from "~/middleware/admin";
+import { Role } from "~/types/Role";
 
 const profile_navigation = [
   { name: "Home" },
@@ -20,7 +20,11 @@ const default_avatar = "https://images.unsplash.com/photo-1472099645785-5658abf4
 // const config = useRuntimeConfig();
 
 const logout = async () => {
-  await useLogout();
+  await useFetch("/api/auth/logout", {
+    method: "POST",
+  });
+  useState("user").value = null;
+  useRouter().push("/");
 };
 </script>
 

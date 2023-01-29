@@ -1,7 +1,4 @@
-export enum Role {
-  USER = 1,
-  ADMIN = 2,
-}
+import { Role } from "~/types/Role";
 
 export default defineNuxtRouteMiddleware(async () => {
   const user = await useUser();

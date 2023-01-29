@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { User } from ".prisma/client";
+import { User } from "@prisma/client";
 
 definePageMeta({
   name: "Profile",

@@ -1,26 +1,20 @@
 import { User } from "@prisma/client";
 
-export const useAuthCookie = () => useCookie("refreshToken");
+export const useAuthCookie = () => useCookie("authToken");
 
-export async function useUser(): Promise<User|null> {
-  const authCookie = useAuthCookie();
-  const config = useRuntimeConfig();
-  const user = useState<User|null>("user");
+export async function useUser(): Promise<User | null> {
+  const authCookie = useAuthCookie().value;
+  const user = useState<User | null>("user");
 
-  if (authCookie.value != undefined && user.value == undefined) {
-    const header = useRequestHeaders(["cookie"]);
-    try {
-      const response = await $fetch<User>(
-        `${config.public.apiUrl}auth/refresh`,
-        {
-          method: "POST",
-          headers: header as HeadersInit,
-          credentials: "include",
-        },
-      );
-      return user.value = response;
-    } catch (e) { /* empty */ }
+  if (authCookie && !user.value) {
+    const cookieHeaders = useRequestHeaders(["cookie"]);
+    const { data } = await useFetch<User>("/api/auth/users-token", {
+      method: "GET",
+      headers: cookieHeaders as HeadersInit,
+    });
+    user.value = data.value;
   }
+
   return user.value;
 }
 
