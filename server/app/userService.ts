@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { isString } from "@vueuse/core";
 import { H3Event } from "h3";
 import { Role } from "~/types/Role";
+import jwt from "jsonwebtoken";
 
 export interface createUserInput {
   username: string
@@ -49,8 +50,15 @@ export async function getUserByAuthToken(authToken: string): Promise<User|null> 
   });
 }
 
-export async function setAuthToken(userId: number, authToken: string): Promise<User> {
-  return await prisma.user.update({
+export async function setAuthToken(userId: number): Promise<string> {
+  const user = await getUserById(userId) as User;
+  const authToken = jwt.sign({
+    id: user.id,
+    role: user.role,
+    username: user.username,
+    email: user.email
+  }, useRuntimeConfig().private.jwtSecret, { expiresIn: "7d" });
+  await prisma.user.update({
     where: {
       id: userId,
     },
@@ -58,6 +66,7 @@ export async function setAuthToken(userId: number, authToken: string): Promise<U
       authToken,
     },
   });
+  return authToken;
 }
 
 export async function adminCheck(event: H3Event): Promise<boolean> {
