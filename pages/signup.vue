@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useSignup } from "~/composables/UseAuth";
-
 definePageMeta({
   name: "Signup",
   title: "Signup",

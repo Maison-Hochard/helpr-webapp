@@ -41,19 +41,12 @@ export async function useLogin(login: string, password: string): Promise<User|nu
 }
 
 export async function useLogout() {
-  const config = useRuntimeConfig();
   const user = useState<User|null>("user");
   if (!user.value) {
     useRouter().push("/");
     return;
   }
-  await $fetch(`${config.public.apiUrl}auth/logout`, {
-    method: "POST",
-    headers: {
-      "authorization": `Bearer ${user.value.authToken}`,
-    },
-    credentials: "include",
-  });
+  await useAPI("auth/logout", "POST");
   useState<User|null>("user").value = null;
   useRouter().push("/");
 }
