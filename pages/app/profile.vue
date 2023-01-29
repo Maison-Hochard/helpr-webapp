@@ -5,10 +5,7 @@ definePageMeta({
   description: "Profile",
 });
 
-const email = ref("");
-const fullname = ref("");
-
-const user = useUser();
+const user = await useUser();
 
 const updateProfile = async () => {};
 
@@ -26,23 +23,37 @@ const whoAmI = async () => {};
       <p class="mt-1 text-sm text-muted">
         Use a permanent address where you can receive mail.
       </p>
-      <div>
+      <Loader v-if="!user" />
+      <div v-else>
         <div class="flex flex-row mt-10 gap-5">
-          <div class="w-1/2">
+          <div>
             <label for="firstname" class="block text-sm font-medium text-muted"
-            >Full name</label
+            >Firstname</label
             >
             <input
               type="text"
               name="firstname"
               id="firstname"
               autocomplete="firstname"
-              v-model="fullname"
+              v-model="user.firstname"
+              class="input mt-1"
+            />
+          </div>
+          <div>
+            <label for="firstname" class="block text-sm font-medium text-muted"
+            >Lastname</label
+            >
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              autocomplete="lastname"
+              v-model="user.lastname"
               class="input mt-1"
             />
           </div>
         </div>
-        <div class="mt-6 w-1/2">
+        <div class="mt-6">
           <label for="email" class="block text-sm font-medium text-muted"
           >Email address</label
           >
@@ -51,7 +62,7 @@ const whoAmI = async () => {};
             name="email"
             type="email"
             autocomplete="email"
-            v-model="email"
+            v-model="user.email"
             class="input mt-1"
           />
         </div>

@@ -13,7 +13,9 @@ const password = ref("");
 const loading = ref(false);
 
 async function signin () {
+  loading.value = true;
   await useLogin(login.value, password.value);
+  loading.value = false;
 }
 </script>
 
