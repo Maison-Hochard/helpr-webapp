@@ -1,9 +1,13 @@
 import { User } from "@prisma/client";
+
+export const useAuthCookie = () => useCookie("refreshToken");
+
 export async function useUser(): Promise<User|null> {
+  const authCookie = useAuthCookie();
   const config = useRuntimeConfig();
   const user = useState<User|null>("user");
 
-  if (!user.value) {
+  if (authCookie.value != undefined && user.value == undefined) {
     const header = useRequestHeaders(["cookie"]);
     try {
       const response = await $fetch<User>(
