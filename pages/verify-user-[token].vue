@@ -1,13 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
-  name: "ForgotPassword",
-  title: "Forgot Password",
-  description: "Forgot Password",
+  name: "VerifyUser",
+  title: "Verify User",
 });
 
 const email = ref("");
 
-const sendResetPasswordEmail = async () => {};
+const sendVerificationEmail = async () => {};
 </script>
 
 <template>
@@ -34,7 +33,7 @@ const sendResetPasswordEmail = async () => {};
             password.
           </p>
         </div>
-        <form class="space-y-6" @submit.prevent="sendResetPasswordEmail">
+        <form class="space-y-6" @submit.prevent="sendVerificationEmail">
           <input
             id="email"
             name="email"

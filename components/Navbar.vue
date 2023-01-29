@@ -3,7 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 const navigation = [{ name: "Home" }, { name: "About" }, { name: "Pricing" }, { name: "Contact" }];
 
-const user = useSupabaseUser();
+const user = useState("user");
 </script>
 
 <template>

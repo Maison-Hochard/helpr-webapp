@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useLogin } from "~/composables/UseAuth";
+
 definePageMeta({
   name: "Login",
   title: "Login",
@@ -8,46 +10,13 @@ definePageMeta({
 const login = ref("");
 const password = ref("");
 
-const { auth } = useSupabaseAuthClient();
-const user = useSupabaseUser();
-
-watchEffect(async () => {
-  if (user.value) {
-    await navigateTo("/app/profile");
-  }
-});
-
 const loading = ref(false);
 
-const signin = async () => {
+async function signin () {
   loading.value = true;
-  const { error } = await auth.signInWithPassword({
-    email: login.value,
-    password: password.value,
-  });
-  if (error) console.log(error);
+  await useLogin(login.value, password.value);
   loading.value = false;
-};
-
-const signWithGithub = async () => {
-  const { error } = await auth.signInWithOAuth({
-    provider: "github",
-    options: {
-      redirectTo: window.location.origin + "/app/profile",
-    },
-  });
-  if (error) console.log(error);
-};
-
-const signWithGoogle = async () => {
-  const { error, } = await auth.signInWithOAuth({
-    provider: "google",
-    options: {
-      redirectTo: window.location.origin + "/app/profile",
-    },
-  });
-  if (error) console.log(error);
-};
+}
 </script>
 
 <template>
@@ -112,28 +81,6 @@ const signWithGoogle = async () => {
       <NuxtLink :to="{ name: 'Signup' }" class="btn-secondary mt-6">
         Don't have an account ? Sign up
       </NuxtLink>
-      <div class="mt-12">
-        <div class="relative">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-sm border-muted" />
-          </div>
-          <div class="relative flex justify-center text-sm">
-            <span class="bg-primary px-2 text-muted">Or continue with</span>
-          </div>
-        </div>
-      </div>
-      <div class="mt-6 grid grid-cols-2 gap-3">
-        <div>
-          <button type="button" class="btn-secondary" @click="signWithGoogle">
-            <i class="fab fa-google mr-2"></i>
-          </button>
-        </div>
-        <div>
-          <button type="button" class="btn-secondary" @click="signWithGithub">
-            <i class="fab fa-github mr-2"></i>
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </template>

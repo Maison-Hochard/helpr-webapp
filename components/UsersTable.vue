@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { PropType } from "@vue/runtime-core";
-import { account } from ".prisma/client";
+import { User } from "@prisma/client";
+
 
 defineProps({
   users: {
-    type: Array as PropType<account[]>,
+    type: Array as PropType<User[]>,
     required: true,
   },
 });
+
+const deleteAccount = async (user: User) => {
+  if (confirm("Are you sure you want to delete the user " + user.firstname + " " + user.lastname + "?")) {
+    await useAPI<User>("user/" + user.id, "DELETE");
+  }
+};
+
 </script>
 
 <template>
@@ -45,13 +53,16 @@ defineProps({
               <tbody class="divide-y divide-gray-200 bg-white">
               <tr v-for="user in users" :key="user.email">
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                  {{ user.full_name }}
+                  {{ user.firstname }} {{ user.lastname }}
                 </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ user.email }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ user.admin ? 'Admin' : 'User' }}</td>
-                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ user.role }}</td>
+                <td class="flex gap-4 relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <a href="#" class="text-indigo-600 hover:text-indigo-900">
                     Edit
+                  </a>
+                  <a href="#" class="text-red-700 hover:text-indigo-900" @click="deleteAccount(user)">
+                    Delete
                   </a>
                 </td>
               </tr>

@@ -5,17 +5,12 @@ definePageMeta({
   description: "Reset Password",
 });
 
-const { auth } = useSupabaseClient();
-
 const password = ref("");
 const passwordConfirmation = ref("");
 
-const resetPassword = async () => {
-  const { error } = await auth.updateUser({
-    password: password.value,
-  });
-  if (!error) console.log("Error resetting password:", error);
-};
+const token = useRoute().params.token;
+
+const resetPassword = async () => {};
 </script>
 
 <template>

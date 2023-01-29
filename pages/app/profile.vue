@@ -1,38 +1,31 @@
 <script setup lang="ts">
+import { User } from ".prisma/client";
+
 definePageMeta({
   name: "Profile",
   title: "Profile",
   description: "Profile",
 });
 
-const user = useSupabaseUser();
-const supabase = useSupabaseClient();
-
-const email = ref("");
-const fullname = ref("");
-
-if (user.value) {
-  email.value = user.value.email || "";
-  fullname.value = user.value.user_metadata.full_name || "";
-}
+const user = await useUser();
 
 const updateProfile = async () => {
-  const { error } = await supabase.auth.updateUser({
-    email: email.value,
-    data: {
-      full_name: fullname.value,
+  if (user) {
+    const response = await useAPI<User>("user/" + user.id, "PATCH", user);
+    if (response) {
+      useState("user").value = response;
     }
-  });
-  if (error) console.log("Error updating user: ", error);
+  }
 };
 
 const deleteAccount = async () => {
-  await useDeleteAccount();
-};
-
-const whoAmI = async () => {
-  const response = await useCurrentUser();
-  console.log(response.value);
+  if (confirm("Are you sure you want to delete your account?")) {
+    const response = await useAPI<User>("user/" + user.id, "DELETE");
+    if (response) {
+      useState("user").value = null;
+      useRouter().push("/");
+    }
+  }
 };
 </script>
 
@@ -45,33 +38,49 @@ const whoAmI = async () => {
       <p class="mt-1 text-sm text-muted">
         Use a permanent address where you can receive mail.
       </p>
-      <div class="flex flex-row mt-10 gap-5">
-        <div class="w-1/2">
-          <label for="firstname" class="block text-sm font-medium text-muted"
-            >Full name</label
+      <Loader v-if="!user" />
+      <div v-else>
+        <div class="flex flex-row mt-10 gap-5">
+          <div>
+            <label for="firstname" class="block text-sm font-medium text-muted"
+            >Firstname</label
+            >
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              autocomplete="firstname"
+              v-model="user.firstname"
+              class="input mt-1"
+            />
+          </div>
+          <div>
+            <label for="firstname" class="block text-sm font-medium text-muted"
+            >Lastname</label
+            >
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              autocomplete="lastname"
+              v-model="user.lastname"
+              class="input mt-1"
+            />
+          </div>
+        </div>
+        <div class="mt-6">
+          <label for="email" class="block text-sm font-medium text-muted"
+          >Email address</label
           >
           <input
-            type="text"
-            name="firstname"
-            id="firstname"
-            autocomplete="firstname"
-            v-model="fullname"
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            v-model="user.email"
             class="input mt-1"
           />
         </div>
-      </div>
-      <div class="mt-6 w-1/2">
-        <label for="email" class="block text-sm font-medium text-muted"
-          >Email address</label
-        >
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autocomplete="email"
-          v-model="email"
-          class="input mt-1"
-        />
       </div>
     </div>
 
