@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { useSignup } from "~/composables/UseAuth";
+
 definePageMeta({
   name: "Signup",
   title: "Signup",
-  description: "Sign up for your account",
 });
 
 const username = ref("");
@@ -13,7 +14,17 @@ const password = ref("");
 const passwordConfirm = ref("");
 
 const loading = ref(false);
-const signup = async () => {};
+const signup = async () => {
+  loading.value = true;
+  await useSignup(
+    username.value,
+    firstname.value,
+    lastname.value,
+    email.value,
+    password.value,
+  );
+  loading.value = false;
+};
 </script>
 
 <template>

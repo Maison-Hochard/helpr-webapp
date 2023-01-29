@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useUpdateUser } from "~/composables/UseAuth";
+
 definePageMeta({
   name: "Profile",
   title: "Profile",
@@ -7,11 +9,15 @@ definePageMeta({
 
 const user = await useUser();
 
-const updateProfile = async () => {};
+const updateProfile = async () => {
+  await useUpdateUser();
+};
 
-const deleteAccount = async () => {};
-
-const whoAmI = async () => {};
+const deleteAccount = async () => {
+  if (confirm("Are you sure you want to delete your account?")) {
+    await useDeleteAccount();
+  }
+};
 </script>
 
 <template>
