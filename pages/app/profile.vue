@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUpdateUser } from "~/composables/UseAuth";
+import { User } from ".prisma/client";
 
 definePageMeta({
   name: "Profile",
@@ -10,12 +10,21 @@ definePageMeta({
 const user = await useUser();
 
 const updateProfile = async () => {
-  await useUpdateUser();
+  if (user) {
+    const response = await useAPI<User>("user/" + user.id, "PATCH", user);
+    if (response) {
+      useState("user").value = response;
+    }
+  }
 };
 
 const deleteAccount = async () => {
   if (confirm("Are you sure you want to delete your account?")) {
-    await useDeleteAccount();
+    const response = await useAPI<User>("user/" + user.id, "DELETE");
+    if (response) {
+      useState("user").value = null;
+      useRouter().push("/");
+    }
   }
 };
 </script>
