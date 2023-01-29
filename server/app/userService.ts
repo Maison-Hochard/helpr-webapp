@@ -41,7 +41,7 @@ export async function getAllUsers(): Promise<User[]> {
   return await prisma.user.findMany();
 }
 
-export async function getUserByAuthToken(authToken: string) {
+export async function getUserByAuthToken(authToken: string): Promise<User|null> {
   return await prisma.user.findFirst({
     where: {
       authToken,
@@ -49,7 +49,7 @@ export async function getUserByAuthToken(authToken: string) {
   });
 }
 
-export async function setAuthToken(userId: number, authToken: string) {
+export async function setAuthToken(userId: number, authToken: string): Promise<User> {
   return await prisma.user.update({
     where: {
       id: userId,
