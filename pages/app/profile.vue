@@ -4,10 +4,15 @@ import { User } from "@prisma/client";
 definePageMeta({
   name: "Profile",
   title: "Profile",
-  description: "Profile",
+  description: "Profile"
 });
 
 const user = await useUser();
+
+const { data: subscription, pending } = await useLazyFetch("/api/stripe/currentSubscription", {
+  method: "POST",
+  body: { userId: user?.id }
+});
 
 const updateProfile = async () => {
   if (user) {
@@ -22,7 +27,7 @@ const deleteAccount = async () => {
   if (confirm("Are you sure you want to delete your account?")) {
     if (user) {
       await useFetch("/api/user/" + user.id, {
-        method: "DELETE",
+        method: "DELETE"
       });
       useState("user").value = null;
       useRouter().push("/");
@@ -84,26 +89,48 @@ const deleteAccount = async () => {
           />
         </div>
       </div>
+      <h3 class="text-lg font-medium leading-6 text-primary mt-10">
+        Subscription
+      </h3>
+      <p class="mt-1 text-sm text-muted mb-5">
+        Manage your subscription
+      </p>
+      <Loader v-if="pending" />
+      <div v-else>
+        <div v-if="subscription && subscription.stripeStatus === 'active'">
+          <i class="fas fa-check-circle text-green-600"></i> Premium
+        </div>
+        <div v-else-if="subscription && subscription.stripeStatus === 'trialing'">
+          <i class="fas fa-check-circle text-green-600"></i> Premium (trialing)
+        </div>
+        <div v-else>
+          <i class="fas fa-times-circle text-red-600"></i> Free
+        </div>
+      </div>
     </div>
 
     <div class="flex justify-end gap-4">
       <form action="/api/stripe/subscribe" method="post">
+        <input type="hidden" name="userId" :value="user.id" />
         <button
           name="priceId"
-          value="price_1MTtgFCk9AfBe7l2i8spjHK5"
+          value="price_1MVgP9Ck9AfBe7l2bMuF95xP"
           type="submit"
           class="rounded-md bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
         >
           S'abonner
         </button>
       </form>
-      <button
-        @click="whoAmI"
-        type="button"
-        class="rounded-md bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-      >
-        Test Self Endpoint (see console)
-      </button>
+      <form action="/api/stripe/createPortalSession" method="post">
+        <button
+          type="submit"
+          name="stripeCustomerId"
+          :value="user.stripeCustomerId"
+          class="rounded-md bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+        >
+          Manage Subscription
+        </button>
+      </form>
       <button
         @click="deleteAccount"
         type="button"

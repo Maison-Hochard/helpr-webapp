@@ -14,6 +14,8 @@ export default eventHandler(async (event) => {
 async function protectAuthRoute(event: H3Event): Promise<boolean> {
   const protectedRoutes = [
     "/api/admin",
+    "/api/user",
+    "/api/stripe",
   ];
 
   if (event.path === undefined || !protectedRoutes.some(route => event.path?.startsWith(route))) {

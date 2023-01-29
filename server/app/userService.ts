@@ -1,11 +1,11 @@
-import { User } from "@prisma/client";
+import { User, Subscription } from "@prisma/client";
 import prisma from "~/server/database/client";
 import bcrypt from "bcrypt";
 import { isString } from "@vueuse/core";
 import { H3Event } from "h3";
 import { Role } from "~/types/Role";
 import jwt from "jsonwebtoken";
-import { createStripeCustomer } from "~/server/app/stripeService";
+import { createStripeCustomer, deleteStripeCustomer } from "~/server/app/stripeService";
 
 export interface createUserInput {
   username: string
@@ -82,9 +82,77 @@ export async function adminCheck(event: H3Event): Promise<boolean> {
 }
 
 export async function deleteUser(userId: number): Promise<User> {
+  const user = await getUserById(userId) as User;
+  await deleteStripeCustomer(user.stripeCustomerId as string);
   return await prisma.user.delete({
     where: {
       id: userId,
     },
+  });
+}
+
+export async function updateStripeCustomerId(data: User): Promise<User> {
+  return await prisma.user.update({
+    where: { email: data.email },
+    data: {
+      stripeCustomerId: data.stripeCustomerId,
+    }
+  });
+}
+
+export async function getUserByStripeCustomerId(stripeCustomerId: string) {
+  return await prisma.user.findFirst({
+    where: {
+      stripeCustomerId: stripeCustomerId,
+    },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      stripeCustomerId: true,
+    },
+  });
+}
+
+export async function getCurrentSubscription(userId: number): Promise<Subscription|null> {
+  const user = await getUserById(userId) as User;
+  return await prisma.subscription.findFirst({
+    where: {
+      userId: user.id,
+    },
+  });
+}
+
+export async function getSubscriptionById(stripeId: string) {
+  return await prisma.subscription.findFirst({
+    where: {
+      stripeId: stripeId,
+    }
+  });
+}
+
+export async function createOrUpdateSubscription(data: Subscription) {
+  return await prisma.subscription.upsert({
+    where: {
+      stripeId: data.stripeId
+    },
+    create: {
+      userId: data.userId,
+      stripeId: data.stripeId,
+      stripeStatus: data.stripeStatus,
+      stripePriceId: data.stripePriceId,
+      trialEndsAt: data.trialEndsAt,
+      endsAt: data.endsAt,
+      lastEventDate: data.lastEventDate,
+      startDate: data.startDate
+    },
+    update: {
+      stripeStatus: data.stripeStatus,
+      stripePriceId: data.stripePriceId,
+      trialEndsAt: data.trialEndsAt,
+      endsAt: data.endsAt,
+      lastEventDate: data.lastEventDate,
+      startDate: data.startDate
+    }
   });
 }
