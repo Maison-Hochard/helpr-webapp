@@ -4,10 +4,10 @@ import { useUser } from "~/composables/UseAuth";
 const { locale } = useI18n();
 
 useHead({
-  title: useAppConfig().applicationName,
+  title: useAppConfig().appTitle,
   meta: [
     { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { name: "description", content: "Home page" },
+    { name: "description", content: useAppConfig().appDescription },
     { name: "keywords", content: "Home" },
   ],
   link: [

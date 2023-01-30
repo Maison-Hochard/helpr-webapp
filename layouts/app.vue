@@ -69,11 +69,7 @@ const sidebarOpen = ref(false);
               <div
                 class="bg-secondary border-b-2 border-gray-700 justify-center flex flex-shrink-0 items-center px-4 justify-center"
               >
-                <img
-                  class="h-8 mb-4 w-auto"
-                  src="../assets/media/logo.svg"
-                  alt="Your Company"
-                />
+                <Logo :isText="false" />
               </div>
               <div class="mt-5 h-0 flex-1 overflow-y-auto">
                 <nav class="space-y-1 px-2">
@@ -109,11 +105,7 @@ const sidebarOpen = ref(false);
         <div
           class="bg-secondary justify-center flex h-16 flex-shrink-0 items-center px-4 justify-center border-b-2 border-gray-700"
         >
-          <img
-            class="h-8 w-auto"
-            src="../assets/media/logo.svg"
-            alt="Your Company"
-          />
+          <Logo :isText="false" />
         </div>
         <div class="flex flex-1 flex-col overflow-y-auto">
           <nav class="flex-1 space-y-1 px-2 py-4">
