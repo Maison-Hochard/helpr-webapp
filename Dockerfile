@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine as helpr-app
 
 ARG DATABASE_URL
 ARG MAIL_HOST
@@ -9,7 +9,6 @@ ARG AUTH_TOKEN_SECRET
 ARG REFRESH_TOKEN_SECRET
 ARG AUTH_TOKEN_EXPIRATION
 ARG REFRESH_TOKEN_EXPIRATION
-ARG GOOGLE_CLIENT_ID
 ARG STRIPE_SECRET_KEY
 ARG FRONTEND_URL
 ARG APP_ENV
@@ -19,7 +18,7 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 
-RUN apk add --update --no-cache openssl1.1-compat python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
+RUN apk add --update --no-cache python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
 
 COPY . .
 
