@@ -4,7 +4,7 @@ import { useUser } from "~/composables/UseAuth";
 const { locale } = useI18n();
 
 useHead({
-  title: "Nuxt3 Starter",
+  title: useAppConfig().applicationName,
   meta: [
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "description", content: "Home page" },

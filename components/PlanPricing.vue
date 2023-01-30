@@ -9,6 +9,15 @@ defineProps({
     required: true,
   },
 });
+
+const user = await useUser();
+
+async function redirectToLogin() {
+  if (!user) {
+    useRouter().push("/login");
+  }
+}
+
 </script>
 
 <template>
@@ -32,8 +41,10 @@ defineProps({
           </li>
         </ul>
         <form action="/api/stripe/subscribe" method="post" class="mt-8">
+          <input type="hidden" name="userId" :value="user?.id" />
           <button
-            type="submit"
+            :type="user ? 'submit' : 'button'"
+            @click="user ? null : redirectToLogin()"
             name="priceId"
             :value="subscription.priceId"
             class="btn-primary" :aria-describedby="subscription.id">S'inscrire</button>

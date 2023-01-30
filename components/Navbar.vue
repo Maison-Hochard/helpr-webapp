@@ -4,6 +4,8 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 const navigation = [{ name: "Home" }, { name: "About" }, { name: "Pricing" }, { name: "Contact" }];
 
 const user = useState("user");
+
+const applicationName = useAppConfig().applicationName;
 </script>
 
 <template>
@@ -38,9 +40,9 @@ const user = useState("user");
               src="../assets/media/logo.svg"
               alt="Your Company"
             />
-            <span class="text-md font-bold text-primary ml-2"
-              >Nuxt3 Starter</span
-            >
+            <span class="text-md font-bold text-primary ml-2">
+              {{ applicationName }}
+            </span>
           </div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">

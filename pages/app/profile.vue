@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { User } from "@prisma/client";
+import { AvailablePlans } from "~/types/Pricing";
 
 definePageMeta({
   name: "Profile",
@@ -114,7 +115,7 @@ const deleteAccount = async () => {
         <input type="hidden" name="userId" :value="user.id" />
         <button
           name="priceId"
-          value="price_1MVgP9Ck9AfBe7l2bMuF95xP"
+          :value="AvailablePlans.PRO"
           type="submit"
           class="rounded-md bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
         >
