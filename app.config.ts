@@ -1,3 +1,3 @@
 export default defineAppConfig({
-  applicationName: "Helpr",
+  applicationName: "helpr",
 });
