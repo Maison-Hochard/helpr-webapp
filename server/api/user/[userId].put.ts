@@ -1,9 +1,9 @@
 import { H3Event } from "h3";
 import { updateUser } from "~/server/app/userService";
-import { User } from "@prisma/client";
 
-export default eventHandler(async (event: H3Event): Promise<User> => {
+export default eventHandler(async (event: H3Event) => {
   const userId = parseInt(event.context.params.userId);
   const updateUserInput = await readBody(event);
+  delete updateUserInput.Subscription;
   return await updateUser(userId, updateUserInput);
 });

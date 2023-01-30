@@ -1,14 +1,30 @@
 <script setup lang="ts">
 import { User } from "@prisma/client";
-
+import { Role } from "~/types/Role";
 definePageMeta({
   name: "Dashboard",
   title: "Dashboard",
 });
 
-const { data: users, pending } = await useLazyFetch<User[]>("/api/admin/users");
+const { data: users, pending, refresh } = await useLazyFetch<User[]>("/api/admin/users");
 
 const default_avatar = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
+
+const editMode = ref(false);
+
+async function updateUser(user: User) {
+  if (confirm("Are you sure you want to update this user?")) {
+    if (typeof user.role === "string") {
+      user.role = parseInt(user.role);
+    }
+    await useFetch<User>("/api/user/" + user.id, {
+      method: "PUT",
+      body: user,
+    });
+    refresh();
+    editMode.value = false;
+  }
+}
 </script>
 
 <template>
@@ -57,11 +73,37 @@ const default_avatar = "https://images.unsplash.com/photo-1472099645785-5658abf4
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                   <span class="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">Active</span>
                 </td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-primary">{{ user.role === 1 ? "User" : "Admin" }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-primary" v-if="!editMode">
+                  {{ user.role === 1 ? "User" : "Admin" }}
+                </td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-primary" v-else>
+                  <select v-model="user.role" class="bg-secondary focus:outline-none focus:border-transparent">
+                    <option :value="Role.USER">User</option>
+                    <option :value="Role.ADMIN">Admin</option>
+                  </select>
+                </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                  <a href="#" class="text-accent hover:text-accent-hover"
-                  >Edit<span class="sr-only">, {{ user.firstname }} {{ user.lastname }}</span></a
-                  >
+                  <button
+                    type="button"
+                    class="bg-accent text-inverted px-2 py-1 rounded-md"
+                    @click="editMode = !editMode"
+                    v-if="!editMode">
+                    Edit
+                  </button>
+                  <div v-else class="flex gap-3">
+                    <button
+                            type="button"
+                            class="bg-accent text-inverted px-2 py-1 rounded-md"
+                            @click="updateUser(user)">
+                      Save
+                    </button>
+                    <button
+                            type="button"
+                            class="bg-secondary text-inverted px-2 py-1 rounded-md"
+                            @click="editMode = !editMode">
+                      Cancel
+                    </button>
+                  </div>
                 </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <a href="#" class="text-red-600 hover:text-red-900"
