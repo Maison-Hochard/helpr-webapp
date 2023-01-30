@@ -45,7 +45,7 @@ export async function getSubscribeUrl(priceId: string, user: User) {
       },
     ],
     mode: "subscription",
-    success_url: `${config.public.appDomain}app/profile?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${config.public.appDomain}/app/profile?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${config.public.appDomain}`,
     customer: user.stripeCustomerId
   });
