@@ -1,19 +1,20 @@
 version: '3.9'
 services:
   app:
-    container_name: nuxt-app
+    platform: linux/amd64
+    container_name: helpr-app
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8080"
     env_file:
       - .env
     environment:
-      - SUPABASE_URL=${SUPABASE_URL}
-      - SUPABASE_KEY=${SUPABASE_KEY}
-      - SUPABASE_SERVICE_KEY=${SUPABASE_SERVICE_KEY}
       - DATABASE_URL=${DATABASE_URL}
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - APP_DOMAIN=${APP_DOMAIN}
+      - API_URL=${API_URL}
+      - JWT_SECRET=${JWT_SECRET}
     volumes:
       - .:/app

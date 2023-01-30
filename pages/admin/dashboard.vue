@@ -4,13 +4,13 @@ definePageMeta({
   title: "Dashboard",
 });
 
-const data = await useAPI("user", "GET");
+const { data, pending } = await useLazyFetch("/api/admin/users");
 </script>
 
 <template>
   <form class="space-y-6">
     <div class="bg-secondary px-4 py-5 shadow sm:rounded-lg sm:p-6">
-      <Loader v-if="!data" />
+      <Loader v-if="pending" />
       <UsersTable :users="data" v-else/>
     </div>
   </form>
