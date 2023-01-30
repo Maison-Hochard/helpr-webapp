@@ -16,7 +16,9 @@
     "settings": "Paramètres",
     "admin": "Admin",
     "dashboard": "Tableau de bord",
-    "app-settings": "Paramètres de l'application"
+    "app-settings": "Paramètres de l'application",
+    "create-flow": "Créer un flow",
+    "services": "Services"
   },
   "pages": {
     "profile": {
