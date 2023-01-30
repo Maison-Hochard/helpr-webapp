@@ -60,7 +60,7 @@ export async function setAuthToken(userId: number): Promise<string> {
     role: user.role,
     username: user.username,
     email: user.email
-  }, useRuntimeConfig().private.jwtSecret, { expiresIn: "7d" });
+  }, useRuntimeConfig().private.authSecret, { expiresIn: "7d" });
   await prisma.user.update({
     where: {
       id: userId,
