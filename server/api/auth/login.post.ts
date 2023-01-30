@@ -1,9 +1,8 @@
 import { H3Event } from "h3";
 import bcrypt from "bcrypt";
 import { getUserByLogin, setAuthToken } from "~/server/app/userService";
-import { User } from "@prisma/client";
 
-export default eventHandler(async (event: H3Event): Promise<User|void> => {
+export default eventHandler(async (event: H3Event) => {
   const body = await readBody(event);
   const user = await getUserByLogin(body.login);
   if (!user) {
