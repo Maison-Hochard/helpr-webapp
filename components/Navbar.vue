@@ -28,19 +28,7 @@ const user = useState("user");
           class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start"
         >
           <div class="flex flex-shrink-0 items-center">
-            <img
-              class="block h-6 w-auto lg:hidden"
-              src="../assets/media/logo.svg"
-              alt="Your Company"
-            />
-            <img
-              class="hidden h-6 w-auto lg:block"
-              src="../assets/media/logo.svg"
-              alt="Your Company"
-            />
-            <span class="text-md font-bold text-primary ml-2"
-              >Nuxt3 Starter</span
-            >
+            <Logo :isText="true" />
           </div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">

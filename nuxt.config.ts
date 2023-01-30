@@ -30,7 +30,7 @@ export default defineNuxtConfig({
       jwtSecret: process.env.JWT_SECRET
     },
     public: {
-      appDomain: process.env.APP_DOMAIN,
+      appDomain: process.env.FRONTEND_URL,
       appEnv: process.env.APP_ENV,
       apiUrl: process.env.API_URL
     }

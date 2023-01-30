@@ -19,7 +19,7 @@ export async function useAPI<T>(
         authorization: `Bearer ${user.value?.authToken || ""}`,
       },
       credentials: "include",
-    });
+    }) as T;
   } catch (error) {
     const context = error as FetchContext & { response: FetchResponse<T> };
     if (context.response.status === 401) {
