@@ -10,16 +10,20 @@ definePageMeta({
 
 const user = await useUser();
 
-const { data: subscription, pending } = await useLazyFetch("/api/stripe/currentSubscription", {
+const { data: subscription, pending, refresh } = await useLazyFetch("/api/stripe/currentSubscription", {
   method: "POST",
   body: { userId: user?.id }
 });
 
 const updateProfile = async () => {
-  if (user) {
-    const response = await useAPI<User>("user/" + user.id, "PATCH", user);
-    if (response) {
-      useState("user").value = response;
+  if (confirm("Are you sure you want to update your profile?")) {
+    if (user) {
+      const { data: updatedUser } = await useFetch<User>("/api/user/" + user.id, {
+        method: "PUT",
+        body: user
+      });
+      useState("user").value = updatedUser.value;
+      refresh();
     }
   }
 };

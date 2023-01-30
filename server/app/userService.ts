@@ -17,6 +17,16 @@ export interface createUserInput {
   role?: number
 }
 
+export interface updateUserInput {
+  username?: string
+  firstname?: string
+  lastname?: string
+  password?: string
+  email?: string
+  profilePic?: string
+  role?: number
+}
+
 export async function createUser(userData: createUserInput): Promise<User> {
   const password = await bcrypt.hash(userData.password, 10);
   const customerId = await createStripeCustomer(userData.email);
@@ -53,7 +63,7 @@ export async function getUserByAuthToken(authToken: string): Promise<User|null> 
   });
 }
 
-export async function setAuthToken(userId: number): Promise<string> {
+export async function setAuthToken(userId: number): Promise<User> {
   const user = await getUserById(userId) as User;
   const authToken = jwt.sign({
     id: user.id,
@@ -61,7 +71,7 @@ export async function setAuthToken(userId: number): Promise<string> {
     username: user.username,
     email: user.email
   }, useRuntimeConfig().private.authSecret, { expiresIn: "7d" });
-  await prisma.user.update({
+  return await prisma.user.update({
     where: {
       id: userId,
     },
@@ -69,7 +79,6 @@ export async function setAuthToken(userId: number): Promise<string> {
       authToken,
     },
   });
-  return authToken;
 }
 
 export async function adminCheck(event: H3Event): Promise<boolean> {
@@ -88,6 +97,15 @@ export async function deleteUser(userId: number): Promise<User> {
     where: {
       id: userId,
     },
+  });
+}
+
+export async function updateUser(userId: number, updateUserInput: updateUserInput): Promise<User> {
+  return await prisma.user.update({
+    where: { id: userId },
+    data: {
+      ...updateUserInput,
+    }
   });
 }
 

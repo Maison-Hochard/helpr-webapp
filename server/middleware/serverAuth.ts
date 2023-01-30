@@ -7,7 +7,7 @@ export default eventHandler(async (event) => {
   const isAllowed = await protectAuthRoute(event);
 
   if (!isAllowed) {
-    return sendError(event, createError({ statusCode: 401, statusMessage: "Unauthorized" }));
+    return sendError(event, createError({ statusCode: 401, statusMessage: "Unauthorized, please login" }));
   }
 });
 

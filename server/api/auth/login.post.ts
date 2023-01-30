@@ -10,9 +10,9 @@ export default eventHandler(async (event: H3Event): Promise<User|void> => {
     return sendError(event, createError({ statusCode: 401, statusMessage: "Unauthorized" }));
   }
   if (await bcrypt.compare(body.password, user.password)) {
-    const authToken = await setAuthToken(user.id);
-    setCookie(event, "authToken", authToken, { httpOnly: true, path: "/", maxAge: 1000 * 60 * 60 * 24 * 7 });
-    return user;
+    const authUser = await setAuthToken(user.id);
+    setCookie(event, "authToken", authUser.authToken as string, { httpOnly: true, path: "/", maxAge: 1000 * 60 * 60 * 24 * 7 });
+    return authUser;
   } else {
     return sendError(event, createError({ statusCode: 401, statusMessage: "Invalid credentials" }));
   }
