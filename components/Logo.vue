@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const applicationName = useAppConfig().applicationName;
+const applicationName = useAppConfig().appName;
 defineProps({
   isText: {
     type: Boolean,
