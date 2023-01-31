@@ -25,10 +25,13 @@ export default defineNuxtConfig({
     "nuxt-headlessui",
     "@nuxtjs/i18n",
     "@nuxtjs/tailwindcss",
-    "@vueuse/nuxt"
+    "@vueuse/nuxt",
+    "nuxt-mailer",
   ],
 
   runtimeConfig: {
+    mailerUser: process.env.MAILER_USER,
+    mailerPass: process.env.MAILER_PASSWORD,
     private: {
       stripeSecretKey: process.env.STRIPE_SECRET_KEY,
       authSecret: process.env.AUTH_TOKEN_SECRET

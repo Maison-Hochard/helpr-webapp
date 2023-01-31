@@ -1,244 +1,159 @@
 <script setup lang="ts">
-import { Switch } from "@headlessui/vue";
+import {EnvelopeIcon, PhoneIcon} from "@heroicons/vue/24/outline";
 
 definePageMeta({
   name: "Contact",
   title: "Contact",
-  description: "Contact page",
-  keywords: "contact",
+  description: "Contact us",
 });
 
-const agreed = ref(false);
+const email = ref("");
+const message = ref("");
+const subject = ref("");
+const phone = ref("");
+const fullname = ref("");
+
+async function submitForm() {
+  const {data} = await useFetch("/api/mailer/sendMailToSupport", {
+    method: "POST",
+    body: {
+      email: email.value,
+      message: message.value,
+      subject: subject.value,
+      phone: phone.value,
+      fullname: fullname.value,
+    },
+  });
+  if (data) alert("Message sent!");
+}
 </script>
 
 <template>
-  <div class="overflow-hidden py-16 px-4 sm:px-6 lg:px-8 lg:py-24">
-    <div class="relative mx-auto max-w-xl">
-      <svg
-        class="absolute left-full translate-x-1/2 transform"
-        width="404"
-        height="404"
-        fill="none"
-        viewBox="0 0 404 404"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern
-            id="85737c0e-0916-41d7-917f-596dc7edfa27"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
+  <div class="relative bg-primary">
+    <div class="absolute inset-0">
+      <div class="absolute inset-y-0 left-0 w-1/2"/>
+    </div>
+    <div class="relative mx-auto max-w-7xl lg:grid lg:grid-cols-5">
+      <div class="py-16 px-6 lg:col-span-2 lg:px-8 lg:py-24 xl:pr-12">
+        <div class="mx-auto max-w-lg">
+          <h2
+              class="text-2xl font-bold tracking-tight text-primary sm:text-3xl"
           >
-            <rect
-              x="0"
-              y="0"
-              width="4"
-              height="4"
-              class="text-gray-200"
-              fill="currentColor"
-            />
-          </pattern>
-        </defs>
-        <rect
-          width="404"
-          height="404"
-          fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)"
-        />
-      </svg>
-      <svg
-        class="absolute right-full bottom-0 -translate-x-1/2 transform"
-        width="404"
-        height="404"
-        fill="none"
-        viewBox="0 0 404 404"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern
-            id="85737c0e-0916-41d7-917f-596dc7edfa27"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect
-              x="0"
-              y="0"
-              width="4"
-              height="4"
-              class="text-gray-200"
-              fill="currentColor"
-            />
-          </pattern>
-        </defs>
-        <rect
-          width="404"
-          height="404"
-          fill="url(#85737c0e-0916-41d7-917f-596dc7edfa27)"
-        />
-      </svg>
-      <div class="text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
-          Contact sales
-        </h2>
-        <p class="mt-4 text-lg leading-6 text-muted">
-          Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat
-          massa dictumst amet. Sapien tortor lacus arcu.
-        </p>
-      </div>
-      <div class="mt-12">
-        <form
-          action="#"
-          method="POST"
-          class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
-        >
-          <div>
-            <label
-              for="first-name"
-              class="block text-sm font-medium text-primary"
-              >First name</label
-            >
-            <div class="mt-1">
-              <input
-                type="text"
-                name="first-name"
-                id="first-name"
-                autocomplete="given-name"
-                placeholder="John"
-                class="input"
-              />
+            Get in touch
+          </h2>
+          <p class="mt-3 text-lg leading-6 text-muted">
+            Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat
+            massa dictumst amet. Sapien tortor lacus arcu.
+          </p>
+          <dl class="mt-8 text-base text-muted">
+            <div>
+              <dt class="sr-only">Postal address</dt>
+              <dd>
+                <p>742 Evergreen Terrace</p>
+                <p>Springfield, OR 12345</p>
+              </dd>
             </div>
-          </div>
-          <div>
-            <label
-              for="last-name"
-              class="block text-sm font-medium text-primary"
-              >Last name</label
-            >
-            <div class="mt-1">
-              <input
-                type="text"
-                name="last-name"
-                id="last-name"
-                autocomplete="family-name"
-                placeholder="Doe"
-                class="input"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="company" class="block text-sm font-medium text-primary"
-              >Company</label
-            >
-            <div class="mt-1">
-              <input
-                type="text"
-                name="company"
-                id="company"
-                autocomplete="organization"
-                placeholder="My amazing company"
-                class="input"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="email" class="block text-sm font-medium text-primary"
-              >Email</label
-            >
-            <div class="mt-1">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                placeholder="johndoe@contact.com"
-                class="input"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label
-              for="phone-number"
-              class="block text-sm font-medium text-primary"
-              >Phone Number</label
-            >
-            <div class="mt-1">
-              <input
-                type="text"
-                name="phone-number"
-                id="phone-number"
-                autocomplete="tel"
-                placeholder="+1 (555) 987-6543"
-                class="input"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="message" class="block text-sm font-medium text-primary"
-              >Message</label
-            >
-            <div class="mt-1">
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                placeholder="How can we help you?..."
-                class="input"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <div class="flex items-start">
-              <div class="flex-shrink-0">
-                <Switch
-                  v-model="agreed"
-                  :class="[
-                    agreed ? 'bg-accent' : 'bg-gray-200',
-                    'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
-                  ]"
-                >
-                  <span class="sr-only">Agree to policies</span>
-                  <span
+            <div class="mt-6">
+              <dt class="sr-only">Phone number</dt>
+              <dd class="flex">
+                <PhoneIcon
+                    class="h-6 w-6 flex-shrink-0 text-gray-400"
                     aria-hidden="true"
-                    :class="[
-                      agreed ? 'translate-x-5' : 'translate-x-0',
-                      'inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
-                    ]"
-                  />
-                </Switch>
-              </div>
-              <div class="ml-3">
-                <p class="text-primary text-muted">
-                  By selecting this, you agree to the
-                  {{ " " }}
-                  <a href="#" class="font-medium text-primary underline"
-                    >Privacy Policy</a
-                  >
-                  {{ " " }}
-                  and
-                  {{ " " }}
-                  <a href="#" class="font-medium text-primary underline"
-                    >Cookie Policy</a
-                  >.
-                </p>
-              </div>
+                />
+                <span class="ml-3">+1 (555) 123-4567</span>
+              </dd>
             </div>
-          </div>
-          <div class="sm:col-span-2">
-            <button
-              type="submit"
-              class="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-accent px-6 py-3 text-primary font-medium text-inverted shadow-sm hover:bg-accent-hover focus:outline-none"
-            >
-              Let's talk
-            </button>
-          </div>
-        </form>
+            <div class="mt-3">
+              <dt class="sr-only">Email</dt>
+              <dd class="flex">
+                <EnvelopeIcon
+                    class="h-6 w-6 flex-shrink-0 text-gray-400"
+                    aria-hidden="true"
+                />
+                <span class="ml-3">support@example.com</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div class="py-16 px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
+        <div class="mx-auto max-w-lg lg:max-w-none">
+          <form
+              @submit.prevent="submitForm"
+              class="grid grid-cols-1 gap-y-6"
+          >
+            <div>
+              <label for="fullname" class="sr-only">Full name</label>
+              <input
+                  v-model="fullname"
+                  type="text"
+                  name="fullname"
+                  id="full-name"
+                  autocomplete="name"
+                  class="input"
+                  placeholder="Full name"
+              />
+            </div>
+            <div>
+              <label for="email" class="sr-only">Email</label>
+              <input
+                  required
+                  v-model="email"
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  class="input"
+                  placeholder="Email"
+              />
+            </div>
+            <div>
+              <label for="phone" class="sr-only">Phone</label>
+              <input
+                  v-model="phone"
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  autocomplete="tel"
+                  class="input"
+                  placeholder="Phone"
+              />
+            </div>
+            <div>
+              <label for="text" class="sr-only">Subject</label>
+              <input
+                  required
+                  v-model="subject"
+                  type="text"
+                  name="subject"
+                  id="subject"
+                  class="input"
+                  placeholder="Subject"
+              />
+            </div>
+            <div>
+              <label for="message" class="sr-only">Message</label>
+              <textarea
+                  required
+                  v-model="message"
+                  id="message"
+                  name="message"
+                  rows="4"
+                  class="input"
+                  placeholder="Message"
+              />
+            </div>
+            <div>
+              <button
+                  type="submit"
+                  class="inline-flex justify-center rounded-md border border-transparent bg-accent py-2 px-6 text-base font-medium text-white shadow-sm hover:bg-accent-hover"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

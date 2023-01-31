@@ -26,6 +26,15 @@ const code = computed(() => {
   return route.query.code;
 });
 
+const linearKey = ref("");
+
+const addLinearKey = async () => {
+  const res = await useAPI("/linear/credentials", "POST", {
+    accessToken: linearKey.value
+  });
+  console.log(res);
+};
+
 const getLinearKey = async () => {
   const route = useRoute();
   const code = route.query.code;
@@ -99,10 +108,10 @@ const getGithubKey = async () => {
             <div class="flex flex-row gap-5">
               <div class="mt-1">
                 <input
+                  v-model="linearKey"
                   id="linear-key"
                   name="linear-key"
                   type="password"
-                  autocomplete="linear-key"
                   class="input"
                 />
                 <p class="mt-2 text-sm text-muted">
@@ -111,7 +120,7 @@ const getGithubKey = async () => {
                 </p>
               </div>
               <div class="mt-1">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" @click="addLinearKey" :disabled="linearKey === ''">
                   Save
                 </button>
               </div>
