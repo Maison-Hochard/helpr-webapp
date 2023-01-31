@@ -2,15 +2,16 @@ input: docs/
 output: .retype
 url: # Add your website address here
 branding:
-  title: Nuxt3 boilerplate
+  title:  Helpr Front
   label: Docs
+  logo: logo.png
 links:
-  - text: Home
-    link: /README.md
-    icon: home
-  - text: About
-    link: /docs/about.md
-    icon: info
+  - text: Github
+    link: https://github.com/Maison-Hochard/helpr-api
+    icon: mark-github
+  - text: Web Site
+    link: /docs/Introduction.md
+    icon: browser
 footer:
   copyright: © Copyright {{ year }} – Maison Hochard – All rights reserved
   links:
