@@ -9,24 +9,22 @@ datasource db {
 }
 
 model EmailVerification {
-  id        Int      @id @default(autoincrement())
   token     String   @unique
-  userId    Int
   createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  userId    Int
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ResetPassword {
-  id        Int      @id @default(autoincrement())
   token     String   @unique
-  userId    Int
   createdAt DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  userId    Int
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {
-  id            Int     @id @default(autoincrement())
-  userId        Int
   stripeId      String  @unique
   stripeStatus  String?
   stripePriceId String?
@@ -34,26 +32,39 @@ model Subscription {
   endsAt        Int?
   startDate     Int
   lastEventDate Int
+  id            Int     @id @default(autoincrement())
+  userId        Int
   User          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id                Int                 @id @default(autoincrement())
-  loginType         String?             @default("email")
-  username          String              @unique
-  email             String              @unique
-  firstname         String
-  lastname          String
-  password          String
-  stripeCustomerId  String?
-  createdAt         DateTime            @default(now())
-  profilePicture    String?
-  updatedAt         DateTime?           @updatedAt
-  role              Int?                @default(1)
-  isVerified        Boolean             @default(false)
-  refreshToken      String?             @unique
-  authToken         String?             @unique
-  EmailVerification EmailVerification[]
-  ResetPassword     ResetPassword[]
-  Subscription      Subscription[]
+  loginType           String?               @default("email")
+  username            String                @unique
+  email               String                @unique
+  firstname           String
+  lastname            String
+  password            String
+  stripeCustomerId    String?
+  createdAt           DateTime              @default(now())
+  profilePicture      String?
+  updatedAt           DateTime?             @updatedAt
+  role                Int?                  @default(1)
+  isVerified          Boolean               @default(false)
+  refreshToken        String?               @unique
+  authToken           String?               @unique
+  id                  Int                   @id @default(autoincrement())
+  EmailVerification   EmailVerification[]
+  ProviderCredentials ProviderCredentials[]
+  ResetPassword       ResetPassword[]
+  Subscription        Subscription[]
+}
+
+model ProviderCredentials {
+  id          Int    @id @default(autoincrement())
+  providerId  String
+  provider    String
+  accessToken String
+  userId      Int
+  expiresAt   Int?
+  User        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

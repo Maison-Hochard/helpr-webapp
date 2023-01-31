@@ -15,6 +15,10 @@ export default defineNuxtConfig({
     transpile: ["@heroicons/vue"],
   },
 
+  routeRules: {
+    "/**": { cors: true },
+  },
+
   modules: [
     "nuxt-icon",
     "@nuxt/image-edge",

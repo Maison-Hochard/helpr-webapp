@@ -32,8 +32,8 @@ async function signin () {
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <img
         class="mx-auto h-12 w-auto"
-        src="../assets/media/logo.svg"
-        alt="Your Company"
+        src="../assets/media/helpr-logo-icon-md-blanc.svg"
+        alt="Helpr"
       />
       <h2
         class="mt-6 text-center text-3xl font-bold tracking-tight text-primary"

@@ -76,42 +76,9 @@ const logos = [
                 lorem cupidatat commodo.
               </p>
             </div>
-            <form action="#" class="mt-12 sm:flex sm:w-full sm:max-w-lg">
-              <div class="min-w-0 flex-1">
-                <label for="hero-email" class="sr-only">Email address</label>
-                <input
-                  id="hero-email"
-                  type="email"
-                  class="input"
-                  placeholder="Enter your email"
-                />
-              </div>
-              <div class="mt-4 sm:mt-0 sm:ml-3">
-                <button
-                  type="submit"
-                  class="block w-full rounded-md border border-transparent bg-accent px-5 py-3 text-inverted font-medium shadow hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 sm:px-10"
-                >
-                  Notify me
-                </button>
-              </div>
-            </form>
-            <div class="mt-6">
-              <div class="inline-flex items-center divide-x divide-gray-300">
-                <div class="flex flex-shrink-0 pr-5"></div>
-                <div
-                  class="min-w-0 flex-1 py-1 pl-5 text-sm text-gray-500 sm:py-3"
-                >
-                  <span>
-                    <i v-for="n in 5" :key="n" class="fas fa-star mr-1"></i>
-                  </span>
-                  <span class="ml-2 font-medium text-primary"
-                    >Rated 5 stars</span
-                  >
-                  <span class="mx-1.5 text-muted">by over</span>
-                  <span class="font-medium text-accent">100 beta users</span>
-                </div>
-              </div>
-            </div>
+            <a href="/app-release.apk" class="btn-primary w-1/3 mt-8" download>
+              Download App
+            </a>
           </div>
         </div>
 

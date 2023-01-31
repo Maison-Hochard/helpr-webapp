@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 definePageMeta({
   name: "Services",
-  title: "Connect Services",
+  title: "Connect Services"
 });
 
 const linearConfig = useRuntimeConfig().public.linear;
@@ -36,19 +36,19 @@ const getLinearKey = async () => {
   const response = await $fetch("https://api.linear.app/oauth/token", {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     query: {
       code,
       redirect_uri,
       client_id,
       client_secret,
-      grant_type,
-    },
+      grant_type
+    }
   });
   console.log(response);
   const res = useAPI("/api/linear/create-webhook", "POST", {
-    linearKey: response.access_token,
+    linearKey: response.access_token
   });
   console.log(res);
 };
@@ -63,19 +63,19 @@ const getGithubKey = async () => {
   const response = await $fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: {
-      "Accept": "application/json",
+      "Accept": "application/json"
     },
     query: {
       code,
       redirect_uri,
       client_id,
       client_secret,
-      grant_type,
-    },
+      grant_type
+    }
   });
   console.log(response);
   const res = useAPI("/api/github/create-webhook", "POST", {
-    githubKey: response.access_token,
+    githubKey: response.access_token
   });
   console.log(res);
 };
@@ -85,11 +85,79 @@ const getGithubKey = async () => {
   <div>
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
       <h3 class="text-lg font-medium leading-6 text-primary">
+        Add your tokens
+      </h3>
+      <p class="mt-1 text-sm text-muted">
+        Add your tokens to connect your services.
+      </p>
+      <div class="flex flex-row mt-10 gap-5">
+        <div class="w-1/2">
+          <form action="#" method="POST">
+            <label for="linear-key" class="block text-sm font-medium text-primary">
+              Linear Token Api
+            </label>
+            <div class="flex flex-row gap-5">
+              <div class="mt-1">
+                <input
+                  id="linear-key"
+                  name="linear-key"
+                  type="password"
+                  autocomplete="linear-key"
+                  class="input"
+                />
+                <p class="mt-2 text-sm text-muted">
+                  You can find your Linear Token Api in your <a href="https://linear.app/settings/api" target="_blank"
+                                                                class="text-primary">Linear settings</a>.
+                </p>
+              </div>
+              <div class="mt-1">
+                <button class="btn btn-primary">
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+          <form class="mt-10" action="#" method="POST">
+            <label for="github-key" class="block text-sm font-medium text-primary">
+              GitHub Token Api
+            </label>
+            <div class="flex flex-row gap-5">
+              <div class="mt-1">
+                <input
+                  id="github-key"
+                  name="github-key"
+                  type="password"
+                  autocomplete="github-key"
+                  class="input"
+                />
+                <p class="mt-2 text-sm text-muted">
+                  You can find your GitHub Token Api in your <a href="" target="_blank" class="text-primary">GitHub
+                  settings</a>.
+                </p>
+              </div>
+              <div class="mt-1">
+                <button class="btn btn-primary">
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="w-1/2">
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
+      <h3 class="text-lg font-medium leading-6 text-primary">
         Connect your services
       </h3>
       <p class="mt-1 text-sm text-muted">
         Connect your services to start using them in your flows.
       </p>
+      <h4 class="text-lg font-medium leading-6 text-red-600 mt-5">
+        OAuth integration is currently in development. Please enter your keys manually.
+      </h4>
       <div class="flex flex-row mt-10 gap-5">
         <div class="w-1/2">
           <NuxtLink :to="linearUrl" class="btn btn-primary mt-5">
