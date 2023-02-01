@@ -114,7 +114,7 @@ const logout = async () => {
                       {{ item.name }}
                     </NuxtLink>
                   </div>
-                  <hr class="my-5 border-t border-muted" aria-hidden="true" />
+                  <hr class="my-5 border-t border-muted" aria-hidden="true" v-if="user && user.role === Role.ADMIN" />
                   <div class="space-y-1 px-2" v-if="user && user.role === Role.ADMIN">
                     <NuxtLink
                       v-for="item in navigation"
@@ -229,7 +229,7 @@ const logout = async () => {
                   {{ item.name }}
                 </NuxtLink>
               </div>
-              <hr class="my-5 border-t border-muted" aria-hidden="true" />
+              <hr class="my-5 border-t border-muted" aria-hidden="true" v-if="user && user.role === Role.ADMIN" />
               <div class="flex-1 space-y-1 px-2" v-if="user && user.role === Role.ADMIN">
                 <NuxtLink
                   v-for="item in adminNav"
