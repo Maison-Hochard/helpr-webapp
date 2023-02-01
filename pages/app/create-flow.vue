@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 definePageMeta({
-  name: "Create-flow",
+  name: "Create Flow",
   title: "Create Flow",
 });
 </script>

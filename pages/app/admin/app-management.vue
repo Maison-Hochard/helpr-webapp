@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  name: "App-Settings",
-  title: "App Settings",
+  name: "App Management",
+  title: "App Management",
 });
 </script>
 

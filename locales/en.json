@@ -16,8 +16,8 @@
     "settings": "Settings",
     "admin": "Admin",
     "dashboard": "Dashboard",
-    "app-settings": "App Settings",
-    "create-flow": "Create Flow",
+    "app management": "App Management",
+    "create flow": "Create Flow",
     "services": "Services"
   },
   "pages": {
