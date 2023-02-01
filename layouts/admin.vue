@@ -8,7 +8,7 @@ import {
 import { Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
 
-const navigation = [{ name: "Dashboard" }, { name: "App-Settings" }];
+const navigation = getNavigation("admin");
 
 const sidebarOpen = ref(false);
 </script>

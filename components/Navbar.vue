@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
-const navigation = [{ name: "Home" }, { name: "About" }, { name: "Pricing" }, { name: "Contact" }];
+const navigation = getNavigation("home");
 
 const user = useState("user");
 </script>

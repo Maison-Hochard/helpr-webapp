@@ -1,23 +1,12 @@
 <script setup lang="ts">
 import { MenuButton, Menu, MenuItems } from "@headlessui/vue";
 import { User } from "@prisma/client";
-import { Role } from "~/types/Role";
 
-const profile_navigation = [
-  { name: "Home" },
-  { name: "Profile" },
-  { name: "Settings" },
-];
-
-const user = useState<User | null>("user");
-
-if (user.value?.role === Role.ADMIN) {
-  profile_navigation.push({ name: "Dashboard" });
-}
+const profile_navigation = getNavigation("profil_nav");
 
 const default_avatar = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 
-// const config = useRuntimeConfig();
+const user = useState<User | null>("user");
 
 const logout = async () => {
   await useFetch("/api/auth/logout", {
