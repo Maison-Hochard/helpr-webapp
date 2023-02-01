@@ -1,5 +1,3 @@
-import { User } from "@prisma/client";
-import { Role } from "~/types/Role";
 import { CogIcon, HomeIcon } from "@heroicons/vue/24/outline";
 
 type Where = "home" | "app" | "admin" | "profil_nav";
@@ -25,6 +23,8 @@ const profil_nav: Navigation[] = [
 const app: Navigation[] = [
   { name: "Profil", to: "/app/profil", icon: HomeIcon },
   { name: "Profile", to: "/app/profile", icon: HomeIcon },
+  { name: "Services", to: "/app/services", icon: HomeIcon },
+  { name: "CreateFlow", to: "/app/createFlow", icon: HomeIcon },
   { name: "Settings", to: "/app/settings", icon: CogIcon },
 ];
 
@@ -34,10 +34,6 @@ const admin: Navigation[] = [
 ];
 
 export function getNavigation(where: Where) {
-  const user = useState<User | null>("user");
-  if (user.value?.role === Role.ADMIN) {
-    profil_nav.push({ name: "Admin", to: "/admin", icon: HomeIcon });
-  }
   switch (where) {
   case "home":
     return home;

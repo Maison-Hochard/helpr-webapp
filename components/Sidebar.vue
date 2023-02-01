@@ -19,6 +19,14 @@ const secondaryNavigation = [
   { name: "Apps", to: "#", icon: SquaresPlusIcon },
   { name: "Settings", to: "#", icon: CogIcon },
 ];
+
+const logout = async () => {
+  await useFetch("/api/auth/logout", {
+    method: "POST",
+  });
+  useState("user").value = null;
+  useRouter().push("/");
+};
 </script>
 
 <template>
@@ -76,7 +84,7 @@ const secondaryNavigation = [
               </TransitionChild>
               <div class="h-0 flex-1 overflow-y-auto pt-5 pb-4">
                 <div class="flex flex-shrink-0 items-center px-4">
-                  <Logo :isText="false" />
+                  <Logo :isText="true" />
                 </div>
                 <nav aria-label="Sidebar" class="mt-5">
                   <div class="space-y-1 px-2">
@@ -123,6 +131,16 @@ const secondaryNavigation = [
                       {{ item.name }}
                     </NuxtLink>
                   </div>
+                  <hr class="my-5 border-t border-muted" aria-hidden="true" />
+                  <div class="space-y-1 px-2">
+                    <button
+                      type="button"
+                      class="bg-accent group flex items-center rounded-md px-2 py-2 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-primary"
+                      @click="logout"
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </nav>
               </div>
               <div class="flex flex-shrink-0 border-t border-muted p-4">
@@ -167,7 +185,7 @@ const secondaryNavigation = [
         >
           <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
             <div class="flex flex-shrink-0 items-center px-4">
-              <Logo :isText="false" :isLogo="true" />
+              <Logo :isText="true" :isLogo="true" />
             </div>
             <nav class="mt-5 flex-1" aria-label="Sidebar">
               <div class="space-y-1 px-2">
@@ -211,6 +229,16 @@ const secondaryNavigation = [
                   />
                   {{ item.name }}
                 </NuxtLink>
+              </div>
+              <hr class="my-5 border-t border-muted" aria-hidden="true" />
+              <div class="space-y-1 px-2">
+                <button
+                  type="button"
+                  class="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-muted hover:bg-accent-faded hover:text-accent"
+                  @click="logout"
+                >
+                  Logout
+                </button>
               </div>
             </nav>
           </div>
