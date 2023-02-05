@@ -24,7 +24,7 @@ export async function useAPI<T>(
     const context = error as FetchContext & { response: FetchResponse<T> };
     if (context.response.status === 401) {
       try {
-        const refreshedUser = await useAPI<User>("auth/refresh", "POST");
+        const refreshedUser = await useAPI<User>("/auth/refresh", "POST");
         useUserStore().setUser(refreshedUser as User);
         return useAPI<T>(url, method, body);
       } catch (error) {

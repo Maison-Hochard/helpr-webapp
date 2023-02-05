@@ -75,7 +75,7 @@ export async function getUserByAuthToken(authToken: string) {
       Subscription: true,
     }
   });
-  return exclude(user, ["password", "authToken", "refreshToken"]);
+  return exclude(user, ["password", "refreshToken"]);
 }
 
 export async function setAuthToken(userId: number) {
