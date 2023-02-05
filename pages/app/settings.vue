@@ -17,7 +17,6 @@ definePageMeta({
       </div>
       <div class="mt-5 flex gap-4">
         <LanguageSelector :isText="true"/>
-        <ThemeSwitcher />
       </div>
     </div>
   </div>

@@ -1,8 +1,10 @@
 import { User } from "@prisma/client";
+import { useUserStore } from "~~/store/userStore";
 
 export const useAuthCookie = () => useCookie("authToken");
 
 export async function useUser(): Promise<User | null> {
+  const userStore = useUserStore();
   const authCookie = useAuthCookie().value;
   const user = useState<User | null>("user");
 
@@ -13,8 +15,8 @@ export async function useUser(): Promise<User | null> {
       headers: cookieHeaders as HeadersInit,
     });
     user.value = data.value;
+    userStore.setUser(data.value);
   }
-
   return user.value;
 }
 
@@ -28,6 +30,7 @@ export async function useLogin(login: string, password: string) {
   });
   if (data.value) {
     useState("user").value = data.value;
+    useUserStore().setUser(data.value);
     useRouter().push("/app/profile");
   }
 }

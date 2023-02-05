@@ -97,6 +97,9 @@ export async function setAuthToken(userId: number) {
     data: {
       authToken,
     },
+    include: {
+      Subscription: true,
+    }
   });
   return exclude(updatedUser, ["password", "refreshToken"]);
 }

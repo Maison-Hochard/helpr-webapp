@@ -27,7 +27,12 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@vueuse/nuxt",
     "nuxt-mailer",
+    "@pinia/nuxt"
   ],
+
+  imports: {
+    dirs: ["store"],
+  },
 
   runtimeConfig: {
     mailerUser: process.env.MAILER_USER,
