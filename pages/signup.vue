@@ -12,17 +12,15 @@ const password = ref("");
 const passwordConfirm = ref("");
 
 const loading = ref(false);
+
 const signup = async () => {
   loading.value = true;
-  await useFetch("/api/auth/signup", {
-    method: "POST",
-    body: {
-      username: username.value,
-      firstname: firstname.value,
-      lastname: lastname.value,
-      email: email.value,
-      password: password.value,
-    },
+  await useSignup({
+    username: username.value,
+    firstname: firstname.value,
+    lastname: lastname.value,
+    email: email.value,
+    password: password.value,
   });
   loading.value = false;
 };

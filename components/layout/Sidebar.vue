@@ -18,11 +18,7 @@ const userNav = getNavigation("user");
 const adminNav = getNavigation("admin");
 
 const logout = async () => {
-  await useFetch("/api/auth/logout", {
-    method: "POST",
-  });
-  useState("user").value = null;
-  useRouter().push("/");
+  await useLogout();
 };
 </script>
 

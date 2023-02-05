@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { User } from "@prisma/client";
 import { Plans } from "~/types/Pricing";
 
 definePageMeta({
@@ -10,30 +9,11 @@ definePageMeta({
 const user = await useUser();
 
 const updateProfile = async () => {
-  if (confirm("Are you sure you want to update your profile?")) {
-    if (user) {
-      const { data: updatedUser } = await useFetch<User>(
-        "/api/user/" + user.id,
-        {
-          method: "PUT",
-          body: user,
-        },
-      );
-      useState("user").value = updatedUser.value;
-    }
-  }
+  await useUpdateUser();
 };
 
 const deleteAccount = async () => {
-  if (confirm("Are you sure you want to delete your account?")) {
-    if (user) {
-      await useFetch("/api/user/" + user.id, {
-        method: "DELETE",
-      });
-      useState("user").value = null;
-      useRouter().push("/");
-    }
-  }
+  await useDeleteUser();
 };
 </script>
 
@@ -123,7 +103,7 @@ const deleteAccount = async () => {
 
             <div class="col-span-6 sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium text-muted">Last name</label>
-              <Input :value="user.lastname" :label="'lastname'" />
+              <Input :value="user.lastname" :label="'lastname'" @update:modelValue="user.lastname = $event" />
             </div>
 
             <div class="col-span-6 sm:col-span-3">

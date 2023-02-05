@@ -1,54 +1,44 @@
 import { User } from "@prisma/client";
+import { createUserInput } from "~/server/api/user/user.dto";
 
-export async function useSignup(username: string, firstname: string, lastname: string, email: string, password: string): Promise<User|null> {
-  const config = useRuntimeConfig();
-  const response = await $fetch<User>(`${config.public.apiUrl}auth/register`, {
+export async function useSignup(createUserInput: createUserInput) {
+  await useFetch("/api/auth/signup", {
     method: "POST",
     body: {
-      username,
-      firstname,
-      lastname,
-      email,
-      password,
-    }
-  });
-  if (!response) return null;
-  useRouter().push("/login");
-  return response;
-}
-
-export async function useUpdateUser(): Promise<User|null> {
-  const config = useRuntimeConfig();
-  const user = useState<User|null>("user");
-  if (!user.value) {
-    return null;
-  }
-  const response = await $fetch<User>(`${config.public.apiUrl}user/${user.value.id}`, {
-    method: "PATCH",
-    body: user.value,
-    headers: {
-      "authorization": `Bearer ${user.value.authToken}`,
-    }
-  });
-  if (!response) return null;
-  useState<User|null>("user").value = response;
-  return response;
-}
-
-export async function useDeleteAccount() {
-  const config = useRuntimeConfig();
-  const user = useState<User|null>("user");
-  if (!user.value) {
-    useRouter().push("/");
-    return;
-  }
-  await $fetch(`${config.public.apiUrl}user/${user.value.id}`, {
-    method: "DELETE",
-    headers: {
-      "authorization": `Bearer ${user.value.authToken}`,
+      username: createUserInput.username,
+      password: createUserInput.password,
+      email: createUserInput.email,
+      firstname: createUserInput.firstname,
+      lastname: createUserInput.lastname,
     },
-    credentials: "include",
   });
-  useState<User|null>("user").value = null;
-  useRouter().push("/");
+}
+
+export async function useUpdateUser() {
+  const user = useState<User|null>("user").value;
+  if (confirm("Are you sure you want to update your profile?")) {
+    if (user) {
+      const { data: updatedUser } = await useFetch<User>(
+        "/api/user/" + user.id,
+        {
+          method: "PUT",
+          body: user,
+        },
+      );
+      useState("user").value = updatedUser.value;
+    }
+  }
+}
+
+export async function useDeleteUser() {
+  const user = useState<User|null>("user").value;
+  if (confirm("Are you sure you want to delete your account?")) {
+    if (user) {
+      await useFetch("/api/user/" + user.id, {
+        method: "DELETE",
+      });
+      useState("user").value = null;
+      useRouter().push("/");
+    }
+  }
 }

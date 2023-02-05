@@ -18,20 +18,18 @@ export async function useUser(): Promise<User | null> {
   return user.value;
 }
 
-export async function useLogin(login: string, password: string): Promise<User|null> {
-  const config = useRuntimeConfig();
-  const response = await $fetch<User>(`${config.public.apiUrl}auth/login`, {
+export async function useLogin(login: string, password: string) {
+  const { data } = await useFetch("/api/auth/login", {
     method: "POST",
     body: {
-      login,
-      password,
-    },
-    credentials: "include",
+      login: login,
+      password: password,
+    }
   });
-  if (!response) return null;
-  useState<User|null>("user").value = response;
-  useRouter().push("/app/profile");
-  return response;
+  if (data.value) {
+    useState("user").value = data.value;
+    useRouter().push("/app/profile");
+  }
 }
 
 export async function useLogout() {
@@ -40,7 +38,9 @@ export async function useLogout() {
     useRouter().push("/");
     return;
   }
-  await useAPI("auth/logout", "POST");
-  useState<User|null>("user").value = null;
+  await useFetch("/api/auth/logout", {
+    method: "POST",
+  });
+  useState("user").value = null;
   useRouter().push("/");
 }
