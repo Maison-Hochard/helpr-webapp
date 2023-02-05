@@ -10,7 +10,7 @@ defineProps({
   },
 });
 
-const user = await useUser();
+const user = useUserStore().getUser;
 
 async function redirectToLogin() {
   if (!user) {

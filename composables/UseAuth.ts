@@ -45,6 +45,6 @@ export async function useLogout() {
   await useFetch("/api/auth/logout", {
     method: "POST",
   });
-  useState("user").value = null;
+  useUserStore().logout();
   useRouter().push("/");
 }

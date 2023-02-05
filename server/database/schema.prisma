@@ -48,7 +48,7 @@ model User {
   createdAt           DateTime              @default(now())
   avatar              String                @default("https://storage.cloud.google.com/cooperantis/default-avatar.jpeg")
   updatedAt           DateTime?             @updatedAt
-  role                Int?                  @default(1)
+  role                Int                   @default(1)
   isVerified          Boolean               @default(false)
   refreshToken        String?               @unique
   authToken           String?               @unique

@@ -3,7 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 const navigation = getNavigation("home");
 
-const user = useState("user");
+const user = useUserStore().getUser;
 </script>
 
 <template>
@@ -58,7 +58,13 @@ const user = useState("user");
             class="hidden tablet:block h-6 w-px bg-accent-faded border-l border-gray-200 border-opacity-25"
           ></div>
           <client-only>
-            <ProfilTool v-if="user" />
+            <NuxtLink
+              v-if="user"
+              to="/app/profile"
+              class="text-inverted bg-accent hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
+            >
+              <span class="ml-2">Open App</span>
+            </NuxtLink>
             <div v-else class="hidden tablet:flex gap-2">
               <NuxtLink
                 :to="{ name: 'Login' }"

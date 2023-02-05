@@ -7,14 +7,16 @@ definePageMeta({
   title: "Edit Profile"
 });
 
-const user = useUserStore().getUser;
+const userStore = useUserStore();
+
+const user = userStore.getUser;
 
 const updateProfile = async () => {
-  await useUpdateUser();
+  await userStore.updateUser();
 };
 
 const deleteAccount = async () => {
-  await useDeleteUser();
+  await userStore.deleteUser();
 };
 </script>
 
