@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { User } from "~~/types/User";
 import { FetchContext, FetchResponse } from "ofetch";
 
 type RequestMethod = "GET" | "POST" | "PUT" |"PATCH" | "DELETE";
@@ -10,13 +10,13 @@ export async function useAPI<T>(
 ): Promise<T | null> {
   const config = useRuntimeConfig();
   const fullURL = `${config.public.apiUrl}${url}`;
-  const user = useState<User | null>("user");
+  const user = useUserStore().getUser;
   try {
     return await $fetch<T>(fullURL, {
       method,
       body,
       headers: {
-        authorization: `Bearer ${user.value?.authToken || ""}`,
+        authorization: `Bearer ${user.authToken || ""}`,
       },
       credentials: "include",
     }) as T;
@@ -24,10 +24,11 @@ export async function useAPI<T>(
     const context = error as FetchContext & { response: FetchResponse<T> };
     if (context.response.status === 401) {
       try {
-        useState<User | null>("user").value = await useAPI<User>("auth/refresh", "POST");
+        const refreshedUser = await useAPI<User>("auth/refresh", "POST");
+        useUserStore().setUser(refreshedUser as User);
         return useAPI<T>(url, method, body);
       } catch (error) {
-        useState<User | null>("user").value = null;
+        useUserStore().logout();
         useRouter().push("/");
       }
     }

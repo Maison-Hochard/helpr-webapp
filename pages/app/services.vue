@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { addCredentials } from "~/composables/useServices";
+
 definePageMeta({
   name: "Services",
   title: "Connect Services"
@@ -27,12 +29,14 @@ const code = computed(() => {
 });
 
 const linearKey = ref("");
+const githubKey = ref("");
 
-const addLinearKey = async () => {
-  const res = await useAPI("/linear/credentials", "POST", {
-    accessToken: linearKey.value
-  });
-  console.log(res);
+const addLinearToken = async () => {
+  await addCredentials("linear", linearKey.value);
+};
+
+const addGithubToken = async () => {
+  await addCredentials("github", githubKey.value);
 };
 
 const getLinearKey = async () => {
@@ -120,7 +124,7 @@ const getGithubKey = async () => {
                 </p>
               </div>
               <div class="mt-1">
-                <button class="btn btn-primary" @click="addLinearKey" :disabled="linearKey === ''">
+                <button class="btn btn-primary" @click="addLinearToken" :disabled="linearKey === ''">
                   Save
                 </button>
               </div>
@@ -145,7 +149,7 @@ const getGithubKey = async () => {
                 </p>
               </div>
               <div class="mt-1">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" @click="addGithubToken" :disabled="githubKey === ''">
                   Save
                 </button>
               </div>

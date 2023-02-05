@@ -14,7 +14,6 @@ export async function useUser(): Promise<User | null> {
       headers: cookieHeaders as HeadersInit,
     });
     if (!data.value) {
-      useRouter().push("/");
       return null;
     }
     useUserStore().setUser(data.value);
@@ -24,7 +23,7 @@ export async function useUser(): Promise<User | null> {
 }
 
 export async function useLogin(login: string, password: string) {
-  const { data } = await useFetch("/api/auth/login", {
+  const { data } = await useFetch<User>("/api/auth/login", {
     method: "POST",
     body: {
       login: login,
