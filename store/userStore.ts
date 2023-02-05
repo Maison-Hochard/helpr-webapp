@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { Subscription, User } from "@prisma/client";
+import { Subscription } from "@prisma/client";
+import { User } from "~/types/User";
 
 interface UserState {
   accessToken: string;

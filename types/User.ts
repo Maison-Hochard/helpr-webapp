@@ -1,5 +1,5 @@
-import { Session, User } from "@prisma/client";
+import { User as PrismaUser, Subscription } from "@prisma/client";
 
-export type SessionWithUser = Session & {
-  user: User;
+export type User = PrismaUser & {
+  Subscription: Subscription[];
 }

@@ -1,23 +1,26 @@
-import { User } from "@prisma/client";
+import { User } from "~~/types/User";
 import { useUserStore } from "~~/store/userStore";
 
 export const useAuthCookie = () => useCookie("authToken");
 
 export async function useUser(): Promise<User | null> {
   const authCookie = useAuthCookie().value;
-  const user = useState<User | null>("user");
+  const user = useUserStore().getUser;
 
-  if (authCookie && !user.value) {
+  if (authCookie && !user) {
     const cookieHeaders = useRequestHeaders(["cookie"]);
-    const { data } = await useFetch("/api/auth/users-token", {
+    const { data } = await useFetch<User>("/api/auth/users-token", {
       method: "GET",
       headers: cookieHeaders as HeadersInit,
     });
-    user.value = data.value;
+    if (!data.value) {
+      useRouter().push("/");
+      return null;
+    }
     useUserStore().setUser(data.value);
     useUserStore().setSubscription(data.value.Subscription);
   }
-  return user.value;
+  return user;
 }
 
 export async function useLogin(login: string, password: string) {
@@ -37,8 +40,8 @@ export async function useLogin(login: string, password: string) {
 }
 
 export async function useLogout() {
-  const user = useState<User|null>("user");
-  if (!user.value) {
+  const user = useUserStore().getUser;
+  if (!user) {
     useRouter().push("/");
     return;
   }

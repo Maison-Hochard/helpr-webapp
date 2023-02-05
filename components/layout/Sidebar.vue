@@ -6,10 +6,9 @@ import {
   TransitionRoot,
 } from "@headlessui/vue";
 import { ArrowLeftOnRectangleIcon, XMarkIcon } from "@heroicons/vue/24/outline";
-import { User } from "@prisma/client";
 import { Role } from "~/types/Role";
 
-const user = useState<User | null>("user");
+const user = useUserStore().getUser;
 
 const sidebarOpen = ref(false);
 
