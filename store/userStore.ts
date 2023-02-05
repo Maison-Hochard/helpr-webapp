@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
+import { Subscription } from "@prisma/client";
 
 interface UserState {
   accessToken: string;
   user: any;
+  subscription: Subscription[];
 }
 
 export const useUserStore = defineStore("user", {
@@ -10,6 +12,7 @@ export const useUserStore = defineStore("user", {
     return {
       accessToken: "",
       user: null,
+      subscription: null,
     };
   },
   getters: {
@@ -18,6 +21,9 @@ export const useUserStore = defineStore("user", {
     },
     getUser(): any {
       return this.user;
+    },
+    getSubscription(): Subscription {
+      return this.subscription;
     }
   },
   actions: {
@@ -26,6 +32,9 @@ export const useUserStore = defineStore("user", {
     },
     setUser(user: any) {
       this.user = user;
+    },
+    setSubscription(subscription: Subscription[]) {
+      this.subscription = subscription;
     }
   }
 });

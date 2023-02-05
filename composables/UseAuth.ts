@@ -10,12 +10,13 @@ export async function useUser(): Promise<User | null> {
 
   if (authCookie && !user.value) {
     const cookieHeaders = useRequestHeaders(["cookie"]);
-    const { data } = await useFetch<User>("/api/auth/users-token", {
+    const { data } = await useFetch("/api/auth/users-token", {
       method: "GET",
       headers: cookieHeaders as HeadersInit,
     });
     user.value = data.value;
     userStore.setUser(data.value);
+    useUserStore().setSubscription(data.value.Subscription);
   }
   return user.value;
 }
@@ -31,6 +32,7 @@ export async function useLogin(login: string, password: string) {
   if (data.value) {
     useState("user").value = data.value;
     useUserStore().setUser(data.value);
+    useUserStore().setSubscription(data.value.Subscription);
     useRouter().push("/app/profile");
   }
 }
