@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/vue/20/solid";
 definePageMeta({
   name: "Profile",
@@ -6,14 +6,10 @@ definePageMeta({
 });
 const user = await useUser();
 
-const default_avatar =
-  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
-
 const coverImageUrl =
   "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80";
 
-const bio =
-  "Tincidunt quam neque in cursus viverra orci, dapibus nec tristique. Nullam ut sit dolor consectetur urna, dui cras nec sed. Cursus risus congue arcu aenean posuere aliquam. Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.";
+const bio = "Not much to say here, just a test user.";
 </script>
 
 <template>
@@ -33,7 +29,7 @@ const bio =
               <div class="flex">
                 <img
                   class="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                  :src="user.profilePicture || default_avatar"
+                  :src="user.avatar"
                   alt=""
                 />
               </div>
@@ -82,31 +78,15 @@ const bio =
         <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
             <div class="sm:col-span-2">
-              <dt class="text-sm font-medium text-gray-500">About</dt>
+              <dt class="text-sm font-medium text-gray-500">Bio</dt>
               <dd
                 class="mt-1 max-w-prose space-y-5 text-sm text-primary"
-                v-html="bio"
+                v-html="user.bio || bio"
               />
             </div>
             <div>
               <dt class="text-sm font-medium text-gray-500">Email</dt>
               <dd class="mt-1 text-sm text-primary">{{ user.email }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500">Phone</dt>
-              <dd class="mt-1 text-sm text-primary">{{ user.phone }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500">Location</dt>
-              <dd class="mt-1 text-sm text-primary">{{ user.location }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500">Website</dt>
-              <dd class="mt-1 text-sm text-primary">{{ user.website }}</dd>
-            </div>
-            <div>
-              <dt class="text-sm font-medium text-gray-500">Company</dt>
-              <dd class="mt-1 text-sm text-primary">{{ user.company }}</dd>
             </div>
           </dl>
         </div>

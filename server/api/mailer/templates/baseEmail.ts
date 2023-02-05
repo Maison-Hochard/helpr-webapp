@@ -1,7 +1,4 @@
-export type EmailTemplate = {
-  text: string;
-  html: string;
-};
+import { EmailTemplate } from "~/server/app/mailerService";
 
 const baseEmailTemplate = function (
   subject: string,

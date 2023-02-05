@@ -14,6 +14,13 @@ const availableLocales = {
   },
 };
 
+defineProps({
+  isText: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 watch(locale, (newLang) => {
   locale.value = newLang;
   useLocalStorage("locale", newLang);
@@ -30,7 +37,7 @@ watch(locale, (newLang) => {
       :key="key"
       :value="locale.iso"
     >
-      {{ locale.flag }} {{ locale.name }}
+      {{ locale.flag }} {{ isText ? locale.name : "" }}
     </option>
   </select>
 </template>

@@ -7,7 +7,7 @@ import {
   PlusCircleIcon,
 } from "@heroicons/vue/24/outline";
 
-type Where = "home" | "app" | "user" | "admin" | "profil_nav";
+type Where = "home" | "app" | "user" | "admin";
 
 type Navigation = {
   name: string;

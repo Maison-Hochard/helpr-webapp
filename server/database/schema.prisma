@@ -46,7 +46,7 @@ model User {
   password            String
   stripeCustomerId    String?
   createdAt           DateTime              @default(now())
-  profilePicture      String?
+  avatar              String                @default("https://storage.cloud.google.com/cooperantis/default-avatar.jpeg")
   updatedAt           DateTime?             @updatedAt
   role                Int?                  @default(1)
   isVerified          Boolean               @default(false)
@@ -54,6 +54,7 @@ model User {
   authToken           String?               @unique
   id                  Int                   @id @default(autoincrement())
   EmailVerification   EmailVerification[]
+  Flow                Flow[]
   ProviderCredentials ProviderCredentials[]
   ResetPassword       ResetPassword[]
   Subscription        Subscription[]
@@ -61,10 +62,43 @@ model User {
 
 model ProviderCredentials {
   id          Int    @id @default(autoincrement())
-  providerId  String
+  providerId  String @unique
   provider    String
   accessToken String
   userId      Int
   expiresAt   Int?
   User        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Action {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  provider    String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime
+  FlowAction  FlowAction[]
+}
+
+model Flow {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  enabled     Boolean      @default(true)
+  status      Int          @default(1)
+  trigger     Int          @default(1)
+  userId      Int
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?
+  User        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  FlowAction  FlowAction[]
+}
+
+model FlowAction {
+  id       Int    @id @default(autoincrement())
+  flowId   Int
+  actionId Int
+  payload  String
+  Action   Action @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  Flow     Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade)
 }

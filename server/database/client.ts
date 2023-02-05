@@ -3,3 +3,13 @@ import pkg from "@prisma/client";
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 export default prisma;
+
+export function exclude<User, Key extends keyof User>(
+  user: User,
+  keys: Key[]
+): Omit<User, Key> {
+  for (const key of keys) {
+    delete user[key];
+  }
+  return user;
+}

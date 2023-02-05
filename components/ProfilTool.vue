@@ -30,7 +30,7 @@ const logout = async () => {
         <span class="sr-only">Open user menu</span>
         <img
           class="h-8 w-8 rounded-full"
-          :src="user?.profilePicture || default_avatar"
+          :src="user?.avatar"
           alt=""
         />
       </MenuButton>
