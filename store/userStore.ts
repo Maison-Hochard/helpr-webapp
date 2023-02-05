@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { Subscription } from "@prisma/client";
+import { Subscription, User } from "@prisma/client";
 
 interface UserState {
   accessToken: string;
-  user: any;
+  user: User;
   subscription: Subscription[];
 }
 
@@ -19,7 +19,7 @@ export const useUserStore = defineStore("user", {
     getAccessToken(): string {
       return this.accessToken;
     },
-    getUser(): any {
+    getUser(): User {
       return this.user;
     },
     getSubscription(): Subscription {
@@ -30,7 +30,7 @@ export const useUserStore = defineStore("user", {
     setAccessToken(accessToken: string) {
       this.accessToken = accessToken;
     },
-    setUser(user: any) {
+    setUser(user: User) {
       this.user = user;
     },
     setSubscription(subscription: Subscription[]) {

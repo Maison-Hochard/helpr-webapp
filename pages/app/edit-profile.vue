@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Plans } from "~/types/Pricing";
+import { useUserStore } from "~/store/userStore";
 
 definePageMeta({
   name: "Edit Profile",
   title: "Edit Profile"
 });
 
-const user = await useUser();
+const user = useUserStore().getUser;
 
 const updateProfile = async () => {
   await useUpdateUser();

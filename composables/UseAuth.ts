@@ -4,7 +4,6 @@ import { useUserStore } from "~~/store/userStore";
 export const useAuthCookie = () => useCookie("authToken");
 
 export async function useUser(): Promise<User | null> {
-  const userStore = useUserStore();
   const authCookie = useAuthCookie().value;
   const user = useState<User | null>("user");
 
@@ -15,7 +14,7 @@ export async function useUser(): Promise<User | null> {
       headers: cookieHeaders as HeadersInit,
     });
     user.value = data.value;
-    userStore.setUser(data.value);
+    useUserStore().setUser(data.value);
     useUserStore().setSubscription(data.value.Subscription);
   }
   return user.value;
