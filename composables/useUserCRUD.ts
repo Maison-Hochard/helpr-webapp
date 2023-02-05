@@ -4,13 +4,7 @@ import { createUserInput } from "~/server/api/user/user.dto";
 export async function useSignup(createUserInput: createUserInput) {
   await useFetch("/api/auth/signup", {
     method: "POST",
-    body: {
-      username: createUserInput.username,
-      password: createUserInput.password,
-      email: createUserInput.email,
-      firstname: createUserInput.firstname,
-      lastname: createUserInput.lastname,
-    },
+    body: createUserInput
   });
 }
 

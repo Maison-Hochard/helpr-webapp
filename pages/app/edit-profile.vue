@@ -3,7 +3,7 @@ import { Plans } from "~/types/Pricing";
 
 definePageMeta({
   name: "Edit Profile",
-  title: "Edit Profile",
+  title: "Edit Profile"
 });
 
 const user = await useUser();
@@ -122,7 +122,7 @@ const deleteAccount = async () => {
       </div>
     </div>
 
-<!--    <div class="bg-secondary shadow sm:rounded-lg">
+    <div class="bg-secondary shadow sm:rounded-lg">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg font-medium leading-6 text-primary">Manage Subscription</h3>
         <div class="my-2 max-w-xl text-sm text-muted">
@@ -132,14 +132,14 @@ const deleteAccount = async () => {
           </p>
         </div>
         <div>
-          <div v-if="user.Subscription && user.Subscription[0].name === 'Pro'">
+          <div v-if="user.Subscription.length > 0 && user.Subscription && user.Subscription[0].name === 'Pro'">
             <i class="fas fa-check-circle text-green-600"></i> {{ user.Subscription[0].name }}
           </div>
-          <div v-if="user.Subscription && user.Subscription[0].name === 'Trial'">
+          <div v-if="user.Subscription.length > 0 && user.Subscription && user.Subscription[0].name === 'Trial'">
             <i class="fas fa-check-circle text-yellow-600"></i> {{ user.Subscription[0].name }}
           </div>
           <div v-else>
-            <i class="fas fa-times-circle text-red-600"></i> {{ user.Subscription[0].name }}
+            <i class="fas fa-times-circle text-red-600"></i> No subscription
           </div>
         </div>
         <div class="mt-5 flex gap-4">
@@ -168,7 +168,7 @@ const deleteAccount = async () => {
           </client-only>
         </div>
       </div>
-    </div>-->
+    </div>
 
     <div class="bg-secondary shadow sm:rounded-lg">
       <div class="px-4 py-5 sm:p-6">
