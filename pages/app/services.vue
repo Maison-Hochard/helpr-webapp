@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { addCredentials } from "~/composables/useServices";
+import { addCredentials, getAuthenticatedProviders } from "~/composables/useServices";
 
 definePageMeta({
   name: "Services",
@@ -7,7 +7,7 @@ definePageMeta({
 });
 
 const { data: services, refresh } = await useAsyncData(async () => {
-  return await getAuthenticatedServices();
+  return await getAuthenticatedProviders();
 });
 
 const linearKey = ref("");
