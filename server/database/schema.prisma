@@ -46,18 +46,20 @@ model User {
   password            String
   stripeCustomerId    String?
   createdAt           DateTime              @default(now())
-  avatar              String                @default("https://storage.cloud.google.com/cooperantis/default-avatar.jpeg")
   updatedAt           DateTime?             @updatedAt
   role                Int                   @default(1)
   isVerified          Boolean               @default(false)
   refreshToken        String?               @unique
   authToken           String?               @unique
   id                  Int                   @id @default(autoincrement())
+  avatar              String                @default("https://storage.cloud.google.com/helpr/default-avatar.jpeg")
+  providerId          Int?
   EmailVerification   EmailVerification[]
   Flow                Flow[]
   ProviderCredentials ProviderCredentials[]
   ResetPassword       ResetPassword[]
   Subscription        Subscription[]
+  Provider            Provider[]
 }
 
 model ProviderCredentials {
@@ -71,34 +73,51 @@ model ProviderCredentials {
 }
 
 model Action {
-  id          Int          @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
+  title       String
+  description String
+  endpoint    String
   name        String
-  description String?
-  provider    String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime
-  FlowAction  FlowAction[]
+  providerId  Int
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime?
+  Provider    Provider      @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  FlowActions FlowActions[]
 }
 
 model Flow {
-  id          Int          @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String
   description String?
-  enabled     Boolean      @default(true)
-  status      Int          @default(1)
-  trigger     Int          @default(1)
+  accessToken String
+  enabled     Boolean       @default(true)
+  status      Int           @default(1)
+  trigger     Int           @default(1)
   userId      Int
-  createdAt   DateTime     @default(now())
+  createdAt   DateTime      @default(now())
   updatedAt   DateTime?
-  User        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  FlowAction  FlowAction[]
+  User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  FlowActions FlowActions[]
 }
 
-model FlowAction {
-  id       Int    @id @default(autoincrement())
-  flowId   Int
-  actionId Int
-  payload  String
-  Action   Action @relation(fields: [actionId], references: [id], onDelete: Cascade)
-  Flow     Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade)
+model FlowActions {
+  id        Int       @id @default(autoincrement())
+  flowId    Int
+  actionId  Int
+  payload   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  Action    Action    @relation(fields: [actionId], references: [id], onDelete: Cascade)
+  Flow      Flow      @relation(fields: [flowId], references: [id], onDelete: Cascade)
+}
+
+model Provider {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  logo        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  Action      Action[]
+  User        User[]
 }
