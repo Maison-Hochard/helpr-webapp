@@ -75,7 +75,7 @@ export async function getUserByAuthToken(authToken: string) {
       Subscription: true,
     }
   });
-  return exclude(user, ["password", "refreshToken"]);
+  return exclude(user, ["password", "authToken", "refreshToken"]);
 }
 
 export async function setAuthToken(userId: number) {
@@ -90,6 +90,16 @@ export async function setAuthToken(userId: number) {
     useRuntimeConfig().private.authSecret,
     { expiresIn: "7d" },
   );
+  const refreshToken = jwt.sign(
+    {
+      id: user.id,
+      role: user.role,
+      username: user.username,
+      email: user.email,
+    },
+    useRuntimeConfig().private.refreshTokenSecret,
+    { expiresIn: "30d" },
+  );
   const updatedUser = await prisma.user.update({
     where: {
       id: userId,
@@ -101,7 +111,7 @@ export async function setAuthToken(userId: number) {
       Subscription: true,
     }
   });
-  return exclude(updatedUser, ["password", "refreshToken"]);
+  return exclude(updatedUser, ["password"]);
 }
 
 export async function adminCheck(event: H3Event): Promise<boolean> {

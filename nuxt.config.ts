@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    "/**": { cors: false },
+    "*": { cors: false },
   },
 
   modules: [
@@ -39,7 +39,8 @@ export default defineNuxtConfig({
     mailerPass: process.env.MAILER_PASSWORD,
     private: {
       stripeSecretKey: process.env.STRIPE_SECRET_KEY,
-      authSecret: process.env.AUTH_TOKEN_SECRET
+      authSecret: process.env.AUTH_TOKEN_SECRET,
+      refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
     },
     public: {
       github: {

@@ -11,6 +11,7 @@ export default eventHandler(async (event: H3Event) => {
   if (await bcrypt.compare(body.password, user.password)) {
     const authUser = await setAuthToken(user.id);
     setCookie(event, "authToken", authUser.authToken as string, { httpOnly: true, path: "/", maxAge: 1000 * 60 * 60 * 24 * 7 });
+    setCookie(event, "refreshToken", authUser.refreshToken as string, { httpOnly: true, path: "/", maxAge: 1000 * 60 * 60 * 24 * 7 });
     return authUser;
   } else {
     return sendError(event, createError({ statusCode: 401, statusMessage: "Invalid credentials" }));

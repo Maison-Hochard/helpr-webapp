@@ -3,11 +3,17 @@ import { FetchContext, FetchResponse } from "ofetch";
 
 type RequestMethod = "GET" | "POST" | "PUT" |"PATCH" | "DELETE";
 
+export type ApiResponse = {
+  statusCode: number;
+  message: string;
+  data: any;
+}
+
 export async function useAPI<T>(
   url: string,
   method: RequestMethod,
   body?: object | User | null,
-): Promise<T | null> {
+): Promise<T> {
   const config = useRuntimeConfig();
   const fullURL = `${config.public.apiUrl}${url}`;
   const user = useUserStore().getUser;
@@ -32,6 +38,6 @@ export async function useAPI<T>(
         useRouter().push("/");
       }
     }
-    return null;
+    throw error;
   }
 }
