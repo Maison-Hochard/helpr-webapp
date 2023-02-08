@@ -4,11 +4,12 @@ import { User } from "~/types/User";
 
 interface UserState {
   accessToken: string;
-  user: User;
-  subscription: Subscription[];
+  user: User | null;
+  subscription: Subscription[] | null;
 }
 
 const defaultUserState: UserState = {
+  accessToken: "",
   user: null,
   subscription: null,
 };
@@ -25,10 +26,10 @@ export const useUserStore = defineStore("user", {
     getAccessToken(): string {
       return this.accessToken;
     },
-    getUser(): User {
+    getUser(): User | null {
       return this.user;
     },
-    getSubscription(): Subscription[] {
+    getSubscription(): Subscription[] | null {
       return this.subscription;
     },
   },
@@ -56,13 +57,10 @@ export const useUserStore = defineStore("user", {
     async updateUser() {
       if (confirm("Are you sure you want to update your profile?")) {
         if (this.user) {
-          const { data: updatedUser } = await useFetch<User>(
-            "/api/user/" + this.user.id,
-            {
-              method: "PUT",
-              body: this.user,
-            },
-          );
+          const { data: updatedUser } = await useFetch<User>("/api/user/" + this.user.id, {
+            method: "PUT",
+            body: this.user,
+          });
           this.user = updatedUser.value;
         }
       }

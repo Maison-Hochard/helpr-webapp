@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import {
-  addCredentials,
-  getAuthenticatedProviders,
-} from "~/composables/useServices";
+import { addCredentials, getAuthenticatedProviders } from "~/composables/useServices";
 import { googleTokenLogin } from "vue3-google-login";
 
 definePageMeta({
@@ -56,73 +53,35 @@ function login() {
 <template>
   <div>
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
-      <h3 class="text-lg font-medium leading-6 text-primary">
-        Add your tokens
-      </h3>
-      <p class="mt-1 text-sm text-muted">
-        Add your tokens to connect your services.
-      </p>
+      <h3 class="text-lg font-medium leading-6 text-primary">Add your tokens</h3>
+      <p class="mt-1 text-sm text-muted">Add your tokens to connect your services.</p>
       <button @click="login">Login Using Google</button>
       <Loader v-if="pending" />
       <div class="flex flex-row mt-10 gap-5" v-else>
         <div class="flex flex-col gap-4">
           <form action="#" method="POST" v-if="!isConnected('linear')">
-            <label
-              for="linear-key"
-              class="block text-sm font-medium text-primary"
-            >
-              Linear Token Api
-            </label>
+            <label for="linear-key" class="block text-sm font-medium text-primary"> Linear Token Api </label>
             <div class="flex flex-row gap-5">
               <div class="mt-1">
-                <input
-                  v-model="linearKey"
-                  id="linear-key"
-                  name="linear-key"
-                  type="password"
-                  class="input"
-                />
+                <input v-model="linearKey" id="linear-key" name="linear-key" type="password" class="input" />
                 <p class="mt-2 text-sm text-muted">
                   You can find your Linear Token Api in your
-                  <a
-                    href="https://linear.app/settings/api"
-                    target="_blank"
-                    class="text-primary"
-                    >Linear settings</a
-                  >.
+                  <a href="https://linear.app/settings/api" target="_blank" class="text-primary">Linear settings</a>.
                 </p>
               </div>
               <div class="mt-1">
-                <button
-                  class="btn btn-primary"
-                  @click="addLinearToken"
-                  :disabled="linearKey === ''"
-                >
-                  Save
-                </button>
+                <button class="btn btn-primary" @click="addLinearToken" :disabled="linearKey === ''">Save</button>
               </div>
             </div>
           </form>
           <div v-else>
             <div class="flex flex-row gap-5 items-center">
               <ProviderLogo :provider="'linear'" />
-              <p class="text-sm text-muted">
-                You have already connected Linear.
-              </p>
+              <p class="text-sm text-muted">You have already connected Linear.</p>
             </div>
           </div>
-          <form
-            class="mt-10"
-            action="#"
-            method="POST"
-            v-if="!isConnected('github')"
-          >
-            <label
-              for="github-key"
-              class="block text-sm font-medium text-primary"
-            >
-              GitHub Token Api
-            </label>
+          <form class="mt-10" action="#" method="POST" v-if="!isConnected('github')">
+            <label for="github-key" class="block text-sm font-medium text-primary"> GitHub Token Api </label>
             <div class="flex flex-row gap-5">
               <div class="mt-1">
                 <input
@@ -135,28 +94,18 @@ function login() {
                 />
                 <p class="mt-2 text-sm text-muted">
                   You can find your GitHub Token Api in your
-                  <a href="" target="_blank" class="text-primary"
-                    >GitHub settings</a
-                  >.
+                  <a href="" target="_blank" class="text-primary">GitHub settings</a>.
                 </p>
               </div>
               <div class="mt-1">
-                <button
-                  class="btn btn-primary"
-                  @click="addGithubToken"
-                  :disabled="githubKey === ''"
-                >
-                  Save
-                </button>
+                <button class="btn btn-primary" @click="addGithubToken" :disabled="githubKey === ''">Save</button>
               </div>
             </div>
           </form>
           <div v-else>
             <div class="flex flex-row gap-5 items-center">
               <ProviderLogo :provider="'github'" />
-              <p class="text-sm text-muted">
-                You have already connected GitHub.
-              </p>
+              <p class="text-sm text-muted">You have already connected GitHub.</p>
             </div>
           </div>
         </div>

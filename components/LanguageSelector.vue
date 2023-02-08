@@ -28,15 +28,8 @@ watch(locale, (newLang) => {
 </script>
 
 <template>
-  <select
-    class="bg-transparent text-primary border-none focus:outline-none"
-    v-model="locale"
-  >
-    <option
-      v-for="(locale, key) in availableLocales"
-      :key="key"
-      :value="locale.iso"
-    >
+  <select class="bg-transparent text-primary border-none focus:outline-none" v-model="locale">
+    <option v-for="(locale, key) in availableLocales" :key="key" :value="locale.iso">
       {{ locale.flag }} {{ isText ? locale.name : "" }}
     </option>
   </select>

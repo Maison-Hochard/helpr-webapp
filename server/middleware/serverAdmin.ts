@@ -18,10 +18,7 @@ export default eventHandler(async (event) => {
 async function protectAdminRoute(event: H3Event): Promise<boolean> {
   const protectedRoutes = ["/api/admin"];
 
-  if (
-    event.path === undefined ||
-    !protectedRoutes.some((route) => event.path?.startsWith(route))
-  ) {
+  if (event.path === undefined || !protectedRoutes.some((route) => event.path?.startsWith(route))) {
     return true;
   } else {
     return await adminCheck(event);

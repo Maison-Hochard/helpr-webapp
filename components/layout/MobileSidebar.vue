@@ -1,15 +1,6 @@
 <script setup lang="ts">
-import {
-  Dialog,
-  DialogPanel,
-  TransitionChild,
-  TransitionRoot,
-} from "@headlessui/vue";
-import {
-  ArrowLeftOnRectangleIcon,
-  Bars3BottomLeftIcon,
-  XMarkIcon,
-} from "@heroicons/vue/24/outline";
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
+import { ArrowLeftOnRectangleIcon, Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import { Role } from "~/types/Role";
 
 const user = useUserStore().getUser;
@@ -28,11 +19,7 @@ const sidebarOpen = ref(false);
 <template>
   <div>
     <TransitionRoot as="template" :show="sidebarOpen">
-      <Dialog
-        as="div"
-        class="relative z-40 lg:hidden"
-        @close="sidebarOpen = false"
-      >
+      <Dialog as="div" class="relative z-40 lg:hidden" @close="sidebarOpen = false">
         <TransitionChild
           as="template"
           enter="transition-opacity ease-linear duration-300"
@@ -55,9 +42,7 @@ const sidebarOpen = ref(false);
             leave-from="translate-x-0"
             leave-to="-translate-x-full"
           >
-            <DialogPanel
-              class="relative flex w-full max-w-xs flex-1 flex-col bg-primary focus:outline-none"
-            >
+            <DialogPanel class="relative flex w-full max-w-xs flex-1 flex-col bg-primary focus:outline-none">
               <TransitionChild
                 as="template"
                 enter="ease-in-out duration-300"
@@ -80,9 +65,7 @@ const sidebarOpen = ref(false);
               </TransitionChild>
               <div class="flex flex-col">
                 <!-- Sidebar component, swap this element with another sidebar if you like -->
-                <div
-                  class="flex min-h-0 flex-1 flex-col border-r border-muted bg-primary"
-                >
+                <div class="flex min-h-0 flex-1 flex-col border-r border-muted bg-primary">
                   <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
                     <div class="flex flex-shrink-0 items-center px-4">
                       <Logo :isText="true" :isLogo="true" />
@@ -100,16 +83,12 @@ const sidebarOpen = ref(false);
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                           ]"
-                          :aria-current="
-                            item.name === $route.name ? 'page' : undefined
-                          "
+                          :aria-current="item.name === $route.name ? 'page' : undefined"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name
-                                ? 'text-accent'
-                                : 'text-muted group-hover:text-accent',
+                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"
@@ -117,10 +96,7 @@ const sidebarOpen = ref(false);
                           {{ item.name }}
                         </NuxtLink>
                       </div>
-                      <hr
-                        class="my-5 border-t border-muted"
-                        aria-hidden="true"
-                      />
+                      <hr class="my-5 border-t border-muted" aria-hidden="true" />
                       <div class="space-y-1 px-2">
                         <NuxtLink
                           @click="sidebarOpen = false"
@@ -133,16 +109,12 @@ const sidebarOpen = ref(false);
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                           ]"
-                          :aria-current="
-                            item.name === $route.name ? 'page' : undefined
-                          "
+                          :aria-current="item.name === $route.name ? 'page' : undefined"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name
-                                ? 'text-accent'
-                                : 'text-muted group-hover:text-accent',
+                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"
@@ -155,10 +127,7 @@ const sidebarOpen = ref(false);
                         aria-hidden="true"
                         v-if="user && user.role === Role.ADMIN"
                       />
-                      <div
-                        class="flex-1 space-y-1 px-2"
-                        v-if="user && user.role === Role.ADMIN"
-                      >
+                      <div class="flex-1 space-y-1 px-2" v-if="user && user.role === Role.ADMIN">
                         <NuxtLink
                           @click="sidebarOpen = false"
                           v-for="item in adminNav"
@@ -170,16 +139,12 @@ const sidebarOpen = ref(false);
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                           ]"
-                          :aria-current="
-                            item.name === $route.name ? 'page' : undefined
-                          "
+                          :aria-current="item.name === $route.name ? 'page' : undefined"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name
-                                ? 'text-accent'
-                                : 'text-muted group-hover:text-accent',
+                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"
@@ -187,10 +152,7 @@ const sidebarOpen = ref(false);
                           {{ item.name }}
                         </NuxtLink>
                       </div>
-                      <hr
-                        class="my-5 border-t border-muted"
-                        aria-hidden="true"
-                      />
+                      <hr class="my-5 border-t border-muted" aria-hidden="true" />
                       <div class="space-y-1 px-2">
                         <button
                           type="button"

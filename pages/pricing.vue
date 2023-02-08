@@ -12,8 +12,7 @@ const plans: Plan[] = [
     name: "Professional",
     price: 35,
     priceId: Plans.PRO.priceId,
-    description:
-      "Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis.",
+    description: "Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis.",
     features: [
       "Pariatur quod similique",
       "Sapiente libero doloribus modi nostrum",
@@ -26,8 +25,7 @@ const plans: Plan[] = [
     name: "Premium",
     price: 95,
     priceId: Plans.PREMIUM.priceId,
-    description:
-      "Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis.",
+    description: "Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis.",
     features: [
       "Pariatur quod similique",
       "Sapiente libero doloribus modi nostrum",
@@ -52,12 +50,10 @@ const plans: Plan[] = [
       <div class="relative mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div class="mx-auto max-w-2xl lg:max-w-4xl">
           <h2 class="text-lg font-semibold leading-8 text-accent">Tarifs</h2>
-          <p class="mt-2 text-4xl font-bold tracking-tight text-white">
-            Lorem ipsum dolor sit
-          </p>
+          <p class="mt-2 text-4xl font-bold tracking-tight text-white">Lorem ipsum dolor sit</p>
           <p class="mt-6 text-lg leading-8 text-white/60">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit
-            numquam eligendi quos odit doloribus molestiae voluptatum.
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam eligendi quos odit doloribus
+            molestiae voluptatum.
           </p>
         </div>
       </div>
@@ -65,33 +61,18 @@ const plans: Plan[] = [
     <div class="flow-root bg-primary pb-32 lg:pb-40">
       <div class="relative -mt-80">
         <div class="relative z-1 mx-auto max-w-7xl px-6 lg:px-8">
-          <div
-            class="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-4xl lg:grid-cols-2 lg:gap-8"
-          >
-            <PlanPricing
-              v-for="plan in plans"
-              :key="plan.id"
-              :subscription="plan"
-            />
+          <div class="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-4xl lg:grid-cols-2 lg:gap-8">
+            <PlanPricing v-for="plan in plans" :key="plan.id" :subscription="plan" />
           </div>
         </div>
       </div>
       <div class="relative mx-auto mt-8 max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-md lg:max-w-4xl">
-          <div
-            class="flex flex-col gap-6 rounded-3xl p-8 bg-secondary sm:p-10 lg:flex-row lg:items-center lg:gap-8"
-          >
+          <div class="flex flex-col gap-6 rounded-3xl p-8 bg-secondary sm:p-10 lg:flex-row lg:items-center lg:gap-8">
             <div class="lg:min-w-0 lg:flex-1">
-              <h3
-                class="text-lg font-semibold leading-8 tracking-tight text-primary"
-              >
-                Custom
-              </h3>
+              <h3 class="text-lg font-semibold leading-8 tracking-tight text-primary">Custom</h3>
               <div class="mt-2 text-base leading-7 text-gray-600">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quisquam, quod.
-                </p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.</p>
               </div>
             </div>
             <div>

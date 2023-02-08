@@ -6,9 +6,7 @@ export default defineEventHandler(async (event) => {
 
   const subscription = stripeEvent.data.object as Stripe.Subscription;
 
-  const isSubscriptionEvent = stripeEvent.type.startsWith(
-    "customer.subscription",
-  );
+  const isSubscriptionEvent = stripeEvent.type.startsWith("customer.subscription");
 
   if (isSubscriptionEvent) {
     await handleSubscriptionChange(subscription, stripeEvent.created);

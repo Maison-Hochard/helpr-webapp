@@ -5,10 +5,7 @@ import { isString } from "@vueuse/core";
 import { H3Event } from "h3";
 import { Role } from "~/types/Role";
 import jwt from "jsonwebtoken";
-import {
-  createStripeCustomer,
-  deleteStripeCustomer,
-} from "~/server/app/stripeService";
+import { createStripeCustomer, deleteStripeCustomer } from "~/server/app/stripeService";
 import { createUserInput, updateUserInput } from "~/server/api/user/user.dto";
 import { Plans } from "~/types/Pricing";
 
@@ -135,10 +132,7 @@ export async function deleteUser(userId: number) {
   });
 }
 
-export async function updateUser(
-  userId: number,
-  updateUserInput: updateUserInput,
-) {
+export async function updateUser(userId: number, updateUserInput: updateUserInput) {
   const user = await prisma.user.update({
     where: { id: userId },
     data: {
@@ -169,9 +163,7 @@ export async function getUserByStripeCustomerId(stripeCustomerId: string) {
   return exclude(user, ["password", "authToken", "refreshToken"]);
 }
 
-export async function getCurrentSubscription(
-  userId: number,
-): Promise<Subscription | null> {
+export async function getCurrentSubscription(userId: number): Promise<Subscription | null> {
   const user = (await getUserById(userId)) as User;
   return await prisma.subscription.findFirst({
     where: {
@@ -189,10 +181,7 @@ export async function getSubscriptionById(stripeId: string) {
 }
 
 export async function createOrUpdateSubscription(data: Subscription) {
-  const subName =
-    data.stripePriceId === Plans.TRIAL.priceId
-      ? Plans.TRIAL.name
-      : Plans.PRO.name;
+  const subName = data.stripePriceId === Plans.TRIAL.priceId ? Plans.TRIAL.name : Plans.PRO.name;
   return await prisma.subscription.upsert({
     where: {
       stripeId: data.stripeId,

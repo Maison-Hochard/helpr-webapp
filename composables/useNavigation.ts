@@ -39,15 +39,15 @@ const admin: Navigation[] = [
 
 export function getNavigation(where: Where): Navigation[] {
   switch (where) {
-  case "home":
-    return home;
-  case "app":
-    return app;
-  case "user":
-    return user;
-  case "admin":
-    return admin;
-  default:
-    return [];
+    case "home":
+      return home;
+    case "app":
+      return app;
+    case "user":
+      return user;
+    case "admin":
+      return admin;
+    default:
+      return [];
   }
 }

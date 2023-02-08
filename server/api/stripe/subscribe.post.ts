@@ -9,11 +9,7 @@ export default defineEventHandler(async (event) => {
 
   const user = (await getUserById(parseInt(userId))) as User;
 
-  const {
-    url,
-    user: customer,
-    shouldUpdateUser,
-  } = await getSubscribeUrl(priceId, user);
+  const { url, user: customer, shouldUpdateUser } = await getSubscribeUrl(priceId, user);
 
   if (shouldUpdateUser) {
     await updateStripeCustomerId(customer);

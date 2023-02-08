@@ -1,12 +1,6 @@
 <script>
 import { MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
-import {
-  DocumentPlusIcon,
-  FolderIcon,
-  FolderPlusIcon,
-  HashtagIcon,
-  TagIcon,
-} from "@heroicons/vue/24/outline";
+import { DocumentPlusIcon, FolderIcon, FolderPlusIcon, HashtagIcon, TagIcon } from "@heroicons/vue/24/outline";
 import {
   Combobox,
   ComboboxInput,
@@ -75,9 +69,7 @@ export default {
   },
   computed: {
     filteredProjects() {
-      return this.projects.filter((project) =>
-        project.name.toLowerCase().includes(this.query.toLowerCase()),
-      );
+      return this.projects.filter((project) => project.name.toLowerCase().includes(this.query.toLowerCase()));
     },
   },
 };
@@ -95,9 +87,7 @@ export default {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div
-          class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"
-        />
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
       </TransitionChild>
 
       <div class="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
@@ -131,17 +121,12 @@ export default {
                 class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto"
               >
                 <li class="p-2">
-                  <h2
-                    v-if="query === ''"
-                    class="mt-4 mb-2 px-3 text-xs font-semibold text-gray-900"
-                  >
+                  <h2 v-if="query === ''" class="mt-4 mb-2 px-3 text-xs font-semibold text-gray-900">
                     Recent searches
                   </h2>
                   <ul class="text-sm text-gray-700">
                     <ComboboxOption
-                      v-for="project in query === ''
-                        ? recent
-                        : filteredProjects"
+                      v-for="project in query === '' ? recent : filteredProjects"
                       :key="project.id"
                       :value="project"
                       as="template"
@@ -154,18 +139,11 @@ export default {
                         ]"
                       >
                         <FolderIcon
-                          :class="[
-                            'h-6 w-6 flex-none text-gray-900 text-opacity-40',
-                            active && 'text-opacity-100',
-                          ]"
+                          :class="['h-6 w-6 flex-none text-gray-900 text-opacity-40', active && 'text-opacity-100']"
                           aria-hidden="true"
                         />
-                        <span class="ml-3 flex-auto truncate">{{
-                          project.name
-                        }}</span>
-                        <span v-if="active" class="ml-3 flex-none text-gray-500"
-                          >Jump to...</span
-                        >
+                        <span class="ml-3 flex-auto truncate">{{ project.name }}</span>
+                        <span v-if="active" class="ml-3 flex-none text-gray-500">Jump to...</span>
                       </li>
                     </ComboboxOption>
                   </ul>
@@ -188,18 +166,11 @@ export default {
                       >
                         <component
                           :is="action.icon"
-                          :class="[
-                            'h-6 w-6 flex-none text-gray-900 text-opacity-40',
-                            active && 'text-opacity-100',
-                          ]"
+                          :class="['h-6 w-6 flex-none text-gray-900 text-opacity-40', active && 'text-opacity-100']"
                           aria-hidden="true"
                         />
-                        <span class="ml-3 flex-auto truncate">{{
-                          action.name
-                        }}</span>
-                        <span
-                          class="ml-3 flex-none text-xs font-semibold text-gray-500"
-                        >
+                        <span class="ml-3 flex-auto truncate">{{ action.name }}</span>
+                        <span class="ml-3 flex-none text-xs font-semibold text-gray-500">
                           <kbd class="font-sans">⌘</kbd>
                           <kbd class="font-sans">{{ action.shortcut }}</kbd>
                         </span>
@@ -209,17 +180,10 @@ export default {
                 </li>
               </ComboboxOptions>
 
-              <div
-                v-if="query !== '' && filteredProjects.length === 0"
-                class="py-14 px-6 text-center sm:px-14"
-              >
-                <FolderIcon
-                  class="mx-auto h-6 w-6 text-gray-900 text-opacity-40"
-                  aria-hidden="true"
-                />
+              <div v-if="query !== '' && filteredProjects.length === 0" class="py-14 px-6 text-center sm:px-14">
+                <FolderIcon class="mx-auto h-6 w-6 text-gray-900 text-opacity-40" aria-hidden="true" />
                 <p class="mt-4 text-sm text-gray-900">
-                  We couldn't find any projects with that term. Please try
-                  again.
+                  We couldn't find any projects with that term. Please try again.
                 </p>
               </div>
             </Combobox>

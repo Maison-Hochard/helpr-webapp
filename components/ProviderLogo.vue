@@ -16,34 +16,18 @@ defineProps({
     <div v-if="!source">
       <img
         class="block h-6 w-auto lg:hidden"
-        :src="
-          'https://storage.cloud.google.com/helpr/' +
-          provider +
-          '-logo-white.svg'
-        "
+        :src="'https://storage.cloud.google.com/helpr/' + provider + '-logo-white.svg'"
         :alt="provider + ' logo'"
       />
       <img
         class="hidden h-6 w-auto lg:block"
-        :src="
-          'https://storage.cloud.google.com/helpr/' +
-          provider +
-          '-logo-white.svg'
-        "
+        :src="'https://storage.cloud.google.com/helpr/' + provider + '-logo-white.svg'"
         :alt="provider + ' logo'"
       />
     </div>
     <div v-else>
-      <img
-        class="block h-6 w-auto lg:hidden"
-        :src="source"
-        :alt="provider + ' logo'"
-      />
-      <img
-        class="hidden h-6 w-auto lg:block"
-        :src="source"
-        :alt="provider + ' logo'"
-      />
+      <img class="block h-6 w-auto lg:hidden" :src="source" :alt="provider + ' logo'" />
+      <img class="hidden h-6 w-auto lg:block" :src="source" :alt="provider + ' logo'" />
     </div>
   </div>
 </template>

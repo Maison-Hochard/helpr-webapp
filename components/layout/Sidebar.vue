@@ -18,9 +18,7 @@ const logout = async () => {
     <div class="hidden lg:flex lg:flex-shrink-0 overflow-hidden h-full">
       <div class="flex w-64 flex-col">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
-        <div
-          class="flex min-h-0 flex-1 flex-col border-r border-muted bg-primary"
-        >
+        <div class="flex min-h-0 flex-1 flex-col border-r border-muted bg-primary">
           <div class="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
             <div class="flex flex-shrink-0 items-center px-4">
               <Logo :isText="true" :isLogo="true" />
@@ -42,9 +40,7 @@ const logout = async () => {
                   <component
                     :is="item.icon"
                     :class="[
-                      item.name === $route.name
-                        ? 'text-accent'
-                        : 'text-muted group-hover:text-accent',
+                      item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
                       'mr-3 flex-shrink-0 h-6 w-6',
                     ]"
                     aria-hidden="true"
@@ -69,9 +65,7 @@ const logout = async () => {
                   <component
                     :is="item.icon"
                     :class="[
-                      item.name === $route.name
-                        ? 'text-accent'
-                        : 'text-muted group-hover:text-accent',
+                      item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
                       'mr-3 flex-shrink-0 h-6 w-6',
                     ]"
                     aria-hidden="true"
@@ -79,15 +73,8 @@ const logout = async () => {
                   {{ item.name }}
                 </NuxtLink>
               </div>
-              <hr
-                class="my-5 border-t border-muted"
-                aria-hidden="true"
-                v-if="user && user.role === Role.ADMIN"
-              />
-              <div
-                class="flex-1 space-y-1 px-2"
-                v-if="user && user.role === Role.ADMIN"
-              >
+              <hr class="my-5 border-t border-muted" aria-hidden="true" v-if="user && user.role === Role.ADMIN" />
+              <div class="flex-1 space-y-1 px-2" v-if="user && user.role === Role.ADMIN">
                 <NuxtLink
                   v-for="item in adminNav"
                   :key="item.name"
@@ -103,9 +90,7 @@ const logout = async () => {
                   <component
                     :is="item.icon"
                     :class="[
-                      item.name === $route.name
-                        ? 'text-accent'
-                        : 'text-muted group-hover:text-accent',
+                      item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
                       'mr-3 flex-shrink-0 h-6 w-6',
                     ]"
                     aria-hidden="true"

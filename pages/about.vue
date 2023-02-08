@@ -19,8 +19,7 @@ const faqs = [
   },
   {
     question: "Why can't you hear a pterodactyl go to the bathroom?",
-    answer:
-      "Because the pee is silent. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, exercitationem.",
+    answer: "Because the pee is silent. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, exercitationem.",
   },
   {
     question: "What do you call someone with no body and no nose?",
@@ -39,14 +38,10 @@ const faqs = [
   <div class="mx-auto max-w-7xl py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
     <div class="lg:grid lg:grid-cols-3 lg:gap-8">
       <div>
-        <h2 class="text-3xl font-bold tracking-tight text-primary">
-          Frequently asked questions
-        </h2>
+        <h2 class="text-3xl font-bold tracking-tight text-primary">Frequently asked questions</h2>
         <p class="mt-4 text-lg text-muted">
           Can’t find the answer you’re looking for? Reach out to our
-          <a href="#" class="font-medium text-accent hover:text-accent-hover"
-            >customer support</a
-          >
+          <a href="#" class="font-medium text-accent hover:text-accent-hover">customer support</a>
           team.
         </p>
       </div>

@@ -3,11 +3,7 @@ const env = useRuntimeConfig().public.appEnv;
 </script>
 
 <template>
-  <div
-    class="env-checker fixed bottom-0 z-10 p-1 w-full text-center"
-    v-bind:class="env"
-    v-if="env !== 'production'"
-  >
+  <div class="env-checker fixed bottom-0 z-10 p-1 w-full text-center" v-bind:class="env" v-if="env !== 'production'">
     {{ env }}
   </div>
 </template>
