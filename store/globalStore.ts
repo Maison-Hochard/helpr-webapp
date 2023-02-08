@@ -1,11 +1,9 @@
 import { defineStore } from "pinia";
-import { useUserStore } from "./userStore";
 
 type GlobalState = {
   loading: boolean;
   theme: string;
   locale: string;
-  user: ReturnType<typeof useUserStore>;
 }
 
 export const useGlobalStore = defineStore({
@@ -14,7 +12,6 @@ export const useGlobalStore = defineStore({
     loading: false,
     theme: "dark",
     locale: "en",
-    user: useUserStore(),
   }),
   getters: {
     isLoading(): boolean {

@@ -25,14 +25,14 @@ useHead({
   ],
 });
 
-const theme = ref("dark");
+const theme = computed(() => useGlobalStore().getTheme);
 
 onMounted(() => {
   const userLocale = useLocalStorage("locale", "en");
   const userTheme = useLocalStorage("theme", "dark");
 
+  useGlobalStore().setTheme(userTheme.value);
   locale.value = userLocale.value;
-  theme.value = userTheme.value;
 });
 
 await useUser();

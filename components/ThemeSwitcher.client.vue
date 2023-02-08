@@ -1,24 +1,28 @@
 <script setup lang="ts">
-const theme = useLocalStorage("theme", "dark");
+const globalStore = useGlobalStore();
 
-const setTheme = (newTheme) => {
+const availableThemes = ["dark", "light"];
+const theme = ref("");
+
+const setTheme = (newTheme: string) => {
   theme.value = newTheme;
   document.documentElement.setAttribute("data-theme", newTheme);
+  globalStore.setTheme(newTheme);
+  useLocalStorage("theme", newTheme).value = newTheme;
 };
 
-const toggleTheme = () => {
-  theme.value === "dark" ? setTheme("light") : setTheme("dark");
-};
+onMounted(() => {
+  const userTheme = useLocalStorage("theme", "dark").value;
+  if (userTheme) {
+    setTheme(userTheme);
+  }
+});
 </script>
 
 <template>
-  <div class="flex cursor-pointer" @click="toggleTheme">
-    <Icon
-      v-if="theme === 'light'"
-      name="grommet-icons:sun"
-      size="1.5em"
-      class="text-primary"
-    />
-    <Icon v-else name="ph:moon-stars-bold" size="1.5em" class="text-primary" />
-  </div>
+  <select v-model="theme" @change="setTheme(theme)" class="input">
+    <option v-for="theme in availableThemes" :key="theme" :value="theme">
+      {{ theme }}
+    </option>
+  </select>
 </template>
