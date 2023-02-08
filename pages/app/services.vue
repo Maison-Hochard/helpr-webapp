@@ -7,7 +7,7 @@ definePageMeta({
   title: "Connect Services"
 });
 
-const { data: services, refresh } = await useAsyncData(async () => {
+const { data: services, refresh, pending } = await useLazyAsyncData(async () => {
   return await getAuthenticatedProviders();
 });
 
@@ -54,7 +54,8 @@ function login() {
         Add your tokens to connect your services.
       </p>
       <button @click="login">Login Using Google</button>
-      <div class="flex flex-row mt-10 gap-5">
+      <Loader v-if="pending" />
+      <div class="flex flex-row mt-10 gap-5" v-else>
         <div class="flex flex-col gap-4">
           <form action="#" method="POST" v-if="!isConnected('linear')">
             <label for="linear-key" class="block text-sm font-medium text-primary">

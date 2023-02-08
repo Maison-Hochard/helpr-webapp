@@ -43,7 +43,6 @@ const user = useUserStore().getUser;
                     : 'text-primary hover:text-muted',
                   'px-4 py-1 rounded-md text-sm font-medium',
                 ]"
-                :aria-current="item.current ? 'page' : undefined"
               >
                 {{ $t("navigation." + item.name.toLowerCase()) }}
               </NuxtLink>
@@ -95,7 +94,6 @@ const user = useUserStore().getUser;
               : 'text-gray-300 hover:bg-gray-800 hover:text-white',
             'block px-4 py-1 rounded-md text-primary font-medium',
           ]"
-          :aria-current="item.current ? 'page' : undefined"
         >
           {{ $t("navigation." + item.name.toLowerCase()) }}
         </NuxtLink>

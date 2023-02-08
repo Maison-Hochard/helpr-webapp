@@ -6,11 +6,11 @@ definePageMeta({
   title: "Create Flow"
 });
 
-const { data: providers, refresh: refreshProviders } = await useAsyncData(async () => {
+const { data: providers, pending: providersPending } = await useLazyAsyncData(async () => {
   return await getProviders();
 });
 
-const { data: services, refresh: refreshServices } = await useAsyncData(async () => {
+const { data: services, pending: servicesPending } = await useLazyAsyncData(async () => {
   return await getAuthenticatedProviders();
 });
 
@@ -70,7 +70,8 @@ const enum Trigger {
         Create a new flow.
       </p>
     </div>
-    <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
+    <Loader v-if="providersPending || servicesPending" />
+    <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6" v-else>
       <h3 class="text-lg font-medium leading-6 text-primary">
         Select a provider to start the flow
       </h3>
