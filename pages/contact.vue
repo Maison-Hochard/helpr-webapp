@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {EnvelopeIcon, PhoneIcon} from "@heroicons/vue/24/outline";
+import { EnvelopeIcon, PhoneIcon } from "@heroicons/vue/24/outline";
 
 definePageMeta({
   name: "Contact",
@@ -14,7 +14,7 @@ const phone = ref("");
 const fullname = ref("");
 
 async function submitForm() {
-  const {data} = await useFetch("/api/mailer/sendMailToSupport", {
+  const { data } = await useFetch("/api/mailer/sendMailToSupport", {
     method: "POST",
     body: {
       email: email.value,
@@ -31,13 +31,13 @@ async function submitForm() {
 <template>
   <div class="relative bg-primary">
     <div class="absolute inset-0">
-      <div class="absolute inset-y-0 left-0 w-1/2"/>
+      <div class="absolute inset-y-0 left-0 w-1/2" />
     </div>
     <div class="relative mx-auto max-w-7xl lg:grid lg:grid-cols-5">
       <div class="py-16 px-6 lg:col-span-2 lg:px-8 lg:py-24 xl:pr-12">
         <div class="mx-auto max-w-lg">
           <h2
-              class="text-2xl font-bold tracking-tight text-primary sm:text-3xl"
+            class="text-2xl font-bold tracking-tight text-primary sm:text-3xl"
           >
             Get in touch
           </h2>
@@ -57,8 +57,8 @@ async function submitForm() {
               <dt class="sr-only">Phone number</dt>
               <dd class="flex">
                 <PhoneIcon
-                    class="h-6 w-6 flex-shrink-0 text-gray-400"
-                    aria-hidden="true"
+                  class="h-6 w-6 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
                 />
                 <span class="ml-3">+1 (555) 123-4567</span>
               </dd>
@@ -67,8 +67,8 @@ async function submitForm() {
               <dt class="sr-only">Email</dt>
               <dd class="flex">
                 <EnvelopeIcon
-                    class="h-6 w-6 flex-shrink-0 text-gray-400"
-                    aria-hidden="true"
+                  class="h-6 w-6 flex-shrink-0 text-gray-400"
+                  aria-hidden="true"
                 />
                 <span class="ml-3">support@example.com</span>
               </dd>
@@ -78,75 +78,72 @@ async function submitForm() {
       </div>
       <div class="py-16 px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
         <div class="mx-auto max-w-lg lg:max-w-none">
-          <form
-              @submit.prevent="submitForm"
-              class="grid grid-cols-1 gap-y-6"
-          >
+          <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-y-6">
             <div>
               <label for="fullname" class="sr-only">Full name</label>
               <input
-                  v-model="fullname"
-                  type="text"
-                  name="fullname"
-                  id="full-name"
-                  autocomplete="name"
-                  class="input"
-                  placeholder="Full name"
+                v-model="fullname"
+                type="text"
+                name="fullname"
+                id="full-name"
+                autocomplete="name"
+                class="input"
+                placeholder="Full name"
               />
             </div>
             <div>
               <label for="email" class="sr-only">Email</label>
               <input
-                  required
-                  v-model="email"
-                  id="email"
-                  name="email"
-                  type="email"
-                  autocomplete="email"
-                  class="input"
-                  placeholder="Email"
+                required
+                v-model="email"
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                class="input"
+                placeholder="Email"
               />
             </div>
             <div>
               <label for="phone" class="sr-only">Phone</label>
               <input
-                  v-model="phone"
-                  type="text"
-                  name="phone"
-                  id="phone"
-                  autocomplete="tel"
-                  class="input"
-                  placeholder="Phone"
+                v-model="phone"
+                type="text"
+                name="phone"
+                id="phone"
+                autocomplete="tel"
+                class="input"
+                placeholder="Phone"
               />
             </div>
             <div>
               <label for="text" class="sr-only">Subject</label>
               <input
-                  required
-                  v-model="subject"
-                  type="text"
-                  name="subject"
-                  id="subject"
-                  class="input"
-                  placeholder="Subject"
+                required
+                v-model="subject"
+                type="text"
+                name="subject"
+                id="subject"
+                class="input"
+                placeholder="Subject"
               />
             </div>
             <div>
               <label for="message" class="sr-only">Message</label>
               <textarea
-                  required
-                  v-model="message"
-                  id="message"
-                  name="message"
-                  rows="4"
-                  class="input"
-                  placeholder="Message"
+                required
+                v-model="message"
+                id="message"
+                name="message"
+                rows="4"
+                class="input"
+                placeholder="Message"
               />
             </div>
             <div>
               <button
-                  type="submit"
-                  class="inline-flex justify-center rounded-md border border-transparent bg-accent py-2 px-6 text-base font-medium text-white shadow-sm hover:bg-accent-hover"
+                type="submit"
+                class="inline-flex justify-center rounded-md border border-transparent bg-accent py-2 px-6 text-base font-medium text-white shadow-sm hover:bg-accent-hover"
               >
                 Submit
               </button>

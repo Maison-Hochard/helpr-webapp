@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   app: {
     pageTransition: {
       name: "fade",
-      mode: "out-in"
+      mode: "out-in",
     },
   },
 
@@ -13,6 +13,12 @@ export default defineNuxtConfig({
 
   build: {
     transpile: ["@heroicons/vue"],
+  },
+
+  routeRules: {
+    "/**": { cors: true },
+    "/*": { cors: true },
+    "*": { cors: true },
   },
 
   modules: [
@@ -23,7 +29,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@vueuse/nuxt",
     "nuxt-mailer",
-    "@pinia/nuxt"
+    "@pinia/nuxt",
   ],
 
   imports: {
@@ -43,17 +49,17 @@ export default defineNuxtConfig({
       github: {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackUrl: process.env.GITHUB_CALLBACK_URL
+        callbackUrl: process.env.GITHUB_CALLBACK_URL,
       },
       linear: {
         clientId: process.env.LINEAR_CLIENT_ID,
         clientSecret: process.env.LINEAR_CLIENT_SECRET,
-        callbackUrl: process.env.LINEAR_CALLBACK_URL
+        callbackUrl: process.env.LINEAR_CALLBACK_URL,
       },
       appDomain: process.env.FRONTEND_URL,
       appEnv: process.env.APP_ENV,
-      apiUrl: process.env.API_URL
-    }
+      apiUrl: process.env.API_URL,
+    },
   },
 
   i18n: {
@@ -64,12 +70,12 @@ export default defineNuxtConfig({
       availableLocales: ["en", "fr"],
       messages: {
         en,
-        fr
-      }
-    }
+        fr,
+      },
+    },
   },
 
   image: {
-    dir: "assets/media"
-  }
+    dir: "assets/media",
+  },
 });

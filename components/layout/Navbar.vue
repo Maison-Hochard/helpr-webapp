@@ -92,16 +92,17 @@ const user = useUserStore().getUser;
     >
       <DisclosurePanel class="sm:hidden" v-slot="{ close }">
         <div class="space-y-1 px-2 pt-2 pb-3">
-          <NuxtLink @click="close()"
-                    v-for="item in navigation"
-                    :to="{ name: item.name }"
-                    :key="item.name"
-                    :class="[
-            item.name === $route.name
-              ? 'bg-accent-faded text-accent'
-              : 'text-gray-300 hover:bg-gray-800 hover:text-white',
-            'block px-4 py-1 rounded-md text-primary font-medium',
-          ]"
+          <NuxtLink
+            @click="close()"
+            v-for="item in navigation"
+            :to="{ name: item.name }"
+            :key="item.name"
+            :class="[
+              item.name === $route.name
+                ? 'bg-accent-faded text-accent'
+                : 'text-gray-300 hover:bg-gray-800 hover:text-white',
+              'block px-4 py-1 rounded-md text-primary font-medium',
+            ]"
           >
             {{ $t("navigation." + item.name.toLowerCase()) }}
           </NuxtLink>

@@ -59,7 +59,7 @@ export async function getAllUsers() {
   const users = await prisma.user.findMany({
     include: {
       Subscription: true,
-    }
+    },
   });
   return users.map((user) => {
     return exclude(user, ["password", "authToken", "refreshToken"]);
@@ -73,7 +73,7 @@ export async function getUserByAuthToken(authToken: string) {
     },
     include: {
       Subscription: true,
-    }
+    },
   });
   if (!user) return null;
   return exclude(user, ["password"]);
@@ -107,10 +107,11 @@ export async function setAuthToken(userId: number) {
     },
     data: {
       authToken,
+      refreshToken,
     },
     include: {
       Subscription: true,
-    }
+    },
   });
   return exclude(updatedUser, ["password"]);
 }
@@ -145,7 +146,7 @@ export async function updateUser(
     },
     include: {
       Subscription: true,
-    }
+    },
   });
   return exclude(user, ["password", "authToken", "refreshToken"]);
 }
@@ -188,7 +189,10 @@ export async function getSubscriptionById(stripeId: string) {
 }
 
 export async function createOrUpdateSubscription(data: Subscription) {
-  const subName = data.stripePriceId === Plans.TRIAL.priceId ? Plans.TRIAL.name : Plans.PRO.name;
+  const subName =
+    data.stripePriceId === Plans.TRIAL.priceId
+      ? Plans.TRIAL.name
+      : Plans.PRO.name;
   return await prisma.subscription.upsert({
     where: {
       stripeId: data.stripeId,
@@ -221,8 +225,8 @@ export async function generateToken(userId: number) {
   await prisma.resetPassword.create({
     data: {
       token,
-      userId
-    }
+      userId,
+    },
   });
   return token;
 }

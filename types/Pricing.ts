@@ -22,5 +22,5 @@ export const Plans = {
     id: "premium",
     name: "Premium",
     priceId: "price_1MVgP9Ck9AfBe7l2bMuF95xP",
-  }
+  },
 };

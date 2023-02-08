@@ -1,18 +1,25 @@
 <script lang="ts" setup>
-import { getAuthenticatedProviders, getProviders } from "~/composables/useServices";
+import {
+  getAuthenticatedProviders,
+  getProviders,
+} from "~/composables/useServices";
 
 definePageMeta({
   name: "Create-Flow",
-  title: "Create Flow"
+  title: "Create Flow",
 });
 
-const { data: providers, pending: providersPending } = await useLazyAsyncData(async () => {
-  return await getProviders();
-});
+const { data: providers, pending: providersPending } = await useLazyAsyncData(
+  async () => {
+    return await getProviders();
+  },
+);
 
-const { data: services, pending: servicesPending } = await useLazyAsyncData(async () => {
-  return await getAuthenticatedProviders();
-});
+const { data: services, pending: servicesPending } = await useLazyAsyncData(
+  async () => {
+    return await getAuthenticatedProviders();
+  },
+);
 
 const selectedProviders = ref([]);
 
@@ -29,13 +36,15 @@ const flow = computed(() => {
     name: flowName.value,
     description: flowDescription.value,
     trigger: flowTrigger.value,
-    actions: selectedActions.value
+    actions: selectedActions.value,
   };
 });
 
 const toggleSelectedProvider = (provider: string) => {
   if (selectedProviders.value.includes(provider)) {
-    selectedProviders.value = selectedProviders.value.filter((p: any) => p !== provider);
+    selectedProviders.value = selectedProviders.value.filter(
+      (p: any) => p !== provider,
+    );
   } else {
     selectedProviders.value.push(provider);
   }
@@ -43,14 +52,15 @@ const toggleSelectedProvider = (provider: string) => {
 
 const toggleSelectedAction = (action: string) => {
   if (selectedActions.value.includes(action)) {
-    selectedActions.value = selectedActions.value.filter((a: any) => a !== action);
+    selectedActions.value = selectedActions.value.filter(
+      (a: any) => a !== action,
+    );
   } else {
     selectedActions.value.push(action);
   }
 };
 
-const createFlow = async () => {
-};
+const createFlow = async () => {};
 
 const enum Trigger {
   INSTANT = 1,
@@ -63,12 +73,8 @@ const enum Trigger {
 <template>
   <div>
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
-      <h3 class="text-lg font-medium leading-6 text-primary">
-        Create Flow
-      </h3>
-      <p class="mt-1 text-sm text-muted">
-        Create a new flow.
-      </p>
+      <h3 class="text-lg font-medium leading-6 text-primary">Create Flow</h3>
+      <p class="mt-1 text-sm text-muted">Create a new flow.</p>
     </div>
     <Loader v-if="providersPending || servicesPending" />
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6" v-else>
@@ -103,16 +109,31 @@ const enum Trigger {
       </div>
       <div class="flex flex-row mt-10 gap-5">
         <div class="flex flex-col gap-4">
-          <div v-for="provider in providers" :key="provider.provider" class="flex flex-row gap-5"
-               :class="selectedProviders.includes(provider) ? 'bg-accent-faded p-4' : ''"
+          <div
+            v-for="provider in providers"
+            :key="provider.provider"
+            class="flex flex-row gap-5"
+            :class="
+              selectedProviders.includes(provider) ? 'bg-accent-faded p-4' : ''
+            "
           >
-            <ProviderLogo :provider="provider.name" :source="provider.logo" @click="toggleSelectedProvider(provider)"
-                          class="cursor-pointer" />
+            <ProviderLogo
+              :provider="provider.name"
+              :source="provider.logo"
+              @click="toggleSelectedProvider(provider)"
+              class="cursor-pointer"
+            />
             <div v-if="selectedProviders.includes(provider)">
-              <div v-for="action in provider.actions" :key="action.name" class="flex flex-row gap-5 cursor-pointer"
-                   @click="toggleSelectedAction(action)">
-                <h3 class="text-lg font-medium leading-6 text-primary"
-                    :class="selectedActions.includes(action) ? 'text-accent' : ''">
+              <div
+                v-for="action in provider.actions"
+                :key="action.name"
+                class="flex flex-row gap-5 cursor-pointer"
+                @click="toggleSelectedAction(action)"
+              >
+                <h3
+                  class="text-lg font-medium leading-6 text-primary"
+                  :class="selectedActions.includes(action) ? 'text-accent' : ''"
+                >
                   {{ action.title }}
                 </h3>
                 <p class="mt-1 text-sm text-muted">
@@ -124,9 +145,7 @@ const enum Trigger {
         </div>
       </div>
       <div class="mt-10">
-        <button @click="createFlow" class="btn btn-primary">
-          Create Flow
-        </button>
+        <button @click="createFlow" class="btn btn-primary">Create Flow</button>
       </div>
     </div>
     {{ flow }}

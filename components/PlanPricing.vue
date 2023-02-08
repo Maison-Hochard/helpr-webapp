@@ -17,23 +17,42 @@ async function redirectToLogin() {
     useRouter().push("/login");
   }
 }
-
 </script>
 
 <template>
-  <div class="flex flex-col rounded-3xl bg-secondary shadow-xl ring-1 ring-black/10">
+  <div
+    class="flex flex-col rounded-3xl bg-secondary shadow-xl ring-1 ring-black/10"
+  >
     <div class="p-8 sm:p-10">
-      <h3 class="text-lg font-semibold leading-8 tracking-tight text-accent" :id="subscription.id">{{ subscription.name }}</h3>
-      <div class="mt-4 flex items-baseline text-5xl font-bold tracking-tight text-primary">
+      <h3
+        class="text-lg font-semibold leading-8 tracking-tight text-accent"
+        :id="subscription.id"
+      >
+        {{ subscription.name }}
+      </h3>
+      <div
+        class="mt-4 flex items-baseline text-5xl font-bold tracking-tight text-primary"
+      >
         ${{ subscription.price }}
-        <span class="text-lg font-semibold leading-8 tracking-normal text-primary">/mois</span>
+        <span
+          class="text-lg font-semibold leading-8 tracking-normal text-primary"
+          >/mois</span
+        >
       </div>
-      <p class="mt-6 text-base leading-7 text-muted">{{ subscription.description }}</p>
+      <p class="mt-6 text-base leading-7 text-muted">
+        {{ subscription.description }}
+      </p>
     </div>
     <div class="flex flex-1 flex-col p-2">
-      <div class="flex flex-1 flex-col justify-between rounded-2xl bg-secondary p-6 sm:p-8">
+      <div
+        class="flex flex-1 flex-col justify-between rounded-2xl bg-secondary p-6 sm:p-8"
+      >
         <ul role="list" class="space-y-6">
-          <li v-for="feature in subscription.features" :key="feature" class="flex items-start">
+          <li
+            v-for="feature in subscription.features"
+            :key="feature"
+            class="flex items-start"
+          >
             <div class="flex-shrink-0">
               <CheckIcon class="h-6 w-6 text-accent" aria-hidden="true" />
             </div>
@@ -47,7 +66,11 @@ async function redirectToLogin() {
             @click="user ? null : redirectToLogin()"
             name="priceId"
             :value="subscription.priceId"
-            class="btn-primary" :aria-describedby="subscription.id">S'inscrire</button>
+            class="btn-primary"
+            :aria-describedby="subscription.id"
+          >
+            S'inscrire
+          </button>
         </form>
       </div>
     </div>

@@ -4,7 +4,7 @@ type GlobalState = {
   loading: boolean;
   theme: string;
   locale: string;
-}
+};
 
 export const useGlobalStore = defineStore({
   id: "global",
@@ -33,6 +33,6 @@ export const useGlobalStore = defineStore({
     },
     setLocale(locale: string) {
       this.locale = locale;
-    }
-  }
+    },
+  },
 });

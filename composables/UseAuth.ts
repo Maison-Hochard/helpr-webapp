@@ -9,7 +9,7 @@ export async function useUser(): Promise<User | null> {
 
   if (authCookie && !user) {
     const cookieHeaders = useRequestHeaders(["cookie"]);
-    const { data } = await useFetch<User>("/api/auth/users-token", {
+    const { data } = await useFetch<User>("/api/auth/currentUser", {
       method: "GET",
       headers: cookieHeaders as HeadersInit,
     });
@@ -28,7 +28,7 @@ export async function useLogin(login: string, password: string) {
     body: {
       login: login,
       password: password,
-    }
+    },
   });
   if (data.value) {
     useState("user").value = data.value;
@@ -40,13 +40,11 @@ export async function useLogin(login: string, password: string) {
 
 export async function useLogout() {
   const user = useUserStore().getUser;
-  if (!user) {
-    useRouter().push("/");
-    return;
-  }
+  useRouter().push("/");
   await useFetch("/api/auth/logout", {
     method: "POST",
   });
-  useUserStore().logout();
-  useRouter().push("/");
+  if (user) {
+    useUserStore().logout();
+  }
 }

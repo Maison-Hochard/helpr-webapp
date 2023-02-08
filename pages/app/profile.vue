@@ -76,7 +76,7 @@ const bio = "Not much to say here, just a test user.";
             </div>
           </div>
         </div>
-        <hr class="border-muted my-8">
+        <hr class="border-muted my-8" />
         <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
             <div class="sm:col-span-2">

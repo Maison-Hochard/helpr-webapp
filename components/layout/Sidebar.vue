@@ -79,8 +79,15 @@ const logout = async () => {
                   {{ item.name }}
                 </NuxtLink>
               </div>
-              <hr class="my-5 border-t border-muted" aria-hidden="true" v-if="user && user.role === Role.ADMIN" />
-              <div class="flex-1 space-y-1 px-2" v-if="user && user.role === Role.ADMIN">
+              <hr
+                class="my-5 border-t border-muted"
+                aria-hidden="true"
+                v-if="user && user.role === Role.ADMIN"
+              />
+              <div
+                class="flex-1 space-y-1 px-2"
+                v-if="user && user.role === Role.ADMIN"
+              >
                 <NuxtLink
                   v-for="item in adminNav"
                   :key="item.name"
@@ -114,7 +121,8 @@ const logout = async () => {
                   @click="logout"
                 >
                   <ArrowLeftOnRectangleIcon
-                    class="mr-3 h-6 w-6 flex-shrink-0 text-muted group-hover:text-accent-hover" />
+                    class="mr-3 h-6 w-6 flex-shrink-0 text-muted group-hover:text-accent-hover"
+                  />
                   Logout
                 </button>
               </div>

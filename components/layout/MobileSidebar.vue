@@ -1,6 +1,15 @@
 <script setup lang="ts">
-import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
-import { ArrowLeftOnRectangleIcon, Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import {
+  Dialog,
+  DialogPanel,
+  TransitionChild,
+  TransitionRoot,
+} from "@headlessui/vue";
+import {
+  ArrowLeftOnRectangleIcon,
+  Bars3BottomLeftIcon,
+  XMarkIcon,
+} from "@heroicons/vue/24/outline";
 import { Role } from "~/types/Role";
 
 const user = useUserStore().getUser;
@@ -14,7 +23,6 @@ const logout = async () => {
 };
 
 const sidebarOpen = ref(false);
-
 </script>
 
 <template>
@@ -87,27 +95,32 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                    item.name === $route.name
-                      ? 'bg-accent-faded text-accent'
-                      : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
-                    'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-                  ]"
-                          :aria-current="item.name === $route.name ? 'page' : undefined"
+                            item.name === $route.name
+                              ? 'bg-accent-faded text-accent'
+                              : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
+                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                          ]"
+                          :aria-current="
+                            item.name === $route.name ? 'page' : undefined
+                          "
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                      item.name === $route.name
-                        ? 'text-accent'
-                        : 'text-muted group-hover:text-accent',
-                      'mr-3 flex-shrink-0 h-6 w-6',
-                    ]"
+                              item.name === $route.name
+                                ? 'text-accent'
+                                : 'text-muted group-hover:text-accent',
+                              'mr-3 flex-shrink-0 h-6 w-6',
+                            ]"
                             aria-hidden="true"
                           />
                           {{ item.name }}
                         </NuxtLink>
                       </div>
-                      <hr class="my-5 border-t border-muted" aria-hidden="true" />
+                      <hr
+                        class="my-5 border-t border-muted"
+                        aria-hidden="true"
+                      />
                       <div class="space-y-1 px-2">
                         <NuxtLink
                           @click="sidebarOpen = false"
@@ -115,56 +128,69 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                    item.name === $route.name
-                      ? 'bg-accent-faded text-accent'
-                      : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
-                    'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-                  ]"
-                          :aria-current="item.name === $route.name ? 'page' : undefined"
+                            item.name === $route.name
+                              ? 'bg-accent-faded text-accent'
+                              : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
+                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                          ]"
+                          :aria-current="
+                            item.name === $route.name ? 'page' : undefined
+                          "
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                      item.name === $route.name
-                        ? 'text-accent'
-                        : 'text-muted group-hover:text-accent',
-                      'mr-3 flex-shrink-0 h-6 w-6',
-                    ]"
+                              item.name === $route.name
+                                ? 'text-accent'
+                                : 'text-muted group-hover:text-accent',
+                              'mr-3 flex-shrink-0 h-6 w-6',
+                            ]"
                             aria-hidden="true"
                           />
                           {{ item.name }}
                         </NuxtLink>
                       </div>
-                      <hr class="my-5 border-t border-muted" aria-hidden="true"
-                          v-if="user && user.role === Role.ADMIN" />
-                      <div class="flex-1 space-y-1 px-2" v-if="user && user.role === Role.ADMIN">
+                      <hr
+                        class="my-5 border-t border-muted"
+                        aria-hidden="true"
+                        v-if="user && user.role === Role.ADMIN"
+                      />
+                      <div
+                        class="flex-1 space-y-1 px-2"
+                        v-if="user && user.role === Role.ADMIN"
+                      >
                         <NuxtLink
                           @click="sidebarOpen = false"
                           v-for="item in adminNav"
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                    item.name === $route.name
-                      ? 'bg-accent-faded text-accent'
-                      : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
-                    'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-                  ]"
-                          :aria-current="item.name === $route.name ? 'page' : undefined"
+                            item.name === $route.name
+                              ? 'bg-accent-faded text-accent'
+                              : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
+                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                          ]"
+                          :aria-current="
+                            item.name === $route.name ? 'page' : undefined
+                          "
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                      item.name === $route.name
-                        ? 'text-accent'
-                        : 'text-muted group-hover:text-accent',
-                      'mr-3 flex-shrink-0 h-6 w-6',
-                    ]"
+                              item.name === $route.name
+                                ? 'text-accent'
+                                : 'text-muted group-hover:text-accent',
+                              'mr-3 flex-shrink-0 h-6 w-6',
+                            ]"
                             aria-hidden="true"
                           />
                           {{ item.name }}
                         </NuxtLink>
                       </div>
-                      <hr class="my-5 border-t border-muted" aria-hidden="true" />
+                      <hr
+                        class="my-5 border-t border-muted"
+                        aria-hidden="true"
+                      />
                       <div class="space-y-1 px-2">
                         <button
                           type="button"
@@ -172,7 +198,8 @@ const sidebarOpen = ref(false);
                           @click="logout"
                         >
                           <ArrowLeftOnRectangleIcon
-                            class="mr-3 h-6 w-6 flex-shrink-0 text-muted group-hover:text-accent-hover" />
+                            class="mr-3 h-6 w-6 flex-shrink-0 text-muted group-hover:text-accent-hover"
+                          />
                           Logout
                         </button>
                       </div>

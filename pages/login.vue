@@ -10,7 +10,7 @@ const password = ref("");
 
 const loading = ref(false);
 
-async function signin () {
+async function signin() {
   loading.value = true;
   await useLogin(login.value, password.value);
   loading.value = false;
@@ -66,9 +66,8 @@ async function signin () {
             <NuxtLink
               :to="{ name: 'ForgotPassword' }"
               class="font-medium text-accent hover:text-accent-hover"
-            >Forgot your password?
-            </NuxtLink
-            >
+              >Forgot your password?
+            </NuxtLink>
           </div>
         </div>
 

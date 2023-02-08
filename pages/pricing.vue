@@ -98,7 +98,7 @@ const plans: Plan[] = [
               <NuxtLink
                 :to="{ name: 'Contact' }"
                 class="rounded-lg bg-accent px-4 py-2.5 text-center text-sm font-semibold leading-5 text-inverted hover:bg-accent-hover"
-              >Contact Us<span aria-hidden="true">&rarr;</span></NuxtLink
+                >Contact Us<span aria-hidden="true">&rarr;</span></NuxtLink
               >
             </div>
           </div>

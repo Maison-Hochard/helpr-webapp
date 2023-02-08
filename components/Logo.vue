@@ -3,8 +3,8 @@ const applicationName = useAppConfig().appName;
 defineProps({
   isText: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 </script>
 
@@ -22,8 +22,8 @@ defineProps({
         :alt="applicationName"
       />
       <span class="text-md font-bold text-primary ml-2" v-if="isText">
-      {{ applicationName }}
-    </span>
+        {{ applicationName }}
+      </span>
     </NuxtLink>
   </div>
 </template>

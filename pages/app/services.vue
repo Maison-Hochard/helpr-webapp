@@ -1,13 +1,20 @@
 <script lang="ts" setup>
-import { addCredentials, getAuthenticatedProviders } from "~/composables/useServices";
+import {
+  addCredentials,
+  getAuthenticatedProviders,
+} from "~/composables/useServices";
 import { googleTokenLogin } from "vue3-google-login";
 
 definePageMeta({
   name: "Services",
-  title: "Connect Services"
+  title: "Connect Services",
 });
 
-const { data: services, refresh, pending } = await useLazyAsyncData(async () => {
+const {
+  data: services,
+  refresh,
+  pending,
+} = await useLazyAsyncData(async () => {
   return await getAuthenticatedProviders();
 });
 
@@ -60,7 +67,10 @@ function login() {
       <div class="flex flex-row mt-10 gap-5" v-else>
         <div class="flex flex-col gap-4">
           <form action="#" method="POST" v-if="!isConnected('linear')">
-            <label for="linear-key" class="block text-sm font-medium text-primary">
+            <label
+              for="linear-key"
+              class="block text-sm font-medium text-primary"
+            >
               Linear Token Api
             </label>
             <div class="flex flex-row gap-5">
@@ -73,12 +83,21 @@ function login() {
                   class="input"
                 />
                 <p class="mt-2 text-sm text-muted">
-                  You can find your Linear Token Api in your <a href="https://linear.app/settings/api" target="_blank"
-                                                                class="text-primary">Linear settings</a>.
+                  You can find your Linear Token Api in your
+                  <a
+                    href="https://linear.app/settings/api"
+                    target="_blank"
+                    class="text-primary"
+                    >Linear settings</a
+                  >.
                 </p>
               </div>
               <div class="mt-1">
-                <button class="btn btn-primary" @click="addLinearToken" :disabled="linearKey === ''">
+                <button
+                  class="btn btn-primary"
+                  @click="addLinearToken"
+                  :disabled="linearKey === ''"
+                >
                   Save
                 </button>
               </div>
@@ -92,8 +111,16 @@ function login() {
               </p>
             </div>
           </div>
-          <form class="mt-10" action="#" method="POST" v-if="!isConnected('github')">
-            <label for="github-key" class="block text-sm font-medium text-primary">
+          <form
+            class="mt-10"
+            action="#"
+            method="POST"
+            v-if="!isConnected('github')"
+          >
+            <label
+              for="github-key"
+              class="block text-sm font-medium text-primary"
+            >
               GitHub Token Api
             </label>
             <div class="flex flex-row gap-5">
@@ -107,12 +134,18 @@ function login() {
                   class="input"
                 />
                 <p class="mt-2 text-sm text-muted">
-                  You can find your GitHub Token Api in your <a href="" target="_blank" class="text-primary">GitHub
-                  settings</a>.
+                  You can find your GitHub Token Api in your
+                  <a href="" target="_blank" class="text-primary"
+                    >GitHub settings</a
+                  >.
                 </p>
               </div>
               <div class="mt-1">
-                <button class="btn btn-primary" @click="addGithubToken" :disabled="githubKey === ''">
+                <button
+                  class="btn btn-primary"
+                  @click="addGithubToken"
+                  :disabled="githubKey === ''"
+                >
                   Save
                 </button>
               </div>

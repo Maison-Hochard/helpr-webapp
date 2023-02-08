@@ -66,6 +66,6 @@ export const useUserStore = defineStore("user", {
           this.user = updatedUser.value;
         }
       }
-    }
-  }
+    },
+  },
 });
