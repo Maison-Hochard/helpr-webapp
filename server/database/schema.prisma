@@ -25,6 +25,9 @@ model ResetPassword {
 }
 
 model Subscription {
+  id            Int     @id @default(autoincrement())
+  name          String
+  userId        Int
   stripeId      String  @unique
   stripeStatus  String?
   stripePriceId String?
@@ -32,8 +35,6 @@ model Subscription {
   endsAt        Int?
   startDate     Int
   lastEventDate Int
-  id            Int     @id @default(autoincrement())
-  userId        Int
   User          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
