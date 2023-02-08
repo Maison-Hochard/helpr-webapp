@@ -39,7 +39,9 @@ function isConnected(service: string) {
 
 function login() {
   googleTokenLogin().then(async (response) => {
-    await addCredentials("google", response.access_token);
+    await addCredentials("sheet", response.access_token);
+    await addCredentials("calendar", response.access_token);
+    await addCredentials("gmail", response.access_token);
   });
 }
 </script>
