@@ -7,7 +7,7 @@ import MobileSidebar from "~/components/layout/MobileSidebar.vue";
 <template>
   <div class="h-screen flex flex-col md:flex-row">
     <CommandConsole />
-    <MobileSidebar class="lg:hidden" />
+    <MobileSidebar class="md:hidden" />
     <Sidebar class="hidden md:flex" />
     <slot />
   </div>

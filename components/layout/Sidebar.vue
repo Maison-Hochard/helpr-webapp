@@ -15,7 +15,7 @@ const logout = async () => {
 
 <template>
   <div>
-    <div class="hidden lg:flex lg:flex-shrink-0 overflow-hidden h-full">
+    <div class="hidden md:flex lg:flex-shrink-0 overflow-hidden h-full">
       <div class="flex w-64 flex-col">
         <!-- Sidebar component, swap this element with another sidebar if you like -->
         <div class="flex min-h-0 flex-1 flex-col border-r border-muted bg-primary">
