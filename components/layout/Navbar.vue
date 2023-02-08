@@ -103,12 +103,14 @@ const user = useUserStore().getUser;
         <client-only>
           <div class="py-5 border-t border-gray-800 items-center text-center" v-if="!user">
             <NuxtLink
+              @click="close()"
               :to="{ name: 'Login' }"
               class="text-primary hover:bg-gray-800 hover:text-white px-4 py-1 rounded-md text-sm font-medium"
             >
               {{ $t("navigation.login") }}
             </NuxtLink>
             <NuxtLink
+              @click="close()"
               :to="{ name: 'Signup' }"
               class="text-inverted bg-accent hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
             >
