@@ -82,44 +82,53 @@ const user = useUserStore().getUser;
         </div>
       </div>
     </div>
-    <DisclosurePanel class="sm:hidden">
-      <div class="space-y-1 px-2 pt-2 pb-3">
-        <NuxtLink
-          v-for="item in navigation"
-          :to="{ name: item.name }"
-          :key="item.name"
-          :class="[
+    <transition
+      enter-active-class="transition ease-out duration-100"
+      enter-from-class="transform opacity-0"
+      enter-to-class="transform opacity-100"
+      leave-active-class="transition ease-in duration-75"
+      leave-from-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
+    >
+      <DisclosurePanel class="sm:hidden" v-slot="{ close }">
+        <div class="space-y-1 px-2 pt-2 pb-3">
+          <NuxtLink @click="close()"
+                    v-for="item in navigation"
+                    :to="{ name: item.name }"
+                    :key="item.name"
+                    :class="[
             item.name === $route.name
               ? 'bg-accent-faded text-accent'
               : 'text-gray-300 hover:bg-gray-800 hover:text-white',
             'block px-4 py-1 rounded-md text-primary font-medium',
           ]"
-        >
-          {{ $t("navigation." + item.name.toLowerCase()) }}
-        </NuxtLink>
-      </div>
-      <div class="flex flex-col items-center justify-center py-5">
-        <LanguageSelector  :isText="true" />
-      </div>
-      <client-only>
-        <div
-          class="py-5 border-t border-gray-800 items-center text-center"
-          v-if="!user"
-        >
-          <NuxtLink
-            :to="{ name: 'Login' }"
-            class="text-primary hover:bg-gray-800 hover:text-white px-4 py-1 rounded-md text-sm font-medium"
           >
-            {{ $t("navigation.login") }}
-          </NuxtLink>
-          <NuxtLink
-            :to="{ name: 'Signup' }"
-            class="text-inverted bg-accent hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
-          >
-            {{ $t("navigation.signup") }}
+            {{ $t("navigation." + item.name.toLowerCase()) }}
           </NuxtLink>
         </div>
-      </client-only>
-    </DisclosurePanel>
+        <div class="flex flex-col items-center justify-center py-5">
+          <LanguageSelector :isText="true" />
+        </div>
+        <client-only>
+          <div
+            class="py-5 border-t border-gray-800 items-center text-center"
+            v-if="!user"
+          >
+            <NuxtLink
+              :to="{ name: 'Login' }"
+              class="text-primary hover:bg-gray-800 hover:text-white px-4 py-1 rounded-md text-sm font-medium"
+            >
+              {{ $t("navigation.login") }}
+            </NuxtLink>
+            <NuxtLink
+              :to="{ name: 'Signup' }"
+              class="text-inverted bg-accent hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
+            >
+              {{ $t("navigation.signup") }}
+            </NuxtLink>
+          </div>
+        </client-only>
+      </DisclosurePanel>
+    </transition>
   </Disclosure>
 </template>
