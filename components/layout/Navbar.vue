@@ -52,7 +52,7 @@ const user = useUserStore().getUser;
         <div
           class="absolute gap-5 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
         >
-          <Tools class="hidden md:flex" />
+          <LanguageSelector class="hidden md:flex px-2 py-1" />
           <div
             class="hidden tablet:block h-6 w-px bg-accent-faded border-l border-gray-200 border-opacity-25"
           ></div>
@@ -98,7 +98,9 @@ const user = useUserStore().getUser;
           {{ $t("navigation." + item.name.toLowerCase()) }}
         </NuxtLink>
       </div>
-      <Tools class="my-4" />
+      <div class="flex flex-col items-center justify-center py-5">
+        <LanguageSelector  :isText="true" />
+      </div>
       <client-only>
         <div
           class="py-5 border-t border-gray-800 items-center text-center"
