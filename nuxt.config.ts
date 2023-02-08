@@ -26,11 +26,6 @@ export default defineNuxtConfig({
     "@pinia/nuxt"
   ],
 
-  routes: {
-    "/": { prerender: true },
-    "/*": { cors: true }
-  },
-
   imports: {
     dirs: ["store"],
   },
