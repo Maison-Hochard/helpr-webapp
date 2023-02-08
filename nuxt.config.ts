@@ -15,10 +15,6 @@ export default defineNuxtConfig({
     transpile: ["@heroicons/vue"],
   },
 
-  routeRules: {
-    "*": { cors: false },
-  },
-
   modules: [
     "nuxt-icon",
     "@nuxt/image-edge",
@@ -29,6 +25,11 @@ export default defineNuxtConfig({
     "nuxt-mailer",
     "@pinia/nuxt"
   ],
+
+  routes: {
+    "/": { prerender: true },
+    "/*": { cors: true }
+  },
 
   imports: {
     dirs: ["store"],
@@ -43,6 +44,7 @@ export default defineNuxtConfig({
       refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
     },
     public: {
+      googleClientId: process.env.GOOGLE_CLIENT_ID,
       github: {
         clientId: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { addCredentials, getAuthenticatedProviders } from "~/composables/useServices";
+import { googleTokenLogin } from "vue3-google-login";
 
 definePageMeta({
   name: "Services",
@@ -13,20 +14,20 @@ const { data: services, refresh } = await useAsyncData(async () => {
 const linearKey = ref("");
 const githubKey = ref("");
 
-const addLinearToken = async () => {
+async function addLinearToken() {
   await addCredentials("linear", linearKey.value);
-};
+}
 
-const addGithubToken = async () => {
+async function addGithubToken() {
   await addCredentials("github", githubKey.value);
-};
+}
 
 async function AddToken(provider: string, token: string) {
   await addCredentials(provider, token);
   refresh();
 }
 
-const isConnected = (service: string) => {
+function isConnected(service: string) {
   if (!services.value) return false;
   for (const provider of services.value) {
     if (provider.provider === service) {
@@ -34,7 +35,13 @@ const isConnected = (service: string) => {
     }
   }
   return false;
-};
+}
+
+function login() {
+  googleTokenLogin().then(async (response) => {
+    await addCredentials("google", response.access_token);
+  });
+}
 </script>
 
 <template>
@@ -46,6 +53,7 @@ const isConnected = (service: string) => {
       <p class="mt-1 text-sm text-muted">
         Add your tokens to connect your services.
       </p>
+      <button @click="login">Login Using Google</button>
       <div class="flex flex-row mt-10 gap-5">
         <div class="flex flex-col gap-4">
           <form action="#" method="POST" v-if="!isConnected('linear')">
