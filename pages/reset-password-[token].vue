@@ -43,7 +43,7 @@ const resetPassword = async () => {};
             class="input"
             v-model="passwordConfirmation"
           />
-          <button type="submit" class="btn-primary">Send</button>
+          <button type="submit" class="btn-primary w-full">Send</button>
         </form>
       </div>
     </div>

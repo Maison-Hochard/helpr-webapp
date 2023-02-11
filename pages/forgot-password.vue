@@ -27,7 +27,7 @@ const sendResetPasswordEmail = async () => {
         </div>
         <form class="space-y-6" @submit.prevent="sendResetPasswordEmail">
           <input id="email" name="email" required placeholder="johndoe@contact.com" class="input" v-model="email" />
-          <button type="submit" class="btn-primary">Send</button>
+          <button type="submit" class="btn-primary w-full">Send</button>
         </form>
       </div>
     </div>
