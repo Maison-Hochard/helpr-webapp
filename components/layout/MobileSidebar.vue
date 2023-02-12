@@ -11,6 +11,7 @@ const adminNav = getNavigation("admin");
 
 const logout = async () => {
   await useLogout();
+  useSuccessToast("You have been logged out.");
 };
 
 const sidebarOpen = ref(false);
