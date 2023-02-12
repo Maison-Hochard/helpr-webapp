@@ -1,4 +1,4 @@
-export async function useGithubOauth(code: string) {
+export async function getGithubToken(code: string) {
   const githubConfig = useRuntimeConfig().public.github;
   const req = new XMLHttpRequest();
   req.open("POST", "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token", true);

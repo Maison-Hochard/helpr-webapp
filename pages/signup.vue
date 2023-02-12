@@ -41,7 +41,7 @@ const signup = async () => {
           autocomplete="username"
           required
           placeholder="Username"
-          class="input"
+          class="input w-full"
           v-model="username"
         />
         <div class="flex flex-row gap-2">
@@ -51,7 +51,7 @@ const signup = async () => {
             autocomplete="firstname"
             required
             placeholder="Firstname"
-            class="input"
+            class="input w-full"
             v-model="firstname"
           />
           <input
@@ -60,7 +60,7 @@ const signup = async () => {
             autocomplete="lastname"
             required
             placeholder="Lastname"
-            class="input"
+            class="input w-full"
             v-model="lastname"
           />
         </div>
@@ -71,7 +71,7 @@ const signup = async () => {
           autocomplete="email"
           required
           placeholder="Email"
-          class="input"
+          class="input w-full"
           v-model="email"
         />
         <input
@@ -81,7 +81,7 @@ const signup = async () => {
           autocomplete="current-password"
           required
           placeholder="Password"
-          class="input"
+          class="input w-full"
           v-model="password"
         />
         <input
@@ -91,7 +91,7 @@ const signup = async () => {
           autocomplete="current-password"
           required
           placeholder="Confirm Password"
-          class="input"
+          class="input w-full"
           v-model="passwordConfirm"
         />
         <div>

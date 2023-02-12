@@ -34,7 +34,7 @@ async function signin() {
               autocomplete="email"
               required
               placeholder="Login"
-              class="input"
+              class="input w-full"
               v-model="login"
             />
           </div>
@@ -48,7 +48,7 @@ async function signin() {
               autocomplete="current-password"
               required
               placeholder="Password"
-              class="input"
+              class="input w-full"
               v-model="password"
             />
           </div>

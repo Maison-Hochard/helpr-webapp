@@ -76,7 +76,7 @@ const enum Trigger {
           type="text"
           autocomplete="flow-name"
           placeholder="Flow Name"
-          class="input"
+          class="input w-full"
         />
         <input
           v-model="flowDescription"
@@ -85,9 +85,9 @@ const enum Trigger {
           type="text"
           autocomplete="flow-description"
           placeholder="Flow Description"
-          class="input"
+          class="input w-full"
         />
-        <select v-model="flowTrigger" class="input">
+        <select v-model="flowTrigger" class="input w-full">
           <option value="1">Instant</option>
           <option value="2">Every 15 minutes</option>
           <option value="3">Every 30 minutes</option>

@@ -77,7 +77,7 @@ async function submitForm() {
                 name="fullname"
                 id="full-name"
                 autocomplete="name"
-                class="input"
+                class="input w-full"
                 placeholder="Full name"
               />
             </div>
@@ -90,7 +90,7 @@ async function submitForm() {
                 name="email"
                 type="email"
                 autocomplete="email"
-                class="input"
+                class="input w-full"
                 placeholder="Email"
               />
             </div>
@@ -102,7 +102,7 @@ async function submitForm() {
                 name="phone"
                 id="phone"
                 autocomplete="tel"
-                class="input"
+                class="input w-full"
                 placeholder="Phone"
               />
             </div>
@@ -114,7 +114,7 @@ async function submitForm() {
                 type="text"
                 name="subject"
                 id="subject"
-                class="input"
+                class="input w-full"
                 placeholder="Subject"
               />
             </div>
@@ -126,7 +126,7 @@ async function submitForm() {
                 id="message"
                 name="message"
                 rows="4"
-                class="input"
+                class="input w-full"
                 placeholder="Message"
               />
             </div>

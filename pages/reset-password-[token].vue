@@ -31,7 +31,7 @@ const resetPassword = async () => {};
             required
             placeholder="Password"
             type="password"
-            class="input"
+            class="input w-full"
             v-model="password"
           />
           <input
@@ -40,7 +40,7 @@ const resetPassword = async () => {};
             required
             placeholder="Password Confirmation"
             type="password"
-            class="input"
+            class="input w-full"
             v-model="passwordConfirmation"
           />
           <button type="submit" class="btn-primary w-full">Send</button>
