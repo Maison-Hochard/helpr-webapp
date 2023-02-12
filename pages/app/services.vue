@@ -2,6 +2,7 @@
 import { addCredentials, getAuthenticatedProviders } from "~/composables/useServices";
 import { googleTokenLogin } from "vue3-google-login";
 import { getGithubToken } from "~/composables/Provider/useGithub";
+import LoginWithGoogle from "~/components/loginWithGoogle.vue";
 
 definePageMeta({
   name: "Services",
@@ -42,14 +43,6 @@ function isConnected(service: string) {
   return false;
 }
 
-function login() {
-  googleTokenLogin().then(async (response) => {
-    await addCredentials("sheet", response.access_token);
-    await addCredentials("calendar", response.access_token);
-    await addCredentials("gmail", response.access_token);
-  });
-}
-
 const code = computed(() => {
   const route = useRoute();
   return route.query.code;
@@ -72,7 +65,7 @@ const githubUrl =
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
       <h3 class="text-lg font-medium leading-6 text-primary">Add your tokens</h3>
       <p class="mt-1 text-sm text-muted">Add your tokens to connect your services.</p>
-      <button @click="login">Login Using Google</button>
+      <LoginWithGoogle />
       <button class="btn-secondary">
         <NuxtLink :to="githubUrl" class="flex flex-row gap-5 items-center">
           <ProviderLogo :provider="'github'" />
