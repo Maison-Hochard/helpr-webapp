@@ -23,7 +23,7 @@ export async function useUser(): Promise<User | null> {
 }
 
 export async function useLogin(login: string, password: string) {
-  const { data } = await useFetch<User>("/api/auth/login", {
+  const { data, error } = await useFetch<User>("/api/auth/login", {
     method: "POST",
     body: {
       login: login,
@@ -35,6 +35,13 @@ export async function useLogin(login: string, password: string) {
     useUserStore().setUser(data.value);
     useUserStore().setSubscription(data.value.Subscription);
     useRouter().push("/app/profile/me");
+    return {
+      user: data.value,
+    };
+  } else {
+    return {
+      error: error.value,
+    };
   }
 }
 

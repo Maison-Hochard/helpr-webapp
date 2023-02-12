@@ -3,7 +3,9 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
 const navigation = getNavigation("home");
 
-const user = useUserStore().getUser;
+const user = computed(() => {
+  return useUserStore().getUser;
+});
 </script>
 
 <template>
