@@ -98,7 +98,9 @@ const signup = async () => {
           <button type="submit" class="btn-primary w-full">Sign up</button>
         </div>
       </form>
-      <NuxtLink :to="{ name: 'Login' }" class="btn-secondary mt-6"> Already have an account ? Login here </NuxtLink>
+      <NuxtLink :to="{ name: 'Login' }" class="btn-secondary w-full mt-6">
+        Already have an account ? Login here
+      </NuxtLink>
     </div>
   </div>
 </template>

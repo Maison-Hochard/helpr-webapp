@@ -65,7 +65,7 @@ async function signin() {
           <button type="submit" class="btn-primary w-full">Sign in</button>
         </div>
       </form>
-      <NuxtLink :to="{ name: 'Signup' }" class="btn-secondary mt-6"> Don't have an account ? Sign up </NuxtLink>
+      <NuxtLink :to="{ name: 'Signup' }" class="btn-secondary w-full mt-6"> Don't have an account ? Sign up </NuxtLink>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { addCredentials, getAuthenticatedProviders } from "~/composables/useServices";
 import { googleTokenLogin } from "vue3-google-login";
+import { useGithubOauth } from "~/composables/Provider/useGithub";
 
 definePageMeta({
   name: "Services",
@@ -48,6 +49,22 @@ function login() {
     await addCredentials("gmail", response.access_token);
   });
 }
+
+const code = computed(() => {
+  const route = useRoute();
+  return route.query.code;
+});
+
+const githubConfig = useRuntimeConfig().public.github;
+
+const githubUrl =
+  "https://github.com/login/oauth/authorize" +
+  "?client_id=" +
+  githubConfig.clientId +
+  "&redirect_uri=" +
+  githubConfig.callbackUrl +
+  "&response_type=code" +
+  "&scope=repo,read:user,user:email";
 </script>
 
 <template>
@@ -56,6 +73,12 @@ function login() {
       <h3 class="text-lg font-medium leading-6 text-primary">Add your tokens</h3>
       <p class="mt-1 text-sm text-muted">Add your tokens to connect your services.</p>
       <button @click="login">Login Using Google</button>
+      <button @click="useGithubOauth(code)" class="btn btn-primary">get Token Github</button>
+      <NuxtLink :to="githubUrl" class="btn-secondary flex flex-row gap-5 items-center">
+        <ProviderLogo :provider="'github'" />
+        Login Using Github
+      </NuxtLink>
+
       <Loader v-if="pending" />
       <div class="flex flex-row mt-10 gap-5" v-else>
         <div class="flex flex-col gap-4">

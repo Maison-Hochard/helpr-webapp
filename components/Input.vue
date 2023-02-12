@@ -1,6 +1,6 @@
 <template>
   <input
-    class="input"
+    class="input w-full"
     type="text"
     :placeholder="props.label"
     :value="props.value"
