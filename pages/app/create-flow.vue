@@ -1,37 +1,49 @@
 <script lang="ts" setup>
-import { getAuthenticatedProviders, getProviders } from "~/composables/useServices";
+import { getUserProviders } from "~/composables/useProvider";
+import { flowBuilderData } from "~/types/Flow";
 
 definePageMeta({
   name: "Create-Flow",
   title: "Create Flow",
 });
 
-const { data: providers, pending: providersPending } = await useLazyAsyncData(async () => {
-  return await getProviders();
+const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(async () => {
+  return await getUserProviders();
 });
-
-const { data: services, pending: servicesPending } = await useLazyAsyncData(async () => {
-  return await getAuthenticatedProviders();
-});
-
-const selectedProviders = ref([]);
-
-const selectedActions = ref([]);
+console.log("Provider", providers.value);
 
 const flowName = ref("");
 
 const flowDescription = ref("");
 
-const flowTrigger = ref(Trigger.INSTANT);
+const selectedTrigger = ref();
+
+const selectedProviders = ref([]);
+
+const selectedActions = ref([]);
+
+const actionsPayload = ref([]);
 
 const flow = computed(() => {
   return {
     name: flowName.value,
     description: flowDescription.value,
-    trigger: flowTrigger.value,
-    actions: selectedActions.value,
+    triggerId: selectedTrigger.value?.id,
+    triggerName: selectedTrigger.value?.name,
+    actions: selectedActions.value.map((action) => {
+      return {
+        id: action?.id,
+        name: action?.name,
+        provider: action?.provider,
+        payload: actionsPayload.value,
+      };
+    }),
   };
 });
+
+async function createFlow() {
+  console.log("Flow", flow.value);
+}
 
 const toggleSelectedProvider = (provider: string) => {
   if (selectedProviders.value.includes(provider)) {
@@ -48,15 +60,6 @@ const toggleSelectedAction = (action: string) => {
     selectedActions.value.push(action);
   }
 };
-
-const createFlow = async () => {};
-
-const enum Trigger {
-  INSTANT = 1,
-  EVERY_15_MINUTES = 2,
-  EVERY_30_MINUTES = 3,
-  ON_CREATE = 4,
-}
 </script>
 
 <template>
@@ -65,9 +68,9 @@ const enum Trigger {
       <h3 class="text-lg font-medium leading-6 text-primary">Create Flow</h3>
       <p class="mt-1 text-sm text-muted">Create a new flow.</p>
     </div>
-    <Loader v-if="providersPending || servicesPending" />
+    <Loader v-if="pending" />
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6" v-else>
-      <h3 class="text-lg font-medium leading-6 text-primary">Select a provider to start the flow</h3>
+      <h3 class="text-lg font-medium leading-6 text-primary">Select a provider and a trigger to get started</h3>
       <div class="w-1/2 mt-5 flex flex-col gap-4">
         <input
           v-model="flowName"
@@ -87,11 +90,11 @@ const enum Trigger {
           placeholder="Flow Description"
           class="input w-full"
         />
-        <select v-model="flowTrigger" class="input w-full">
-          <option value="1">Instant</option>
-          <option value="2">Every 15 minutes</option>
-          <option value="3">Every 30 minutes</option>
-          <option value="4">On Create</option>
+        <select v-model="selectedTrigger" id="flow-trigger" name="flow-trigger" class="input w-full">
+          <option value="" disabled selected>Select a trigger</option>
+          <option v-for="trigger in providers[0].triggers" :key="trigger.name" :value="trigger">
+            {{ trigger.name }}
+          </option>
         </select>
       </div>
       <div class="flex flex-row mt-10 gap-5">
@@ -109,21 +112,33 @@ const enum Trigger {
               class="cursor-pointer"
             />
             <div v-if="selectedProviders.includes(provider)">
-              <div
-                v-for="action in provider.actions"
-                :key="action.name"
-                class="flex flex-row gap-5 cursor-pointer"
-                @click="toggleSelectedAction(action)"
-              >
+              <div v-for="action in provider.actions" :key="action.name" class="flex flex-row gap-5 cursor-pointer">
                 <h3
                   class="text-lg font-medium leading-6 text-primary"
                   :class="selectedActions.includes(action) ? 'text-accent' : ''"
+                  @click="toggleSelectedAction(action)"
                 >
                   {{ action.title }}
                 </h3>
                 <p class="mt-1 text-sm text-muted">
                   {{ action.description }}
                 </p>
+                <div v-if="selectedActions.includes(action)">
+                  <div v-for="variable in action.variables" :key="variable.name">
+                    <input
+                      v-model="actionsPayload[variable.name]"
+                      id="flow-name"
+                      name="flow-name"
+                      type="text"
+                      autocomplete="flow-name"
+                      placeholder="Flow Name"
+                      class="input w-full"
+                    />
+                    <p class="mt-1 text-sm text-muted">
+                      {{ variable.name }}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@
     "dashboard": "Dashboard",
     "app management": "App Management",
     "create flow": "Create Flow",
-    "services": "Services"
+    "providers": "Providers"
   },
   "pages": {
     "profile": {

@@ -1,15 +1,4 @@
-export type createActionInput = {
-  name: string;
-  title: string;
-  payload: string;
-};
-
-export type createFlowInput = {
-  name: string;
-  description: string;
-  trigger: string;
-  actions: createActionInput[];
-};
+import { createFlowInput } from "~/types/Flow";
 
 export async function addFlow(flowData: createFlowInput) {
   const url = "/flow";

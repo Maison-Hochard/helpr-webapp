@@ -25,9 +25,6 @@ model ResetPassword {
 }
 
 model Subscription {
-  id            Int     @id @default(autoincrement())
-  name          String
-  userId        Int
   stripeId      String  @unique
   stripeStatus  String?
   stripePriceId String?
@@ -35,6 +32,9 @@ model Subscription {
   endsAt        Int?
   startDate     Int
   lastEventDate Int
+  id            Int     @id @default(autoincrement())
+  userId        Int
+  name          String
   User          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -60,7 +60,8 @@ model User {
   ProviderCredentials ProviderCredentials[]
   ResetPassword       ResetPassword[]
   Subscription        Subscription[]
-  Provider            Provider[]
+  WebhookData         WebhookData[]
+  Provider            Provider[]            @relation("ProviderToUser")
 }
 
 model ProviderCredentials {
@@ -74,16 +75,17 @@ model ProviderCredentials {
 }
 
 model Action {
-  id          Int           @id @default(autoincrement())
-  title       String
-  description String
-  endpoint    String
-  name        String
-  providerId  Int
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime?
-  Provider    Provider      @relation(fields: [providerId], references: [id], onDelete: Cascade)
-  FlowActions FlowActions[]
+  id              Int               @id @default(autoincrement())
+  title           String
+  description     String
+  endpoint        String
+  name            String            @unique
+  providerId      Int
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime?
+  Provider        Provider          @relation(fields: [providerId], references: [id], onDelete: Cascade)
+  ActionVariables ActionVariables[]
+  FlowActions     FlowActions[]
 }
 
 model Flow {
@@ -93,10 +95,11 @@ model Flow {
   accessToken String
   enabled     Boolean       @default(true)
   status      Int           @default(1)
-  trigger     Int           @default(1)
   userId      Int
   createdAt   DateTime      @default(now())
   updatedAt   DateTime?
+  triggerId   Int
+  Trigger     Trigger       @relation(fields: [triggerId], references: [id], onDelete: Cascade)
   User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   FlowActions FlowActions[]
 }
@@ -108,17 +111,53 @@ model FlowActions {
   payload   String
   createdAt DateTime  @default(now())
   updatedAt DateTime?
+  order     Int
   Action    Action    @relation(fields: [actionId], references: [id], onDelete: Cascade)
   Flow      Flow      @relation(fields: [flowId], references: [id], onDelete: Cascade)
 }
 
 model Provider {
   id          Int       @id @default(autoincrement())
-  name        String
+  name        String    @unique
   description String
   logo        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
   Action      Action[]
-  User        User[]
+  Trigger     Trigger[]
+  User        User[]    @relation("ProviderToUser")
+}
+
+model ActionVariables {
+  id        Int       @id @default(autoincrement())
+  name      String
+  value     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  actionId  Int
+  Action    Action    @relation(fields: [actionId], references: [id], onDelete: Cascade)
+}
+
+model Trigger {
+  id          Int       @id @default(autoincrement())
+  provider    String
+  name        String    @unique
+  value       String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime?
+  providerId  Int
+  description String
+  Flow        Flow[]
+  Provider    Provider  @relation(fields: [providerId], references: [id])
+}
+
+model WebhookData {
+  id        Int       @id @default(autoincrement())
+  provider  String
+  data      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  userId    Int
+  type      String    @unique
+  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

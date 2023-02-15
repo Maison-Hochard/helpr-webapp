@@ -1,5 +1,4 @@
 import { ApiResponse } from "~/composables/useAPI";
-import { ProviderCredentials } from "@prisma/client";
 
 export async function addCredentials(provider: string, accessToken: string) {
   const url = `/${provider}/add-credentials`;
@@ -9,10 +8,10 @@ export async function addCredentials(provider: string, accessToken: string) {
   console.log(res);
 }
 
-export async function getAuthenticatedProviders() {
-  const url = "/provider/user-services";
+export async function getUserProviders() {
+  const url = "/provider/user";
   const { data: services } = await useAPI<ApiResponse>(url, "GET");
-  return services as ProviderCredentials[];
+  return services;
 }
 
 export async function getProviders() {
