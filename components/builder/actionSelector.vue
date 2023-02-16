@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { Action } from "~/types/Flow";
+import { createActionInput } from "~/types/Flow";
 
 const props = defineProps({
   actions: {
     type: Array,
     required: true,
   },
+  stepNumber: {
+    type: Number,
+    required: true,
+  },
 });
 
-const selectedAction = ref<Action>();
+const selectedAction = ref<createActionInput>();
 const payload = ref({});
 
 const emit = defineEmits(["update:modelValue"]);
@@ -21,7 +25,10 @@ const action = computed(() => {
 });
 
 function addAction() {
-  emit("update:modelValue", action.value);
+  emit("update:modelValue", {
+    stepNumber: props.stepNumber,
+    action: action.value,
+  });
 }
 </script>
 
@@ -44,12 +51,9 @@ function addAction() {
         <div class="flex gap-4">
           <div>
             <p class="text-md font-bold">
-              {{ variable.name }}
+              {{ variable.title }}
             </p>
-            <p>
-              {{ variable.description }}
-            </p>
-            <input v-model="payload[variable.value]" class="btn-secondary w-full" />
+            <input v-model="payload[variable.name]" class="btn-secondary w-full" />
           </div>
         </div>
       </div>

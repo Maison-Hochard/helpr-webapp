@@ -10,6 +10,11 @@ export interface createFlowInput {
   actions: addActionInput[];
 }
 
+export interface createActionInput {
+  id: number;
+  payload: Action;
+}
+
 export interface flowBuilderData {
   id: number;
   name: string;
@@ -35,6 +40,7 @@ export interface Action {
 
 interface Variable {
   id: number;
+  title: string;
   name: string;
   value: string;
   createdAt: string;

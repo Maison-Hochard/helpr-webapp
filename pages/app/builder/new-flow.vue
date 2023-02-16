@@ -3,7 +3,7 @@ second step is to select a trigger // third step is to select an action // fourt
 action // then the flow will be created and the user will be redirected to the flow page
 
 <script setup lang="ts">
-import { Action, flowBuilderData, Trigger } from "~/types/Flow";
+import { Action, createActionInput, flowBuilderData, Trigger } from "~/types/Flow";
 import { getUserProviders } from "~/composables/useProvider";
 import { PlusIcon } from "@heroicons/vue/20/solid";
 import TriggerStep from "~/components/builder/triggerStep.vue";
@@ -17,7 +17,6 @@ definePageMeta({
 const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(async () => {
   return await getUserProviders();
 });
-console.log("Provider", providers.value);
 
 const flowName = ref("Flow " + Math.floor(Math.random() * 1000));
 
@@ -30,22 +29,35 @@ const flow = computed(() => {
 });
 
 async function createFlow() {
-  console.log("Flow", flow.value);
+  await addFlow(flow.value);
+}
+
+interface actionInput {
+  id: number;
+  stepNumber: number;
+  payload: {
+    [key: string]: string;
+  };
 }
 
 const selectedTrigger = ref<Trigger>();
-const selectedActions = ref<Action[]>([]);
+const selectedActions = ref<actionInput[]>([]);
 
 const nbActions = ref(0);
 
-// maybe here a function to add an action to the flow and then a component to select the action and provide the payload
-
-function addActionFromStep(action: Action) {
+function addActionFromStep(action: actionInput) {
+  console.log("Add action", action);
   selectedActions.value.push(action);
 }
 
 function addAction() {
   nbActions.value++;
+}
+
+function removeAction(stepNumber: number) {
+  console.log("Remove action", stepNumber);
+  selectedActions.value = selectedActions.value.filter((action) => action.stepNumber !== stepNumber);
+  nbActions.value--;
 }
 
 useHead({
@@ -55,7 +67,7 @@ useHead({
 
 <template>
   <div>
-    <form class="m-4">
+    <div class="m-4">
       <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
         <input
           v-model="flowName"
@@ -67,8 +79,8 @@ useHead({
       <div v-else class="flex flex-col gap-4 mt-4">
         <TriggerStep :providers="providers" @update:modelValue="selectedTrigger = $event" />
         <div v-for="action in nbActions" :key="action">
-          <ActionStep :providers="providers" @update:modelValue="addActionFromStep($event)" />
-          <button class="btn-secondary w-full" @click="nbActions-- && selectedActions.pop()">Remove Action</button>
+          <ActionStep :stepNumber="action" :providers="providers" @update:modelValue="addActionFromStep($event)" />
+          <button class="btn-secondary w-full" @click="removeAction(action)">Remove Action</button>
         </div>
         <div class="relative">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
@@ -88,6 +100,6 @@ useHead({
         <button @click="createFlow" class="btn-primary w-full">Save Flow</button>
         {{ flow }}
       </div>
-    </form>
+    </div>
   </div>
 </template>

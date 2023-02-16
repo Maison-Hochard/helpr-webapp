@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import ProviderCard from "~/components/builder/providerCard.vue";
 import ActionSelector from "~/components/builder/actionSelector.vue";
+import internal from "stream";
 
 defineProps({
   providers: {
     type: Array,
+    required: true,
+  },
+  stepNumber: {
+    type: Number,
     required: true,
   },
 });
@@ -34,6 +39,7 @@ function updateValue(value: string) {
         :class="selectedProvider === provider ? 'border-accent' : 'border-gray-500'"
       />
       <ActionSelector
+        :stepNumber="stepNumber"
         :actions="selectedProvider.actions"
         v-if="selectedProvider"
         v-model="selectedAction"
