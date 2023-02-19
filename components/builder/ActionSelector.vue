@@ -15,7 +15,7 @@ const props = defineProps({
 const selectedAction = ref<createActionInput>();
 const payload = ref({});
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:value"]);
 
 const action = computed(() => {
   return {
@@ -25,7 +25,7 @@ const action = computed(() => {
 });
 
 function addAction() {
-  emit("update:modelValue", {
+  emit("update:value", {
     stepNumber: props.stepNumber,
     action: action.value,
   });

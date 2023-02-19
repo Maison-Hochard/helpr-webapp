@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import ProviderCard from "~/components/builder/providerCard.vue";
-import TriggerSelector from "~/components/builder/triggerSelector.vue";
+import ProviderCard from "~/components/builder/ProviderCard.vue";
+import ActionSelector from "~/components/builder/ActionSelector.vue";
 
 defineProps({
   providers: {
     type: Array,
     required: true,
   },
+  stepNumber: {
+    type: Number,
+    required: true,
+  },
 });
 
 const selectedProvider = ref();
-const selectedTrigger = ref();
+const selectedAction = ref();
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:value"]);
 
 function updateValue(value: string) {
-  emit("update:modelValue", value);
+  emit("update:value", value);
 }
 </script>
 
 <template>
   <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
-    <h3 class="text-lg leading-6 font-medium text-primary">Select a trigger</h3>
+    <h3 class="text-lg leading-6 font-medium text-primary">Select action</h3>
     <div class="flex flex-wrap gap-4 mt-4">
       <ProviderCard
         class="cursor-pointer flex flex-row items-center"
@@ -33,11 +37,12 @@ function updateValue(value: string) {
         @click="selectedProvider = provider"
         :class="selectedProvider === provider ? 'border-accent' : 'border-gray-500'"
       />
-      <TriggerSelector
-        :triggers="selectedProvider.triggers"
+      <ActionSelector
+        :stepNumber="stepNumber"
+        :actions="selectedProvider.actions"
         v-if="selectedProvider"
-        v-model="selectedTrigger"
-        @update:modelValue="updateValue"
+        v-model="selectedAction"
+        @update:value="updateValue"
       />
     </div>
   </div>

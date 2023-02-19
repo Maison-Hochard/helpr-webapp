@@ -33,7 +33,7 @@ const deleteAccount = async () => {
         <div class="mt-5 space-y-6 md:col-span-2 md:mt-0">
           <div id="username" class="flex items-center space-x-2">
             <label for="username" class="block text-sm font-medium text-muted">Username</label>
-            <Input :value="user.username" :label="'Username'" @update:modelValue="user.username = $event" />
+            <Input :value="user.username" :label="'Username'" @update:value="user.username = $event" />
           </div>
 
           <div>
@@ -121,17 +121,17 @@ const deleteAccount = async () => {
           <div class="grid grid-cols-6 gap-6">
             <div class="col-span-6 sm:col-span-3">
               <label for="first-name" class="block text-sm font-medium text-muted">First name</label>
-              <Input :value="user.firstname" :label="'firstname'" @update:modelValue="user.firstname = $event" />
+              <Input :value="user.firstname" :label="'firstname'" @update:value="user.firstname = $event" />
             </div>
 
             <div class="col-span-6 sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium text-muted">Last name</label>
-              <Input :value="user.lastname" :label="'lastname'" @update:modelValue="user.lastname = $event" />
+              <Input :value="user.lastname" :label="'lastname'" @update:value="user.lastname = $event" />
             </div>
 
             <div class="col-span-6 sm:col-span-3">
               <label for="email-address" class="block text-sm font-medium text-muted">Email address</label>
-              <Input :value="user.email" :label="'email'" @update:modelValue="user.email = $event" />
+              <Input :value="user.email" :label="'email'" @update:value="user.email = $event" />
             </div>
           </div>
           <div class="flex justify-end mt-5">

@@ -1,6 +1,5 @@
-const { $swal } = useNuxtApp();
-
 export function useSuccessToast(title: string) {
+  const { $swal } = useNuxtApp();
   $swal.fire({
     icon: "success",
     title,
@@ -12,6 +11,7 @@ export function useSuccessToast(title: string) {
 }
 
 export function useErrorToast(title: string) {
+  const { $swal } = useNuxtApp();
   $swal.fire({
     icon: "error",
     title,

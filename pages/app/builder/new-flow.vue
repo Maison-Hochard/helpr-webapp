@@ -3,11 +3,11 @@ second step is to select a trigger // third step is to select an action // fourt
 action // then the flow will be created and the user will be redirected to the flow page
 
 <script setup lang="ts">
-import { Action, createActionInput, flowBuilderData, Trigger } from "~/types/Flow";
+import { flowBuilderData, Trigger } from "~/types/Flow";
 import { getUserProviders } from "~/composables/useProvider";
 import { PlusIcon } from "@heroicons/vue/20/solid";
-import TriggerStep from "~/components/builder/triggerStep.vue";
-import ActionStep from "~/components/builder/actionStep.vue";
+import TriggerStep from "~/components/builder/TriggerStep.vue";
+import ActionStep from "~/components/builder/ActionStep.vue";
 
 definePageMeta({
   name: "New Flow",
@@ -18,14 +18,13 @@ const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(asy
   return await getUserProviders();
 });
 
+const flowStore = useFlowStore();
+
 const flowName = ref("Flow " + Math.floor(Math.random() * 1000));
+flowStore.setName(flowName.value);
 
 const flow = computed(() => {
-  return {
-    name: flowName.value,
-    triggerId: selectedTrigger.value,
-    actions: selectedActions.value,
-  };
+  return flowStore.getFlowData;
 });
 
 async function createFlow() {
@@ -77,9 +76,9 @@ useHead({
       </div>
       <Loader v-if="pending" />
       <div v-else class="flex flex-col gap-4 mt-4">
-        <TriggerStep :providers="providers" @update:modelValue="selectedTrigger = $event" />
+        <TriggerStep :providers="providers" @update:value="selectedTrigger = $event" />
         <div v-for="action in nbActions" :key="action">
-          <ActionStep :stepNumber="action" :providers="providers" @update:modelValue="addActionFromStep($event)" />
+          <ActionStep :stepNumber="action" :providers="providers" @update:value="addActionFromStep($event)" />
           <button class="btn-secondary w-full" @click="removeAction(action)">Remove Action</button>
         </div>
         <div class="relative">
