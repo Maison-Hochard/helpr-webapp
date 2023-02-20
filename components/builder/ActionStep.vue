@@ -5,8 +5,12 @@ const props = defineProps({
     type: Array,
     required: true,
   },
-  actionId: {
+  index: {
     type: Number,
+    required: true,
+  },
+  action: {
+    type: Object,
     required: true,
   },
 });
@@ -14,47 +18,63 @@ const flowStore = useFlowStore();
 
 const flow = flowStore.getFlow;
 
-const selectedProvider = ref();
-const selectedAction = ref();
+const selectedProvider = ref(
+  flow.actions?.find((action) => action.index === props.index)?.endpoint
+    ? props.providers.find(
+        (provider) =>
+          provider.name.toLowerCase() === flow.actions.find((action) => action.index === props.index)?.endpoint,
+      )
+    : ref(),
+);
+const selectedAction = ref(flow.actions.find((action) => action.index === props.index)) || ref();
+const payload = ref(selectedAction.value?.payload) || ref({});
 
 function saveAction() {
-  flowStore.saveAction(props.actionId, selectedAction.value);
+  selectedAction.value.payload = payload.value;
+  flowStore.saveAction(props.index, selectedAction.value);
+}
+
+function removeAction() {
+  flowStore.deleteAction(props.index);
 }
 </script>
 
 <template>
   <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
     <div class="flex flex-row justify-between">
-      <h3 class="text-lg leading-6 font-medium text-primary">Action</h3>
-      <TrashIcon
-        class="h-6 w-6 text-muted cursor-pointer hover:text-red-600"
-        @click="flowStore.removeAction(actionId)"
-      />
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-primary">Action {{ index }} - {{ action.title }}</h3>
+        <h4 class="text-sm text-muted">{{ action.description || "" }}</h4>
+      </div>
+      <TrashIcon class="h-6 w-6 text-muted cursor-pointer hover:text-red-600" @click="removeAction" />
     </div>
     <div class="flex flex-wrap gap-4 mt-4">
-      <Dropdown v-model="selectedProvider" :items="providers" label="Select a provider" :is-logo="true" />
+      <Dropdown
+        v-model="selectedProvider"
+        :placeholder="'Linear, Github, etc...'"
+        :items="providers"
+        label="Select a provider"
+        :is-logo="true"
+      />
       <Dropdown
         v-if="selectedProvider"
         v-model="selectedAction"
         :items="selectedProvider.actions"
+        :placeholder="'Create a new issue, etc...'"
         label="Select an action"
         :is-logo="false"
       />
-      <div v-if="selectedAction">
-        <div class="flex flex-col gap-4">
-          <div class="flex flex-row gap-4">
-            <div class="flex flex-col">
-              <p class="text-md font-bold">
-                {{ selectedAction.title }}
-              </p>
-              <p class="text-sm text-muted">
-                {{ selectedAction.description }}
-              </p>
-            </div>
-          </div>
+      <div v-if="selectedAction" id="createPayload" class="flex flex-col gap-4">
+        <div v-for="(field, key) in selectedAction.variables" :key="key" class="flex flex-col gap-2">
+          <label class="text-primary">{{ field.title }}</label>
+          <input
+            class="bg-primary text-muted p-2 focus:outline-none rounded-md"
+            type="text"
+            v-model="payload[field.name]"
+          />
         </div>
-        <button class="btn-secondary" @click="saveAction">Save Action</button>
       </div>
     </div>
+    <button class="btn-secondary mt-4" @click="saveAction">Save Action</button>
   </div>
 </template>

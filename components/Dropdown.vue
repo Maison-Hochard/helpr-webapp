@@ -45,13 +45,13 @@ const filteredItems = computed(() =>
 </script>
 
 <template>
-  <Combobox as="div" v-model="selectedItem" class="w-full">
+  <Combobox as="div" v-model="selectedItem" class="w-full" :default-value="placeholder">
     <ComboboxLabel class="block text-sm font-medium text-primary">{{ label || "Select an item" }}</ComboboxLabel>
     <div class="relative mt-1">
       <ComboboxInput
         class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
         @change="selectedItem = $event.target.value"
-        :display-value="(item) => item?.title || item?.name || ''"
+        :display-value="(item) => item?.title || item?.name || placeholder || ''"
       >
       </ComboboxInput>
       <ComboboxButton class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">

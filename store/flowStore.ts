@@ -1,12 +1,15 @@
 import { defineStore } from "pinia";
+import { Trigger } from "~/types/Flow";
 
 type Payload = {
   [key: string]: string;
 };
 
 type Action = {
-  actionId: number;
+  index: number;
   id: number;
+  title: string;
+  endpoint: string;
   name: string;
   payload: Payload;
 };
@@ -15,7 +18,7 @@ type FlowState = {
   nbActions: number;
   flow: {
     name: string;
-    trigger: {};
+    trigger: Trigger;
     actions: Action[];
   };
 };
@@ -32,7 +35,6 @@ const defaultState: FlowState = {
 export const useFlowStore = defineStore({
   id: "flow",
   state: (): FlowState => ({
-    nbActions: 1,
     flow: {
       name: "Flow " + Math.floor(Math.random() * 1000),
       trigger: {},
@@ -45,27 +47,31 @@ export const useFlowStore = defineStore({
     },
   },
   actions: {
+    reset() {
+      this.$state = defaultState;
+    },
+    saveTrigger(trigger: Trigger) {
+      this.flow.trigger = trigger;
+    },
+    saveAction(index: number, action: Action) {
+      this.flow.actions[index] = {
+        index,
+        ...action,
+      };
+      console.log(this.flow.actions);
+    },
     addAction() {
       this.flow.actions.push({
-        actionId: Math.floor(Math.random() * 1000),
-        id: 0,
-        name: "",
+        index: this.flow.actions.length,
+        id: this.flow.actions.length + 1,
+        title: "Empty action",
+        endpoint: "",
+        name: "empty",
         payload: {},
       });
     },
-    saveAction(actionId: number, actionInput: Action) {
-      this.flow.actions = this.flow.actions.map((action) => {
-        if (action.actionId === actionId) {
-          return actionInput;
-        }
-        return action;
-      });
-    },
-    removeAction(actionId: number) {
-      this.flow.actions = this.flow.actions.filter((action) => action.actionId !== actionId);
-    },
-    reset() {
-      this.$state = defaultState;
+    deleteAction(actionId: number) {
+      this.flow.actions.splice(actionId, 1);
     },
   },
 });

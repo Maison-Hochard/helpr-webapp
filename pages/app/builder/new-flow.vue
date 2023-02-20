@@ -23,15 +23,9 @@ const flowStore = useFlowStore();
 
 const flow = flowStore.getFlow;
 
-const selectedTrigger = ref();
-
 async function createFlow() {
   useErrorToast("Aie, this feature is not implemented yet :(");
   // await addFlow(flow.value);
-}
-
-function setTrigger(triggerId: number) {
-  selectedTrigger.value = triggerId;
 }
 
 useHead({
@@ -43,19 +37,23 @@ useHead({
   <div>
     <div class="m-4">
       <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
-        <Input
-          @update:value="flow.name = $event"
-          :value="flow.name"
+        <input
+          v-model="flow.name"
+          @input="flow.name = $event.target.value"
           class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
         />
         <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
       </div>
       <Loader v-if="pending" />
       <div v-else class="flex flex-col gap-4 mt-4">
-        <TriggerStep :providers="providers" @update:value="setTrigger($event)" />
-        <div v-for="action in flow.actions" :key="action">
-          <ActionStep :action-id="action.id" :providers="providers" draggable="true" class="cursor-move" />
-        </div>
+        <TriggerStep :providers="providers" />
+        <ActionStep
+          v-for="action in flow.actions"
+          :key="action.id"
+          :action="action"
+          :index="flow.actions.indexOf(action)"
+          :providers="providers"
+        />
         <div class="relative">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t border-muted" />
@@ -72,7 +70,11 @@ useHead({
           </div>
         </div>
         <button @click="createFlow" class="btn-primary w-full">Save Flow</button>
-        {{ flow }}
+        <div id="debug" class="flex flex-col mb-20">
+          <span>Flow name: {{ flow.name }}</span>
+          <span>Flow trigger: {{ flow.trigger.name }}</span>
+          <span>Flow actions: {{ flow.actions.map((action) => action.name) }}</span>
+        </div>
       </div>
     </div>
   </div>
