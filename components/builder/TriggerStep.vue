@@ -5,17 +5,11 @@ defineProps({
     required: true,
   },
 });
-const flowStore = useFlowStore();
+
+const flow = useFlowStore().getFlow;
+
 const selectedProvider = ref();
 const selectedTrigger = ref();
-
-function setTrigger() {
-  flowStore.setTriggerId(selectedTrigger.value.id);
-}
-
-function deleteTrigger() {
-  flowStore.setTriggerId(0);
-}
 </script>
 
 <template>
@@ -25,7 +19,7 @@ function deleteTrigger() {
       <Dropdown v-model="selectedProvider" :items="providers" label="Select a provider" :is-logo="true" />
       <Dropdown
         v-if="selectedProvider"
-        v-model="selectedTrigger"
+        v-model="flow.trigger"
         :items="selectedProvider.triggers"
         label="Select a trigger"
         :is-logo="false"
@@ -48,10 +42,6 @@ function deleteTrigger() {
               {{ selectedTrigger.provider.description }}
             </p>
           </div>
-        </div>
-        <div class="flex flex-row gap-4">
-          <button class="btn-primary" @click="setTrigger">Add trigger</button>
-          <button class="btn-secondary" @click="deleteTrigger">Delete trigger</button>
         </div>
       </div>
     </div>

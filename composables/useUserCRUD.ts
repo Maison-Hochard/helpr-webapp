@@ -5,4 +5,5 @@ export async function useSignup(createUserInput: createUserInput) {
     method: "POST",
     body: createUserInput,
   });
+  useRouter().push("/login");
 }

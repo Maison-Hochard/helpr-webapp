@@ -133,6 +133,7 @@ model Trigger {
   id          Int         @id @default(autoincrement())
   provider    String
   name        String      @unique
+  title       String      @unique
   value       String
   createdAt   DateTime    @default(now())
   updatedAt   DateTime?

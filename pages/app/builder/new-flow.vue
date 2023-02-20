@@ -3,11 +3,12 @@ second step is to select a trigger // third step is to select an action // fourt
 action // then the flow will be created and the user will be redirected to the flow page
 
 <script setup lang="ts">
-import { flowBuilderData, Trigger } from "~/types/Flow";
+import { flowBuilderData } from "~/types/Flow";
 import { getUserProviders } from "~/composables/useProvider";
 import { PlusIcon } from "@heroicons/vue/20/solid";
 import TriggerStep from "~/components/builder/TriggerStep.vue";
 import ActionStep from "~/components/builder/ActionStep.vue";
+import { useFlowStore } from "~/store/flowStore";
 
 definePageMeta({
   name: "New Flow",
@@ -20,47 +21,21 @@ const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(asy
 
 const flowStore = useFlowStore();
 
-const flowName = ref("Flow " + Math.floor(Math.random() * 1000));
-flowStore.setName(flowName.value);
+const flow = flowStore.getFlow;
 
-const flow = computed(() => {
-  return flowStore.getFlowData;
-});
+const selectedTrigger = ref();
 
 async function createFlow() {
-  await addFlow(flow.value);
+  useErrorToast("Aie, this feature is not implemented yet :(");
+  // await addFlow(flow.value);
 }
 
-interface actionInput {
-  id: number;
-  stepNumber: number;
-  payload: {
-    [key: string]: string;
-  };
-}
-
-const selectedTrigger = ref<Trigger>();
-const selectedActions = ref<actionInput[]>([]);
-
-const nbActions = ref(0);
-
-function addActionFromStep(action: actionInput) {
-  console.log("Add action", action);
-  selectedActions.value.push(action);
-}
-
-function addAction() {
-  nbActions.value++;
-}
-
-function removeAction(stepNumber: number) {
-  console.log("Remove action", stepNumber);
-  selectedActions.value = selectedActions.value.filter((action) => action.stepNumber !== stepNumber);
-  nbActions.value--;
+function setTrigger(triggerId: number) {
+  selectedTrigger.value = triggerId;
 }
 
 useHead({
-  title: flowName.value,
+  title: flow.name,
 });
 </script>
 
@@ -68,18 +43,18 @@ useHead({
   <div>
     <div class="m-4">
       <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
-        <input
-          v-model="flowName"
+        <Input
+          @update:value="flow.name = $event"
+          :value="flow.name"
           class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
         />
         <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
       </div>
       <Loader v-if="pending" />
       <div v-else class="flex flex-col gap-4 mt-4">
-        <TriggerStep :providers="providers" @update:value="selectedTrigger = $event" />
-        <div v-for="action in nbActions" :key="action">
-          <ActionStep :stepNumber="action" :providers="providers" @update:value="addActionFromStep($event)" />
-          <button class="btn-secondary w-full" @click="removeAction(action)">Remove Action</button>
+        <TriggerStep :providers="providers" @update:value="setTrigger($event)" />
+        <div v-for="action in flow.actions" :key="action">
+          <ActionStep :action-id="action.id" :providers="providers" draggable="true" class="cursor-move" />
         </div>
         <div class="relative">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
@@ -87,7 +62,7 @@ useHead({
           </div>
           <div class="relative flex justify-center">
             <button
-              @click="addAction"
+              @click="flowStore.addAction"
               type="button"
               class="inline-flex items-center rounded-full border border-muted bg-secondary px-4 py-1.5 text-sm font-medium leading-5 text-muted"
             >

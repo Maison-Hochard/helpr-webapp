@@ -12,7 +12,8 @@ import { PropType } from "vue";
 
 type DropdownItem = {
   id: string;
-  name: string;
+  title?: string;
+  name?: string;
   description?: string;
   logo?: string;
 };
@@ -39,7 +40,7 @@ const props = defineProps({
 const selectedItem = ref();
 
 const filteredItems = computed(() =>
-  props.items.filter((item) => item.name.toLowerCase().includes(selectedItem.value?.name?.toLowerCase() || "")),
+  props.items.filter((item) => item.name?.toLowerCase().includes(selectedItem.value?.name?.toLowerCase() || "")),
 );
 </script>
 
@@ -50,7 +51,7 @@ const filteredItems = computed(() =>
       <ComboboxInput
         class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
         @change="selectedItem = $event.target.value"
-        :display-value="(item) => item?.name"
+        :display-value="(item) => item?.title || item?.name || ''"
       >
       </ComboboxInput>
       <ComboboxButton class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
@@ -82,7 +83,7 @@ const filteredItems = computed(() =>
               <div class="flex items-center">
                 <img v-if="isLogo" :src="item.logo" alt="" class="h-6 w-6 flex-shrink-0 rounded-full" />
                 <span :class="['ml-3 truncate', selected && 'font-semibold']">
-                  {{ item.name }}
+                  {{ item.title || item.name }}
                 </span>
                 <span class="ml-3 truncate text-muted">
                   {{ item.description }}

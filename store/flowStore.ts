@@ -1,66 +1,71 @@
 import { defineStore } from "pinia";
 
-type ActionPayload = {
+type Payload = {
   [key: string]: string;
 };
 
-type FlowAction = {
+type Action = {
+  actionId: number;
   id: number;
   name: string;
-  payload: ActionPayload;
+  payload: Payload;
 };
 
 type FlowState = {
-  name: string;
-  triggerId: number;
   nbActions: number;
-  actions: FlowAction[];
+  flow: {
+    name: string;
+    trigger: {};
+    actions: Action[];
+  };
 };
 
 const defaultState: FlowState = {
-  name: "",
-  triggerId: 0,
-  nbActions: 0,
-  actions: [],
+  nbActions: 1,
+  flow: {
+    name: "",
+    trigger: {},
+    actions: [],
+  },
 };
 
 export const useFlowStore = defineStore({
   id: "flow",
   state: (): FlowState => ({
-    name: "",
-    triggerId: 0,
-    nbActions: 0,
-    actions: [],
+    nbActions: 1,
+    flow: {
+      name: "Flow " + Math.floor(Math.random() * 1000),
+      trigger: {},
+      actions: [],
+    },
   }),
   getters: {
-    getFlowData(): FlowState {
-      return {
-        name: this.name,
-        triggerId: this.triggerId,
-        nbActions: this.nbActions,
-        actions: this.actions,
-      };
+    getFlow(): FlowState["flow"] {
+      return this.flow;
     },
   },
   actions: {
-    setName(name: string) {
-      this.name = name;
+    addAction() {
+      this.flow.actions.push({
+        actionId: Math.floor(Math.random() * 1000),
+        id: 0,
+        name: "",
+        payload: {},
+      });
     },
-    setTriggerId(triggerId: number) {
-      this.triggerId = triggerId;
-    },
-    addAction(action: FlowAction) {
-      this.actions.push(action);
-      this.nbActions++;
+    saveAction(actionId: number, actionInput: Action) {
+      this.flow.actions = this.flow.actions.map((action) => {
+        if (action.actionId === actionId) {
+          return actionInput;
+        }
+        return action;
+      });
     },
     removeAction(actionId: number) {
-      this.actions = this.actions.filter((action) => action.id !== actionId);
+      this.flow.actions = this.flow.actions.filter((action) => action.actionId !== actionId);
     },
     reset() {
-      this.name = defaultState.name;
-      this.triggerId = defaultState.triggerId;
-      this.nbActions = defaultState.nbActions;
-      this.actions = defaultState.actions;
+      this.$state = defaultState;
     },
   },
 });
