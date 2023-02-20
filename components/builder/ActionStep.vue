@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TrashIcon } from "@heroicons/vue/20/solid";
+import { TrashIcon } from "@heroicons/vue/24/outline";
 const props = defineProps({
   providers: {
     type: Array,
