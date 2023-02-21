@@ -53,11 +53,20 @@ function onDragOver(event: DragEvent) {
 }
 
 const variables = computed(() => {
-  // retrieve variables in flow.trigger and flow.actions
   const triggerVariables = flow.trigger?.variables?.map((variable) => variable.value) || [];
-  return triggerVariables;
+  const actionVariables = flow.actions?.flatMap((action) => action.variables?.map((variable) => variable.value)) || [];
+  return [...triggerVariables, ...actionVariables];
 });
-const test = ref("");
+
+function copyToClipboard(variable: string) {
+  const input = document.createElement("input");
+  input.setAttribute("value", variable);
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  document.body.removeChild(input);
+  useSuccessToast("Copied to clipboard");
+}
 
 useHead({
   title: flow.name,
@@ -66,7 +75,6 @@ useHead({
 
 <template>
   <div>
-    {{ variables }}
     <div class="m-4">
       <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
         <input
@@ -78,8 +86,25 @@ useHead({
       </div>
       <Loader v-if="pending" />
       <div v-else class="flex flex-col gap-4 mt-4">
-        <InputTest v-model="test" :variables="variables" />
         <TriggerStep :providers="providers" />
+        <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
+          <h3 class="text-lg leading-6 font-medium text-primary">Variables</h3>
+          <p class="text-sm text-muted">
+            You can use these variables in your actions. Just click on them to copy them to your clipboard and paste
+            them in your action.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-4" v-if="variables.length > 0">
+            <button
+              v-for="variable in variables"
+              :key="variable"
+              class="btn-secondary"
+              @click="copyToClipboard(variable)"
+            >
+              {{ variable }}
+            </button>
+          </div>
+          <div v-else class="text-muted text-center mt-4">No variables found</div>
+        </div>
         <div class="drop-zone flex flex-col gap-4 mt-4" @dragover.prevent @dragenter.prevent @drop="onDrop">
           <ActionStep
             v-for="action in flow.actions"
@@ -111,7 +136,8 @@ useHead({
           </div>
         </div>
         <button @click="createFlow" class="btn-primary w-full">Save Flow</button>
-        <div id="debug" class="flex flex-col mb-20 text-muted text-sm">
+        <div id="debug" class="mt-10 flex flex-col mb-20 text-muted text-sm border border-muted p-2">
+          <span>Debug:</span><br />
           <span>Flow name: {{ flow.name }}</span>
           <span>Flow trigger: {{ flow.trigger.name }}</span>
           <span>Flow actions: {{ flow.actions.map((action) => action.name) }}</span>
