@@ -15,6 +15,9 @@ definePageMeta({
 const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(async () => {
   return await getUserProviders();
 });
+if (!providers) {
+  throw new Error("No providers found");
+}
 
 const flowStore = useFlowStore();
 
@@ -48,7 +51,7 @@ useHead({
           />
           <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
         </div>
-        <Switch v-model="flow.enabled" />
+        <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
       </div>
       <FlowLoader v-if="pending" :nb-items="4" />
       <div v-else class="flex flex-col gap-4 mt-4">

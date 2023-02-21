@@ -1,3 +1,5 @@
+// flow builder views
+
 <script setup>
 definePageMeta({
   name: "Builder",
@@ -15,10 +17,12 @@ const resetError = (error) => {
     <NuxtErrorBoundary>
       <NuxtPage />
       <template #error="{ error }">
-        <div class="p-8 bg-secondary rounded-md">
-          <h2 class="text-4xl font-bold">Error</h2>
-          <p>{{ error }}</p>
-          <button @click="resetError(error)" class="bg-blue-500 text-white p-2 rounded-md">Retry</button>
+        <div class="p-8 bg-secondary rounded-md m-4">
+          <h2 class="text-4xl font-bold text-center">Error !</h2>
+          <p class="text-center text-muted mt-4">{{ error }}</p>
+          <div class="flex justify-center mt-4">
+            <button class="btn-primary" @click="resetError(error)">Go back</button>
+          </div>
         </div>
       </template>
     </NuxtErrorBoundary>

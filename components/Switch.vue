@@ -1,7 +1,24 @@
 <script setup lang="ts">
 import { Switch } from "@headlessui/vue";
 import { CheckIcon, XCircleIcon } from "@heroicons/vue/24/outline";
-const enabled = ref(false);
+
+const props = defineProps({
+  modelValue: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+});
+
+const enabled = ref(props.modelValue);
+
+const emit = defineEmits(["update:value"]);
+
+const emitChange = () => {
+  emit("update:value", enabled.value);
+};
+
+watch(enabled, emitChange);
 </script>
 
 <template>
