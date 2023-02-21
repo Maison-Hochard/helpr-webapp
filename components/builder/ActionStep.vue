@@ -30,9 +30,13 @@ const selectedAction = ref(flow.actions.find((action) => action.index === props.
 const payload = ref(selectedAction.value?.payload) || ref({});
 
 function saveAction() {
-  selectedAction.value.payload = payload.value;
-  flowStore.saveAction(props.index, selectedAction.value);
-  useSuccessToast("Action saved!");
+  if (selectedAction.value?.name !== "empty") {
+    selectedAction.value.payload = payload.value;
+    flowStore.saveAction(props.index, selectedAction.value);
+    useSuccessToast("Action saved!");
+  } else {
+    useErrorToast("Please select an action");
+  }
 }
 
 function removeAction() {

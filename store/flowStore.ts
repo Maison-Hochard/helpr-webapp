@@ -30,7 +30,7 @@ type FlowState = {
 
 const defaultState: FlowState = {
   flow: {
-    name: "",
+    name: "Flow " + Math.floor(Math.random() * 1000),
     trigger: {},
     actions: [],
   },
@@ -49,26 +49,6 @@ export const useFlowStore = defineStore({
     getFlow(): FlowState["flow"] {
       return this.flow;
     },
-    getFlowVariables(): string[] {
-      const variables: string[] = [];
-      if (!this.flow.trigger || !Array.isArray(this.flow.trigger.variables)) {
-        return variables;
-      }
-      const triggerVariables = this.flow.trigger.variables.map((variable) => variable.value);
-      variables.push(...triggerVariables);
-      if (this.flow.actions.length === 0) {
-        return variables;
-      }
-      const actionsVariables = this.flow.actions.flatMap((action) => {
-        if (!Array.isArray(action.variables) || action.variables.length === 0) {
-          return [];
-        }
-        return action.variables.map((variable) => variable.value);
-      });
-      variables.push(...actionsVariables);
-      console.log(variables);
-      return variables;
-    },
   },
   actions: {
     reset() {
@@ -82,7 +62,7 @@ export const useFlowStore = defineStore({
         index,
         ...action,
       };
-      console.log(this.flow.actions);
+      console.log("Flow Action", this.flow.actions);
     },
     addAction() {
       this.flow.actions.push({
@@ -96,16 +76,15 @@ export const useFlowStore = defineStore({
       });
     },
     moveAction(currentIndex: number, newIndex: number) {
-      console.log("moveAction", currentIndex, newIndex);
-      const action = this.flow.actions[currentIndex];
-      this.flow.actions.splice(currentIndex, 1);
-      this.flow.actions.splice(newIndex, 0, action);
-      this.flow.actions.forEach((action, index) => {
-        action.index = index;
-      });
+      const currentAction = this.flow.actions[currentIndex];
+      const targetAction = this.flow.actions[newIndex];
+      this.flow.actions[currentIndex] = targetAction;
+      this.flow.actions[newIndex] = currentAction;
+      currentAction.index = newIndex;
+      targetAction.index = currentIndex;
     },
-    deleteAction(actionId: number) {
-      this.flow.actions.splice(actionId, 1);
+    deleteAction(index: number) {
+      this.flow.actions.splice(index, 1);
     },
   },
 });

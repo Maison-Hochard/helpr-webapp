@@ -52,7 +52,11 @@ function onDragOver(event: DragEvent) {
   event.preventDefault();
 }
 
-const variables = useFlowStore().getFlowVariables || ref([]);
+const variables = computed(() => {
+  // retrieve variables in flow.trigger and flow.actions
+  const triggerVariables = flow.trigger?.variables?.map((variable) => variable.value) || [];
+  return triggerVariables;
+});
 const test = ref("");
 
 useHead({
@@ -83,8 +87,8 @@ useHead({
             :action="action"
             :index="action.index"
             :providers="providers"
-            class="drag-el cursor-move"
-            draggable="true"
+            class="drag-el"
+            draggable="false"
             @dragstart="startDrag($event, action.index)"
             @dragend="endDrag"
             @dragenter="onDragEnter($event, action.index)"
