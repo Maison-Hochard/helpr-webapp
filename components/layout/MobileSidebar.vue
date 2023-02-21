@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
-import { ArrowLeftOnRectangleIcon, Bars3BottomLeftIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { ArrowLeftOnRectangleIcon, Bars3BottomLeftIcon, XMarkIcon, PlusCircleIcon } from "@heroicons/vue/24/outline";
 import { Role } from "~/types/Role";
 
 const user = useUserStore().getUser;
@@ -73,6 +73,13 @@ const sidebarOpen = ref(false);
                     </div>
                     <nav class="mt-5 flex-1" aria-label="Sidebar">
                       <div class="space-y-1 px-2">
+                        <NuxtLink
+                          to="/app/builder/new-flow"
+                          class="flex items-center px-2 py-2 text-sm font-medium rounded-md text-white bg-accent"
+                        >
+                          <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
+                          Create Flow
+                        </NuxtLink>
                         <NuxtLink
                           @click="sidebarOpen = false"
                           v-for="item in appNav"

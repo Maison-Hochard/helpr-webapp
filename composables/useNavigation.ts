@@ -23,7 +23,6 @@ const home: Navigation[] = [
 ];
 
 const app: Navigation[] = [
-  { name: "Create Flow", to: "/app/builder/new-flow", icon: PlusCircleIcon },
   { name: "My Flows", to: "/app/my-flows", icon: BookmarkIcon },
   { name: "Providers", to: "/app/providers", icon: HomeIcon },
 ];
