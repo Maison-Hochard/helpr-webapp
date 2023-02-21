@@ -5,7 +5,7 @@ type Payload = {
   [key: string]: string;
 };
 
-type Variable = {
+export type Variable = {
   key: string;
   value: string;
 };
@@ -55,7 +55,9 @@ export const useFlowStore = defineStore({
   },
   actions: {
     reset() {
-      this.$state = defaultState;
+      if (confirm("Are you sure you want to reset?")) {
+        this.$state = defaultState;
+      }
     },
     saveTrigger(trigger: Trigger) {
       this.flow.trigger = trigger;
