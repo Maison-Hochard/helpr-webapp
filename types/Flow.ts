@@ -57,4 +57,5 @@ export interface Trigger {
   createdAt: string;
   updatedAt: string;
   providerId: number;
+  variables: Variable[];
 }

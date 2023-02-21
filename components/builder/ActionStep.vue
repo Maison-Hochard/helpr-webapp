@@ -32,6 +32,7 @@ const payload = ref(selectedAction.value?.payload) || ref({});
 function saveAction() {
   selectedAction.value.payload = payload.value;
   flowStore.saveAction(props.index, selectedAction.value);
+  useSuccessToast("Action saved!");
 }
 
 function removeAction() {
@@ -43,7 +44,7 @@ function removeAction() {
   <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
     <div class="flex flex-row justify-between">
       <div>
-        <h3 class="text-lg leading-6 font-medium text-primary">Action {{ index }} - {{ action.title }}</h3>
+        <h3 class="text-lg leading-6 font-medium text-primary">{{ action.title }}</h3>
         <h4 class="text-sm text-muted">{{ action.description || "" }}</h4>
       </div>
       <TrashIcon class="h-6 w-6 text-muted cursor-pointer hover:text-red-600" @click="removeAction" />
@@ -64,14 +65,10 @@ function removeAction() {
         label="Select an action"
         :is-logo="false"
       />
-      <div v-if="selectedAction" id="createPayload" class="flex flex-col gap-4">
+      <div v-if="selectedAction" id="createPayload" class="flex flex-col gap-4 w-full">
         <div v-for="(field, key) in selectedAction.variables" :key="key" class="flex flex-col gap-2">
           <label class="text-primary">{{ field.title }}</label>
-          <input
-            class="bg-primary text-muted p-2 focus:outline-none rounded-md"
-            type="text"
-            v-model="payload[field.name]"
-          />
+          <textarea class="bg-primary text-primary p-2 focus:outline-none rounded-md" v-model="payload[field.name]" />
         </div>
       </div>
     </div>

@@ -1,7 +1,3 @@
-// This is a page which will be used to create a new flow in few steps // first step is to give a name to the flow //
-second step is to select a trigger // third step is to select an action // fourth step is to provide the payload for the
-action // then the flow will be created and the user will be redirected to the flow page
-
 <script setup lang="ts">
 import { flowBuilderData } from "~/types/Flow";
 import { getUserProviders } from "~/composables/useProvider";
@@ -28,6 +24,37 @@ async function createFlow() {
   // await addFlow(flow.value);
 }
 
+let dragActionIndex = -1;
+let targetActionIndex = -1;
+
+function startDrag(event: DragEvent, index: number) {
+  dragActionIndex = index;
+}
+
+function endDrag() {
+  dragActionIndex = -1;
+  targetActionIndex = -1;
+}
+
+function onDrop() {
+  if (dragActionIndex >= 0 && targetActionIndex >= 0 && dragActionIndex !== targetActionIndex) {
+    flowStore.moveAction(dragActionIndex, targetActionIndex);
+  }
+}
+
+function onDragEnter(event: DragEvent, index: number) {
+  if (dragActionIndex >= 0 && dragActionIndex !== index) {
+    targetActionIndex = index;
+  }
+}
+
+function onDragOver(event: DragEvent) {
+  event.preventDefault();
+}
+
+const variables = useFlowStore().getFlowVariables || ref([]);
+const test = ref("");
+
 useHead({
   title: flow.name,
 });
@@ -35,6 +62,7 @@ useHead({
 
 <template>
   <div>
+    {{ variables }}
     <div class="m-4">
       <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
         <input
@@ -46,14 +74,23 @@ useHead({
       </div>
       <Loader v-if="pending" />
       <div v-else class="flex flex-col gap-4 mt-4">
+        <InputTest v-model="test" :variables="variables" />
         <TriggerStep :providers="providers" />
-        <ActionStep
-          v-for="action in flow.actions"
-          :key="action.id"
-          :action="action"
-          :index="flow.actions.indexOf(action)"
-          :providers="providers"
-        />
+        <div class="drop-zone flex flex-col gap-4 mt-4" @dragover.prevent @dragenter.prevent @drop="onDrop">
+          <ActionStep
+            v-for="action in flow.actions"
+            :key="action.index"
+            :action="action"
+            :index="action.index"
+            :providers="providers"
+            class="drag-el cursor-move"
+            draggable="true"
+            @dragstart="startDrag($event, action.index)"
+            @dragend="endDrag"
+            @dragenter="onDragEnter($event, action.index)"
+            @dragover="onDragOver"
+          />
+        </div>
         <div class="relative">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t border-muted" />
@@ -70,7 +107,7 @@ useHead({
           </div>
         </div>
         <button @click="createFlow" class="btn-primary w-full">Save Flow</button>
-        <div id="debug" class="flex flex-col mb-20">
+        <div id="debug" class="flex flex-col mb-20 text-muted text-sm">
           <span>Flow name: {{ flow.name }}</span>
           <span>Flow trigger: {{ flow.trigger.name }}</span>
           <span>Flow actions: {{ flow.actions.map((action) => action.name) }}</span>
