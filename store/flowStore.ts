@@ -1,24 +1,5 @@
 import { defineStore } from "pinia";
-import { Trigger } from "~/types/Flow";
-
-type Payload = {
-  [key: string]: string;
-};
-
-export type Variable = {
-  key: string;
-  value: string;
-};
-
-type Action = {
-  index: number;
-  id: number;
-  title: string;
-  endpoint: string;
-  name: string;
-  payload: Payload;
-  variables: Variable[];
-};
+import { Action, Trigger } from "~/types/Flow";
 
 type FlowState = {
   flow: {

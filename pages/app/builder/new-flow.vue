@@ -25,8 +25,7 @@ const flowStore = useFlowStore();
 const flow = flowStore.getFlow;
 
 async function createFlow() {
-  useErrorToast("Aie, this feature is not implemented yet :(");
-  // await addFlow(flow.value);
+  await addFlow(flow);
 }
 
 useHead({

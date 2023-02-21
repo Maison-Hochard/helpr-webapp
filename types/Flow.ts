@@ -1,13 +1,5 @@
-export interface addActionInput {
-  id: number;
-  order: number;
-  payload: string;
-}
-
-export interface createFlowInput {
-  name: string;
-  triggerId: number;
-  actions: addActionInput[];
+interface Payload {
+  [key: string]: string;
 }
 
 export interface createActionInput {
@@ -20,22 +12,20 @@ export interface flowBuilderData {
   name: string;
   description: string;
   logo: string;
-  createdAt: string;
-  updatedAt: string;
   actions: Action[];
   triggers: Trigger[];
 }
 
 export interface Action {
+  index: number;
   id: number;
   title: string;
-  description: string;
+  description?: string;
   endpoint: string;
   name: string;
-  providerId: number;
-  createdAt: string;
-  updatedAt: string;
+  providerId?: number;
   variables: Variable[];
+  payload?: Payload;
 }
 
 interface Variable {
@@ -43,9 +33,8 @@ interface Variable {
   title: string;
   name: string;
   value: string;
-  createdAt: string;
-  updatedAt: string;
-  actionId: number;
+  actionId?: number;
+  triggerId?: number;
 }
 
 export interface Trigger {
@@ -54,8 +43,6 @@ export interface Trigger {
   name: string;
   description: string;
   value: string;
-  createdAt: string;
-  updatedAt: string;
   providerId: number;
   variables: Variable[];
 }

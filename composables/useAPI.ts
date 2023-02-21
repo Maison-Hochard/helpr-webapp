@@ -18,7 +18,7 @@ export async function useAPI<T>(url: string, method: RequestMethod, body?: objec
       method,
       body,
       headers: {
-        authorization: `Bearer ${user.authToken || ""}`,
+        authorization: `Bearer ${user?.authToken || ""}`,
       },
       credentials: "include",
     })) as T;
