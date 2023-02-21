@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { flowBuilderData } from "~/types/Flow";
-import { getUserProviders } from "~/composables/useProvider";
 import { PlusIcon } from "@heroicons/vue/24/outline";
 import TriggerStep from "~/components/builder/TriggerStep.vue";
 import ActionStep from "~/components/builder/ActionStep.vue";
+import Debug from "~/components/builder/Debug.vue";
 import { useFlowStore } from "~/store/flowStore";
-import FlowLoader from "~/components/FlowLoader.vue";
+import { flowBuilderData } from "~/types/Flow";
+import { endDrag, onDragEnter, onDragOver, onDrop, startDrag } from "~/composables/Builder/useBuilder";
 
 definePageMeta({
   name: "New Flow",
@@ -23,34 +23,6 @@ const flow = flowStore.getFlow;
 async function createFlow() {
   useErrorToast("Aie, this feature is not implemented yet :(");
   // await addFlow(flow.value);
-}
-
-let dragActionIndex = -1;
-let targetActionIndex = -1;
-
-function startDrag(event: DragEvent, index: number) {
-  dragActionIndex = index;
-}
-
-function endDrag() {
-  dragActionIndex = -1;
-  targetActionIndex = -1;
-}
-
-function onDrop() {
-  if (dragActionIndex >= 0 && targetActionIndex >= 0 && dragActionIndex !== targetActionIndex) {
-    flowStore.moveAction(dragActionIndex, targetActionIndex);
-  }
-}
-
-function onDragEnter(event: DragEvent, index: number) {
-  if (dragActionIndex >= 0 && dragActionIndex !== index) {
-    targetActionIndex = index;
-  }
-}
-
-function onDragOver(event: DragEvent) {
-  event.preventDefault();
 }
 
 const variables = computed(() => {
@@ -99,7 +71,7 @@ useHead({
           </div>
           <div v-else class="text-muted text-center mt-4">No variables found</div>
         </div>
-        <div class="drop-zone flex flex-col gap-4 mt-4" @dragover.prevent @dragenter.prevent @drop="onDrop">
+        <div class="flex flex-col gap-4 mt-4" @dragover.prevent @dragenter.prevent @drop="onDrop">
           <ActionStep
             v-for="action in flow.actions"
             :key="action.index"
@@ -130,13 +102,12 @@ useHead({
           </div>
         </div>
         <button @click="createFlow" class="btn-primary w-full">Save Flow</button>
-        <div id="debug" class="mt-10 flex flex-col mb-20 text-muted text-sm border border-muted p-2">
-          <span>Debug:</span><br />
-          <span>Flow name: {{ flow.name }}</span>
-          <span>Flow enabled: {{ flow.enabled }}</span>
-          <span>Flow trigger: {{ flow.trigger.name }}</span>
-          <span>Flow actions: {{ flow.actions.map((action) => action.name) }}</span>
-        </div>
+        <Debug
+          :flow-actions="flow.actions"
+          :flow-trigger="flow.trigger"
+          :flow-enabled="flow.enabled"
+          :flow-name="flow.name"
+        />
       </div>
     </div>
   </div>

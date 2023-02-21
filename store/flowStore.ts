@@ -65,7 +65,6 @@ export const useFlowStore = defineStore({
         index,
         ...action,
       };
-      console.log("Flow Action", this.flow.actions);
     },
     addAction() {
       this.flow.actions.push({
