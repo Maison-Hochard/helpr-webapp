@@ -24,8 +24,13 @@ const variables = computed((): string[] => {
       You can use these variables in your actions. Just click on them to copy them to your clipboard and paste them in
       your action.
     </p>
-    <div class="flex flex-wrap gap-4 mt-4" v-if="variables.length > 0">
-      <button v-for="variable in variables" :key="variable" class="btn-secondary" @click="copyToClipboard(variable)">
+    <div class="flex flex-wrap gap-2 mt-4" v-if="variables.length > 0">
+      <button
+        v-for="variable in variables"
+        :key="variable"
+        class="bg-primary text-muted px-2 py-1 rounded-md cursor-pointer border border-gray-800 hover:border-gray-400 transition-colors duration-300 ease-in-out"
+        @click="copyToClipboard(variable)"
+      >
         {{ variable }}
       </button>
     </div>

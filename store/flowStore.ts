@@ -4,8 +4,9 @@ import { Action, Trigger } from "~/types/Flow";
 type FlowState = {
   flow: {
     name: string;
+    description: string;
     enabled: boolean;
-    trigger: Trigger;
+    trigger: Trigger | object;
     actions: Action[];
   };
 };
@@ -13,6 +14,7 @@ type FlowState = {
 const defaultState: FlowState = {
   flow: {
     name: "Flow " + Math.floor(Math.random() * 1000),
+    description: "",
     enabled: false,
     trigger: {},
     actions: [],
@@ -24,6 +26,7 @@ export const useFlowStore = defineStore({
   state: (): FlowState => ({
     flow: {
       name: "Flow " + Math.floor(Math.random() * 1000),
+      description: "",
       enabled: false,
       trigger: {},
       actions: [],

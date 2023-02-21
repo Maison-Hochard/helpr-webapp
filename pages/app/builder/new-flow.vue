@@ -36,20 +36,28 @@ useHead({
 <template>
   <div>
     <div class="m-4">
-      <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6 flex items-center justify-between">
-        <div>
-          <input
-            v-model="flow.name"
-            @input="flow.name = $event.target.value"
-            class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
-          />
-          <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
-          <div class="group flex items-center gap-2 mt-4 cursor-pointer" @click="flowStore.reset">
-            <ArrowPathIcon class="h-5 w-5 text-muted group-hover:animate-spin" aria-hidden="true" />
-            <span class="text-sm text-muted"> Reset the flow </span>
+      <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
+        <div class="flex items-center gap-4 justify-between">
+          <div>
+            <input
+              v-model="flow.name"
+              @input="flow.name = $event.target.value"
+              class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
+            />
+            <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
+            <div class="group flex items-center gap-2 mt-4 cursor-pointer" @click="flowStore.reset">
+              <ArrowPathIcon class="h-5 w-5 text-muted group-hover:animate-spin" aria-hidden="true" />
+              <span class="text-sm text-muted"> Reset the flow </span>
+            </div>
           </div>
+          <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
         </div>
-        <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
+        <textarea
+          v-model="flow.description"
+          @input="flow.description = $event.target.value"
+          class="bg-transparent mt-6 border-none w-full text-sm text-muted focus:outline-none mt-4"
+          placeholder="Add a description"
+        />
       </div>
       <FlowLoader v-if="pending" :nb-items="4" />
       <div v-else class="flex flex-col gap-4 mt-4">
@@ -91,6 +99,7 @@ useHead({
           :flow-trigger="flow.trigger"
           :flow-enabled="flow.enabled"
           :flow-name="flow.name"
+          :flow-description="flow.description"
         />
       </div>
     </div>

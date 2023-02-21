@@ -3,6 +3,7 @@ import { ApiResponse } from "~/composables/useAPI";
 
 interface createFlowInput {
   name: string;
+  description: string;
   enabled: boolean;
   trigger: Trigger;
   actions: Action[];
@@ -11,6 +12,7 @@ interface createFlowInput {
 export async function addFlow(flowData: createFlowInput) {
   const response = await useAPI<ApiResponse>("/flow", "POST", {
     name: flowData.name,
+    description: flowData.description,
     enabled: flowData.enabled,
     triggerId: flowData.trigger.id,
     actions: flowData.actions,
