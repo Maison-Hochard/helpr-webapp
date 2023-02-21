@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { flowBuilderData } from "~/types/Flow";
 import { getUserProviders } from "~/composables/useProvider";
-import { PlusIcon } from "@heroicons/vue/20/solid";
+import { PlusIcon } from "@heroicons/vue/24/outline";
 import TriggerStep from "~/components/builder/TriggerStep.vue";
 import ActionStep from "~/components/builder/ActionStep.vue";
 import { useFlowStore } from "~/store/flowStore";
+import FlowLoader from "~/components/FlowLoader.vue";
 
 definePageMeta({
   name: "New Flow",
@@ -58,16 +59,6 @@ const variables = computed(() => {
   return [...triggerVariables, ...actionVariables];
 });
 
-function copyToClipboard(variable: string) {
-  const input = document.createElement("input");
-  input.setAttribute("value", variable);
-  document.body.appendChild(input);
-  input.select();
-  document.execCommand("copy");
-  document.body.removeChild(input);
-  useSuccessToast("Copied to clipboard");
-}
-
 useHead({
   title: flow.name,
 });
@@ -76,15 +67,18 @@ useHead({
 <template>
   <div>
     <div class="m-4">
-      <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
-        <input
-          v-model="flow.name"
-          @input="flow.name = $event.target.value"
-          class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
-        />
-        <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
+      <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6 flex items-center justify-between">
+        <div>
+          <input
+            v-model="flow.name"
+            @input="flow.name = $event.target.value"
+            class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
+          />
+          <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
+        </div>
+        <Switch v-model="flow.enabled" />
       </div>
-      <Loader v-if="pending" />
+      <FlowLoader v-if="pending" :nb-items="4" />
       <div v-else class="flex flex-col gap-4 mt-4">
         <TriggerStep :providers="providers" />
         <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
@@ -139,6 +133,7 @@ useHead({
         <div id="debug" class="mt-10 flex flex-col mb-20 text-muted text-sm border border-muted p-2">
           <span>Debug:</span><br />
           <span>Flow name: {{ flow.name }}</span>
+          <span>Flow enabled: {{ flow.enabled }}</span>
           <span>Flow trigger: {{ flow.trigger.name }}</span>
           <span>Flow actions: {{ flow.actions.map((action) => action.name) }}</span>
         </div>
