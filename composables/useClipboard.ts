@@ -7,3 +7,7 @@ export function copyToClipboard(variable: string) {
   document.body.removeChild(input);
   useSuccessToast("Copied to clipboard");
 }
+
+export function copyProfileLink(profileId: string) {
+  copyToClipboard(`${window.location.origin}/app/profile/${profileId}`);
+}

@@ -8,3 +8,25 @@ export async function getSomeUsers() {
     },
   });
 }
+
+export async function searchUsers(search: string) {
+  return prisma.user.findMany({
+    where: {
+      OR: [
+        {
+          firstname: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+        {
+          lastname: {
+            contains: search,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+    take: 20,
+  });
+}
