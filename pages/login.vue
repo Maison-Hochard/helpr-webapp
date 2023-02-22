@@ -12,7 +12,9 @@ const loading = ref(false);
 
 async function signin() {
   loading.value = true;
-  await useLogin(login.value, password.value);
+  const { user, error } = await useLogin(login.value, password.value);
+  if (error) useErrorToast("Invalid login or password");
+  else useSuccessToast("Welcome back " + user?.firstname);
   loading.value = false;
 }
 </script>

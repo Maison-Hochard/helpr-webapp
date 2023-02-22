@@ -21,8 +21,8 @@ const deleteAccount = async () => {
 </script>
 
 <template>
-  <form class="space-y-6 p-4" @submit.prevent="updateProfile">
-    <div class="bg-secondary px-4 py-5 shadow sm:rounded-lg sm:p-6">
+  <form class="space-y-6" @submit.prevent="updateProfile">
+    <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
       <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
           <h3 class="text-lg font-medium leading-6 text-primary">Profile</h3>
@@ -33,7 +33,7 @@ const deleteAccount = async () => {
         <div class="mt-5 space-y-6 md:col-span-2 md:mt-0">
           <div id="username" class="flex items-center space-x-2">
             <label for="username" class="block text-sm font-medium text-muted">Username</label>
-            <Input :value="user.username" :label="'Username'" @update:modelValue="user.username = $event" />
+            <Input :value="user.username" :label="'Username'" @update:value="user.username = $event" />
           </div>
 
           <div>
@@ -43,7 +43,7 @@ const deleteAccount = async () => {
                 id="about"
                 name="about"
                 rows="3"
-                class="bg-primary p-3 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                class="bg-primary p-3 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:ring-accent focus:border-accent"
                 placeholder="Hi there! I'm new here."
                 v-model="user.bio"
               ></textarea>
@@ -111,7 +111,7 @@ const deleteAccount = async () => {
       </div>
     </div>
 
-    <div class="bg-secondary px-4 py-5 shadow sm:rounded-lg sm:p-6">
+    <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
       <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
           <h3 class="text-lg font-medium leading-6 text-primary">Personal Information</h3>
@@ -121,17 +121,17 @@ const deleteAccount = async () => {
           <div class="grid grid-cols-6 gap-6">
             <div class="col-span-6 sm:col-span-3">
               <label for="first-name" class="block text-sm font-medium text-muted">First name</label>
-              <Input :value="user.firstname" :label="'firstname'" @update:modelValue="user.firstname = $event" />
+              <Input :value="user.firstname" :label="'firstname'" @update:value="user.firstname = $event" />
             </div>
 
             <div class="col-span-6 sm:col-span-3">
               <label for="last-name" class="block text-sm font-medium text-muted">Last name</label>
-              <Input :value="user.lastname" :label="'lastname'" @update:modelValue="user.lastname = $event" />
+              <Input :value="user.lastname" :label="'lastname'" @update:value="user.lastname = $event" />
             </div>
 
             <div class="col-span-6 sm:col-span-3">
               <label for="email-address" class="block text-sm font-medium text-muted">Email address</label>
-              <Input :value="user.email" :label="'email'" @update:modelValue="user.email = $event" />
+              <Input :value="user.email" :label="'email'" @update:value="user.email = $event" />
             </div>
           </div>
           <div class="flex justify-end mt-5">
@@ -147,7 +147,7 @@ const deleteAccount = async () => {
       </div>
     </div>
 
-    <div class="bg-secondary shadow sm:rounded-lg">
+    <div class="bg-secondary shadow rounded-lg">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg font-medium leading-6 text-primary">Manage Subscription</h3>
         <div class="my-2 max-w-xl text-sm text-muted">
@@ -195,7 +195,7 @@ const deleteAccount = async () => {
       </div>
     </div>
 
-    <div class="bg-secondary shadow sm:rounded-lg">
+    <div class="bg-secondary shadow rounded-lg">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg font-medium leading-6 text-primary">Delete your account</h3>
         <div class="mt-2 max-w-xl text-sm text-muted">

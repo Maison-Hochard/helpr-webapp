@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+import LanguageSelector from "~/components/settings/LanguageSelector.vue";
 
 const navigation = getNavigation("home");
 
-const user = useUserStore().getUser;
+const user = computed(() => {
+  return useUserStore().getUser;
+});
 </script>
 
 <template>
@@ -50,7 +53,7 @@ const user = useUserStore().getUser;
             <NuxtLink
               v-if="user"
               to="/app/profile/me"
-              class="text-inverted bg-accent hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
+              class="text-inverted gradient hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
             >
               <span class="ml-2">Open App</span>
             </NuxtLink>

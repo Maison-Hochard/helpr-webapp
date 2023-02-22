@@ -29,9 +29,10 @@ const theme = computed(() => useGlobalStore().getTheme);
 
 onMounted(() => {
   const userLocale = useLocalStorage("locale", "en");
-  const userTheme = useLocalStorage("theme", "dark");
+  const userTheme = useLocalStorage("theme", "cosmos");
 
   useGlobalStore().setTheme(userTheme.value);
+  useGlobalStore().setLocale(userLocale.value);
   locale.value = userLocale.value;
 });
 

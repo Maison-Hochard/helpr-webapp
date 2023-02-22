@@ -25,9 +25,6 @@ model ResetPassword {
 }
 
 model Subscription {
-  id            Int     @id @default(autoincrement())
-  name          String
-  userId        Int
   stripeId      String  @unique
   stripeStatus  String?
   stripePriceId String?
@@ -35,6 +32,9 @@ model Subscription {
   endsAt        Int?
   startDate     Int
   lastEventDate Int
+  id            Int     @id @default(autoincrement())
+  userId        Int
+  name          String
   User          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
@@ -46,6 +46,7 @@ model User {
   lastname            String
   password            String
   stripeCustomerId    String?
+  bio                 String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime?             @updatedAt
   role                Int                   @default(1)
@@ -60,17 +61,18 @@ model User {
   ProviderCredentials ProviderCredentials[]
   ResetPassword       ResetPassword[]
   Subscription        Subscription[]
-  Provider            Provider[]
+  Provider            Provider[]            @relation("ProviderToUser")
 }
 
 model ProviderCredentials {
-  id          Int    @id @default(autoincrement())
-  providerId  String @unique
-  provider    String
-  accessToken String
-  userId      Int
-  expiresAt   Int?
-  User        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           Int     @id @default(autoincrement())
+  providerId   String  @unique
+  provider     String
+  accessToken  String
+  userId       Int
+  expiresAt    Int?
+  refreshToken String?
+  User         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Action {
@@ -78,27 +80,30 @@ model Action {
   title       String
   description String
   endpoint    String
-  name        String
+  name        String        @unique
   providerId  Int
   createdAt   DateTime      @default(now())
   updatedAt   DateTime?
   Provider    Provider      @relation(fields: [providerId], references: [id], onDelete: Cascade)
   FlowActions FlowActions[]
+  Variables   Variables[]   @relation("ActionToVariables")
 }
 
 model Flow {
-  id          Int           @id @default(autoincrement())
-  name        String
-  description String?
-  accessToken String
-  enabled     Boolean       @default(true)
-  status      Int           @default(1)
-  trigger     Int           @default(1)
-  userId      Int
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime?
-  User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  FlowActions FlowActions[]
+  id            Int             @id @default(autoincrement())
+  name          String
+  description   String?
+  accessToken   String
+  enabled       Boolean         @default(true)
+  status        Int             @default(1)
+  userId        Int
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime?
+  triggerId     Int
+  Trigger       Trigger         @relation(fields: [triggerId], references: [id], onDelete: Cascade)
+  User          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  FlowActions   FlowActions[]
+  FlowVariables FlowVariables[]
 }
 
 model FlowActions {
@@ -114,11 +119,49 @@ model FlowActions {
 
 model Provider {
   id          Int       @id @default(autoincrement())
-  name        String
+  name        String    @unique
   description String
   logo        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
   Action      Action[]
-  User        User[]
+  Trigger     Trigger[]
+  User        User[]    @relation("ProviderToUser")
+}
+
+model Trigger {
+  id          Int         @id @default(autoincrement())
+  provider    String
+  name        String      @unique
+  title       String      @unique
+  value       String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime?
+  providerId  Int
+  description String
+  Flow        Flow[]
+  Provider    Provider    @relation(fields: [providerId], references: [id])
+  Variables   Variables[]
+}
+
+model FlowVariables {
+  id        Int       @id @default(autoincrement())
+  name      String
+  value     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  flowId    Int?
+  Flow      Flow?     @relation(fields: [flowId], references: [id])
+}
+
+model Variables {
+  id        Int       @id @default(autoincrement())
+  name      String
+  value     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime?
+  triggerId Int?
+  title     String
+  Trigger   Trigger?  @relation(fields: [triggerId], references: [id])
+  Action    Action[]  @relation("ActionToVariables")
 }

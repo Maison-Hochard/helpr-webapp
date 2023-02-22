@@ -57,6 +57,7 @@
     "sass": "^1.57.1",
     "stripe": "^11.7.0",
     "typescript": "^4.9.4",
+    "vue-sweetalert2": "^5.0.5",
     "vue3-google-login": "^2.0.12",
     "vue3-google-oauth2": "^1.0.6"
   }

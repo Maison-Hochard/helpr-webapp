@@ -26,7 +26,7 @@ async function updateUser(user: User) {
 </script>
 
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
+  <div>
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-xl font-semibold text-primary">Users</h1>

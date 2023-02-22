@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { addCredentials, getAuthenticatedProviders } from "~/composables/useServices";
-import { googleTokenLogin } from "vue3-google-login";
+import { addCredentials, getAuthenticatedProviders } from "~/composables/useProvider";
 import { getGithubToken } from "~/composables/Provider/useGithub";
 import LoginWithGoogle from "~/components/loginWithGoogle.vue";
 
 definePageMeta({
-  name: "Services",
+  name: "Providers",
   title: "Connect Services",
 });
 
@@ -14,7 +13,7 @@ const {
   refresh,
   pending,
 } = await useLazyAsyncData(async () => {
-  return await getAuthenticatedProviders();
+  // return await getAuthenticatedProviders();
 });
 
 const linearKey = ref("");
@@ -34,8 +33,8 @@ async function AddToken(provider: string, token: string) {
 }
 
 function isConnected(service: string) {
-  if (!services.value) return false;
-  for (const provider of services.value) {
+  if (!providers.value) return false;
+  for (const provider of providers.value) {
     if (provider.provider === service) {
       return true;
     }

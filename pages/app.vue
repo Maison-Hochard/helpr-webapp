@@ -10,6 +10,6 @@ definePageMeta({
 
 <template>
   <div class="md:pl-64 w-full">
-    <NuxtPage />
+    <NuxtPage class="m-4" />
   </div>
 </template>

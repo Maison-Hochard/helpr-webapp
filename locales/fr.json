@@ -18,7 +18,7 @@
     "dashboard": "Tableau de bord",
     "app management": "Gestion de l'application",
     "create flow": "Créer un flow",
-    "services": "Services"
+    "providers": "Services"
   },
   "pages": {
     "profile": {

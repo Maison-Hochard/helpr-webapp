@@ -13,9 +13,9 @@ const props = defineProps({
   value: String,
   label: String,
 });
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:value"]);
 
 function updateValue(value: string) {
-  emit("update:modelValue", value);
+  emit("update:value", value);
 }
 </script>

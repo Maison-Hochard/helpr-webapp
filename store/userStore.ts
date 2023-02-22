@@ -62,6 +62,7 @@ export const useUserStore = defineStore("user", {
             body: this.user,
           });
           this.user = updatedUser.value;
+          useSuccessToast("Profile updated successfully");
         }
       }
     },
