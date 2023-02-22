@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+import LanguageSelector from "~/components/settings/LanguageSelector.vue";
 
 const navigation = getNavigation("home");
 

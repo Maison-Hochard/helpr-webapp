@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import LanguageSelector from "~/components/settings/LanguageSelector.vue";
+import ThemeSwitcher from "~/components/settings/ThemeSwitcher.client.vue";
+
 definePageMeta({
   name: "Settings",
   title: "Settings",
@@ -24,7 +27,7 @@ definePageMeta({
         <p>Here you can change the application theme.</p>
       </div>
       <div class="mt-5 flex gap-4">
-        <ThemeSwitcher />
+        <ThemeSwitcher :is-card="true" class="w-full" />
       </div>
     </div>
   </div>
