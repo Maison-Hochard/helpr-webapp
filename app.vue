@@ -32,6 +32,7 @@ onMounted(() => {
   const userTheme = useLocalStorage("theme", "dark");
 
   useGlobalStore().setTheme(userTheme.value);
+  useGlobalStore().setLocale(userLocale.value);
   locale.value = userLocale.value;
 });
 
