@@ -43,7 +43,7 @@ const deleteAccount = async () => {
                 id="about"
                 name="about"
                 rows="3"
-                class="bg-primary p-3 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                class="bg-primary p-3 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:ring-accent focus:border-accent"
                 placeholder="Hi there! I'm new here."
                 v-model="user.bio"
               ></textarea>
