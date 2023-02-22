@@ -6,6 +6,7 @@ import {
   PencilIcon,
   PlusCircleIcon,
   BookmarkIcon,
+  GlobeAltIcon,
 } from "@heroicons/vue/24/outline";
 
 type Where = "home" | "app" | "user" | "admin";
@@ -25,6 +26,7 @@ const home: Navigation[] = [
 const app: Navigation[] = [
   { name: "My Flows", to: "/app/my-flows", icon: BookmarkIcon },
   { name: "Providers", to: "/app/providers", icon: HomeIcon },
+  { name: "Community", to: "/app/community", icon: GlobeAltIcon },
 ];
 
 const user: Navigation[] = [
