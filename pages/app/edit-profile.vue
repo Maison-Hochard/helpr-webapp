@@ -97,14 +97,14 @@ const deleteAccount = async () => {
                 <p class="text-xs text-muted">PNG, JPG, GIF up to 10MB</p>
               </div>
             </div>
-            <div class="flex justify-end mt-5">
+            <div class="flex justify-end mt-5 gap-2">
               <button
                 type="button"
                 class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-muted shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Cancel
               </button>
-              <button type="submit" class="bg-accent rounded-md px-5 ml-4 hover:bg-accent-hover">Save</button>
+              <button type="submit" class="btn-primary">Save</button>
             </div>
           </div>
         </div>
@@ -134,14 +134,14 @@ const deleteAccount = async () => {
               <Input :value="user.email" :label="'email'" @update:value="user.email = $event" />
             </div>
           </div>
-          <div class="flex justify-end mt-5">
+          <div class="flex justify-end mt-5 gap-2">
             <button
               type="button"
               class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-muted shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Cancel
             </button>
-            <button type="submit" class="bg-accent rounded-md px-5 ml-4 hover:bg-accent-hover">Save</button>
+            <button type="submit" class="btn-primary">Save</button>
           </div>
         </div>
       </div>

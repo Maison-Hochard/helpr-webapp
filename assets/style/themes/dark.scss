@@ -1,4 +1,16 @@
-:root {
+[data-theme="lime"], [data-theme="cosmos"], [data-theme="ardent"], [data-theme="nebula"] {
+  --bg-primary: #0C0C0D;
+  --bg-primary-opacity: 12, 12, 13;
+  --bg-secondary: #18181B;
+  --font-color: #FFFFFF;
+
+  --font-primary: #FFFFFF;
+  --font-muted: #66646A;
+  --font-inverted: #FFFFFF;
+
+  --border-primary: #2c282e;
+  --border-primary-hover: #66646A;
+  --border-muted: #1C1822;
   --font-placeholder: #403D46;
 }
 
@@ -12,19 +24,6 @@
 
   --accent-primary: #FFF878;
   --accent-secondary: #2DFFF5;
-
-  --bg-primary: #0C0C0D;
-  --bg-primary-opacity: 12, 12, 13;
-  --bg-secondary: #18181B;
-  --font-color: #FFFFFF;
-
-  --font-primary: #FFFFFF;
-  --font-muted: #66646A;
-  --font-inverted: #FFFFFF;
-
-  --border-primary: #2c282e;
-  --border-primary-hover: #66646A;
-  --border-muted: #1C1822;
 }
 
 [data-theme="cosmos"] {
@@ -37,19 +36,6 @@
 
     --accent-primary: #EE49FD;
     --accent-secondary: #5A069B;
-
-    --bg-primary: #0C0C0D;
-    --bg-primary-opacity: 12, 12, 13;
-    --bg-secondary: #18181B;
-    --font-color: #FFFFFF;
-
-    --font-primary: #FFFFFF;
-    --font-muted: #66646A;
-    --font-inverted: #FFFFFF;
-
-    --border-primary: #2c282e;
-    --border-primary-hover: #66646A;
-    --border-muted: #1C1822;
 }
 
 [data-theme="ardent"] {
@@ -62,19 +48,6 @@
 
   --accent-primary: #FFF16A;
   --accent-secondary: #FF4066;
-
-  --bg-primary: #0C0C0D;
-  --bg-primary-opacity: 12, 12, 13;
-  --bg-secondary: #18181B;
-  --font-color: #FFFFFF;
-
-  --font-primary: #FFFFFF;
-  --font-muted: #66646A;
-  --font-inverted: #FFFFFF;
-
-  --border-primary: #2c282e;
-  --border-primary-hover: #66646A;
-  --border-muted: #1C1822;
 }
 
 [data-theme="nebula"] {
@@ -87,17 +60,4 @@
 
   --accent-primary: #04BBF4;
   --accent-secondary: #3E0CAB;
-
-  --bg-primary: #0C0C0D;
-  --bg-primary-opacity: 12, 12, 13;
-  --bg-secondary: #18181B;
-  --font-color: #FFFFFF;
-
-  --font-primary: #FFFFFF;
-  --font-muted: #66646A;
-  --font-inverted: #FFFFFF;
-
-  --border-primary: #2c282e;
-  --border-primary-hover: #66646A;
-  --border-muted: #1C1822;
 }

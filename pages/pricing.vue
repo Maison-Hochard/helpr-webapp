@@ -76,10 +76,8 @@ const plans: Plan[] = [
               </div>
             </div>
             <div>
-              <NuxtLink
-                :to="{ name: 'Contact' }"
-                class="rounded-lg bg-accent px-4 py-2.5 text-center text-sm font-semibold leading-5 text-inverted hover:bg-accent-hover"
-                >Contact Us<span aria-hidden="true">&rarr;</span></NuxtLink
+              <NuxtLink :to="{ name: 'Contact' }" class="btn-primary"
+                >Contact Us<span aria-hidden="true" class="ml-2">&rarr;</span></NuxtLink
               >
             </div>
           </div>

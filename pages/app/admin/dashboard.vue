@@ -35,12 +35,7 @@ async function updateUser(user: User) {
         </p>
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-        <button
-          type="button"
-          class="inline-flex items-center justify-center rounded-md border border-transparent bg-accent px-4 py-2 text-sm font-medium text-inverted shadow-sm hover:bg-accent-hover"
-        >
-          Add user
-        </button>
+        <button type="button" class="btn-primary">Add user</button>
       </div>
     </div>
     <Loader v-if="pending" />

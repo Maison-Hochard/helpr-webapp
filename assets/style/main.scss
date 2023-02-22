@@ -12,6 +12,17 @@ html,body, #__nuxt, #__layout{
   width: 100%!important;
 }
 
+.border-gradient {
+  background: linear-gradient(90deg, #18181b, #18181b),
+  linear-gradient(to bottom right, #6171fe, #9f6afe, #b79dfe);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+.before\:transition-animation:before {
+  transition: opacity 1s ease-in-out, filter 1s ease-in-out;
+}
+
 @layer components {
   .input {
     @apply bg-secondary;
@@ -22,7 +33,7 @@ html,body, #__nuxt, #__layout{
   }
 
   .btn-primary {
-    @apply bg-gradient-to-bl from-accent-primary to-accent-secondary hover:bg-accent-hover;
+    @apply bg-gradient-to-bl from-accent-primary to-accent-secondary;
     @apply text-inverted;
     @apply rounded-md;
     @apply px-4 py-2 flex justify-center;

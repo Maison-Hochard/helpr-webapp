@@ -64,7 +64,7 @@ const logos = [
                 Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.
               </p>
             </div>
-            <a href="/app-release.apk" class="btn-primary w-1/3 mt-8" download> Download App </a>
+            <a href="/app-release.apk" class="btn-primary mt-8" download> Download the App !!! </a>
           </div>
         </div>
 
