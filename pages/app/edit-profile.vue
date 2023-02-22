@@ -21,8 +21,8 @@ const deleteAccount = async () => {
 </script>
 
 <template>
-  <form class="space-y-6 p-4" @submit.prevent="updateProfile">
-    <div class="bg-secondary px-4 py-5 shadow sm:rounded-lg sm:p-6">
+  <form class="space-y-6" @submit.prevent="updateProfile">
+    <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
       <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
           <h3 class="text-lg font-medium leading-6 text-primary">Profile</h3>
@@ -111,7 +111,7 @@ const deleteAccount = async () => {
       </div>
     </div>
 
-    <div class="bg-secondary px-4 py-5 shadow sm:rounded-lg sm:p-6">
+    <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
       <div class="md:grid md:grid-cols-3 md:gap-6">
         <div class="md:col-span-1">
           <h3 class="text-lg font-medium leading-6 text-primary">Personal Information</h3>
@@ -147,7 +147,7 @@ const deleteAccount = async () => {
       </div>
     </div>
 
-    <div class="bg-secondary shadow sm:rounded-lg">
+    <div class="bg-secondary shadow rounded-lg">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg font-medium leading-6 text-primary">Manage Subscription</h3>
         <div class="my-2 max-w-xl text-sm text-muted">
@@ -195,7 +195,7 @@ const deleteAccount = async () => {
       </div>
     </div>
 
-    <div class="bg-secondary shadow sm:rounded-lg">
+    <div class="bg-secondary shadow rounded-lg">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg font-medium leading-6 text-primary">Delete your account</h3>
         <div class="mt-2 max-w-xl text-sm text-muted">

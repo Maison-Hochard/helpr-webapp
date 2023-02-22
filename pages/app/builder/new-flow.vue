@@ -35,7 +35,7 @@ useHead({
 
 <template>
   <div>
-    <div class="m-4">
+    <div>
       <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
         <div class="flex items-center gap-4 justify-between">
           <div>

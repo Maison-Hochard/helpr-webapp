@@ -18,7 +18,7 @@ const {
 </script>
 
 <template>
-  <div class="m-4">
+  <div>
     <div class="bg-secondary shadow rounded-lg mb-4">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg font-medium leading-6 text-primary">My Flows</h3>
