@@ -76,7 +76,7 @@ const sidebarOpen = ref(false);
                         <NuxtLink
                           @click="sidebarOpen = false"
                           to="/app/builder/new-flow"
-                          class="mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white bg-accent"
+                          class="mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient"
                         >
                           <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                           Create Flow

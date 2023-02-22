@@ -10,7 +10,7 @@ export const useGlobalStore = defineStore({
   id: "global",
   state: (): GlobalState => ({
     loading: false,
-    theme: "dark",
+    theme: "cosmos",
     locale: "en",
   }),
   getters: {

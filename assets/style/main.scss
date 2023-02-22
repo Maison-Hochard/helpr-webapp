@@ -22,7 +22,7 @@ html,body, #__nuxt, #__layout{
   }
 
   .btn-primary {
-    @apply bg-accent hover:bg-accent-hover;
+    @apply bg-gradient-to-bl from-accent-primary to-accent-secondary hover:bg-accent-hover;
     @apply text-inverted;
     @apply rounded-md;
     @apply px-4 py-2 flex justify-center;
@@ -40,5 +40,9 @@ html,body, #__nuxt, #__layout{
     @apply border-sm rounded-md border-primary hover:border-primary-hover;
     @apply px-4 py-2 flex justify-center;
     @apply cursor-pointer;
+  }
+
+  .gradient {
+    @apply bg-gradient-to-bl from-accent-primary to-accent-secondary;
   }
 }

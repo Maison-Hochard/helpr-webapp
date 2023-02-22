@@ -40,6 +40,10 @@ module.exports = {
         accent: withOpacity("--accent-color"),
         transparent: "transparent",
       },
+      gradientColorStops: {
+        "accent-primary": "var(--accent-primary)",
+        "accent-secondary": "var(--accent-secondary)",
+      },
       borderColor: {
         primary: "var(--border-primary)",
         "primary-hover": "var(--border-primary-hover)",

@@ -53,7 +53,7 @@ const user = computed(() => {
             <NuxtLink
               v-if="user"
               to="/app/profile/me"
-              class="text-inverted bg-accent hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
+              class="text-inverted gradient hover:bg-accent-hover px-4 py-1 rounded-md text-sm font-medium"
             >
               <span class="ml-2">Open App</span>
             </NuxtLink>

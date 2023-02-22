@@ -135,7 +135,7 @@ const setTheme = (newTheme: string) => {
               <div class="bg-secondary rounded-full h-4 w-4"></div>
             </div>
             <div class="flex gap-2 w-full">
-              <div class="bg-accent rounded-md h-4 w-1/3"></div>
+              <div class="gradient rounded-md h-4 w-1/3"></div>
             </div>
             <div class="flex gap-2 w-full">
               <div class="bg-secondary rounded-md h-4 w-1/2"></div>
