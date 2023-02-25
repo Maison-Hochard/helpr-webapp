@@ -66,7 +66,7 @@ const currentTheme = computed(() => {
 const setTheme = (newTheme: string) => {
   globalStore.setTheme(newTheme);
   document.documentElement.setAttribute("data-theme", newTheme);
-  useLocalStorage("theme", newTheme).value = newTheme;
+  useLocalStorage("helpr_theme", newTheme).value = newTheme;
 };
 </script>
 
