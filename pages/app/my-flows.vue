@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TrashIcon, ArrowPathIcon, PlusCircleIcon } from "@heroicons/vue/24/outline";
+import { TrashIcon, ArrowPathIcon, PlusCircleIcon, GlobeAltIcon, LockClosedIcon } from "@heroicons/vue/24/outline";
 import { deleteFlow } from "~/composables/useFlow";
 
 definePageMeta({
@@ -33,7 +33,11 @@ const {
         <div>
           <div class="px-4 py-5 sm:p-6">
             <div class="flex items-center justify-between">
-              <h3 class="text-lg font-medium leading-6 text-primary">{{ flow.name }}</h3>
+              <div class="flex items-center gap-4">
+                <h3 class="text-lg font-medium leading-6 text-primary">{{ flow.name }}</h3>
+                <GlobeAltIcon v-if="flow.public" class="h-5 w-5 text-muted mt-1" aria-hidden="true" />
+                <LockClosedIcon v-else class="h-5 w-5 text-muted mt-1" aria-hidden="true" />
+              </div>
               <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
             </div>
             <div class="mt-2 max-w-xl text-sm text-muted">

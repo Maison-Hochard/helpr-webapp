@@ -19,6 +19,7 @@ const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(asy
 if (!providers) {
   throw new Error("No providers found");
 }
+console.log(providers);
 
 const flowStore = useFlowStore();
 
