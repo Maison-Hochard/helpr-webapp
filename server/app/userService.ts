@@ -10,6 +10,17 @@ import { createUserInput, updateUserInput } from "~/server/api/user/user.dto";
 import { Plans } from "~/types/Pricing";
 
 export async function createUser(userData: createUserInput) {
+  const findUser = await prisma.user.findFirst({
+    where: {
+      OR: [{ email: userData.email }, { username: userData.username }],
+    },
+  });
+  if (findUser) {
+    throw createError({
+      statusCode: 400,
+      message: "User already exists",
+    });
+  }
   const password = await bcrypt.hash(userData.password, 10);
   const stripeInfo = await createStripeCustomer(userData);
   const user = await prisma.user.create({

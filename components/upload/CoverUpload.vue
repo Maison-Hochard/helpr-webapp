@@ -11,6 +11,7 @@ const cover_file = ref<File | null>(null);
 async function uploadCover() {
   if (cover_file.value) {
     user.cover = await useUploadCover(cover_file.value);
+    await userStore.updateUser(false);
   }
 }
 </script>

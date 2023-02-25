@@ -11,6 +11,7 @@ const avatar_file = ref<File | null>(null);
 async function uploadAvatar() {
   if (avatar_file.value) {
     user.avatar = await useUploadAvatar(avatar_file.value);
+    await userStore.updateUser(false);
   }
 }
 </script>

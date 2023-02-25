@@ -10,12 +10,11 @@ export async function useUploadAvatar(file: File) {
   const client = useSupabaseClient();
   const user = useUserStore().getUser;
   if (!user) return;
-  const { error } = await client.storage
-    .from("avatars")
-    .upload(user.firstname.toLowerCase() + "-" + user.lastname.toLowerCase(), file, {
-      cacheControl: "3600",
-      upsert: true,
-    });
+  const filename = user.firstname.toLowerCase() + "-" + user.lastname.toLowerCase();
+  const { error } = await client.storage.from("avatars").upload(filename, file, {
+    cacheControl: "3600",
+    upsert: true,
+  });
   if (error) {
     console.error(error);
     useErrorToast("Error uploading avatar");
@@ -24,7 +23,7 @@ export async function useUploadAvatar(file: File) {
   useSuccessToast("Avatar uploaded successfully");
   const {
     data: { publicUrl },
-  } = client.storage.from("avatars").getPublicUrl(file.name);
+  } = client.storage.from("avatars").getPublicUrl(filename);
   return publicUrl;
 }
 
@@ -36,12 +35,11 @@ export async function useUploadCover(file: File) {
   const client = useSupabaseClient();
   const user = useUserStore().getUser;
   if (!user) return;
-  const { error } = await client.storage
-    .from("avatars")
-    .upload(user.firstname.toLowerCase() + "-" + user.lastname.toLowerCase() + "-cover", file, {
-      cacheControl: "3600",
-      upsert: true,
-    });
+  const filename = user.firstname.toLowerCase() + "-" + user.lastname.toLowerCase() + "-cover";
+  const { error } = await client.storage.from("avatars").upload(filename, file, {
+    cacheControl: "3600",
+    upsert: true,
+  });
   if (error) {
     console.error(error);
     useErrorToast("Error uploading cover");
@@ -50,6 +48,6 @@ export async function useUploadCover(file: File) {
   useSuccessToast("Cover uploaded successfully");
   const {
     data: { publicUrl },
-  } = client.storage.from("avatars").getPublicUrl(file.name);
+  } = client.storage.from("avatars").getPublicUrl(filename);
   return publicUrl;
 }

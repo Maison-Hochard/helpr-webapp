@@ -54,7 +54,7 @@ export const useUserStore = defineStore("user", {
         }
       }
     },
-    async updateUser() {
+    async updateUser(toast = true) {
       if (confirm("Are you sure you want to update your profile?")) {
         if (this.user) {
           const { data: updatedUser } = await useFetch<User>("/api/user/" + this.user.id, {
@@ -62,7 +62,9 @@ export const useUserStore = defineStore("user", {
             body: this.user,
           });
           this.user = updatedUser.value;
-          useSuccessToast("Profile updated successfully");
+          if (toast) {
+            useSuccessToast("Profile updated successfully");
+          }
         }
       }
     },
