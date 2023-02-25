@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { addCredentials, getAuthenticatedProviders } from "~/composables/useProvider";
 import { getGithubToken } from "~/composables/Provider/useGithub";
 import LoginWithGoogle from "~/components/loginWithGoogle.vue";
 
@@ -13,7 +12,7 @@ const {
   refresh: refreshUserProviders,
   pending: pendingUserProviders,
 } = await useLazyAsyncData(async () => {
-  // return await getUserProviders();
+  return await getUserProviders();
 });
 
 const {
@@ -24,17 +23,9 @@ const {
   return await getProviders();
 });
 
-const linearKey = ref("");
-const githubKey = ref("");
-
-function isConnected(service: string) {
-  if (!providers.value) return false;
-  for (const provider of providers.value) {
-    if (provider.provider === service) {
-      return true;
-    }
-  }
-  return false;
+function isConnected(provider: string) {
+  if (!userProviders) return false;
+  return userProviders.value.some((userProvider) => userProvider.name.toLowerCase() === provider.toLowerCase());
 }
 
 const code = computed(() => {
@@ -52,6 +43,25 @@ const githubUrl =
   githubConfig.callbackUrl +
   "&response_type=code" +
   "&scope=repo,read:user,user:email";
+
+const tokenProviders = ["github", "linear", "stripe", "notion"];
+const filteredProviders = computed(() => {
+  if (!providers.value) return [];
+  return providers.value.filter((provider) => tokenProviders.includes(provider.name.toLowerCase()));
+});
+
+const connectedProviders = computed(() => {
+  if (!userProviders.value) return [];
+  return userProviders.value.filter((provider) => tokenProviders.includes(provider.name.toLowerCase()));
+});
+
+const deconnectedProviders = computed(() => {
+  if (!userProviders.value) return [];
+  return filteredProviders.value.filter(
+    (provider) =>
+      !userProviders.value.some((userProvider) => userProvider.name.toLowerCase() === provider.name.toLowerCase()),
+  );
+});
 </script>
 
 <template>
@@ -71,13 +81,26 @@ const githubUrl =
         <span>Github Token</span>
       </button>
       <Loader v-if="pendingProviders" />
-      <div class="flex flex-row mt-10 gap-5" v-else>
+      <div class="flex flex-col mt-10 gap-4" v-else>
+        <hr class="border-primary" />
+        <label class="block text-sm font-medium text-primary">Connected services</label>
         <CreateCredential
-          v-for="provider in providers"
+          v-for="provider in connectedProviders"
           :key="provider.provider"
-          :is-connected="isConnected(provider.provider)"
+          :is-connected="false"
           :refresh-user-providers="refreshUserProviders"
-          :provider-name="provider.provider"
+          :provider-name="provider.name"
+          :token-link="provider.tokenLink"
+        />
+        <hr class="border-primary" />
+        <label class="block text-sm font-medium text-primary mt-5">Connect services</label>
+        <CreateCredential
+          v-for="provider in deconnectedProviders"
+          :key="provider.provider"
+          :is-connected="true"
+          :refresh-user-providers="refreshUserProviders"
+          :provider-name="provider.name"
+          :token-link="provider.tokenLink"
         />
       </div>
     </div>

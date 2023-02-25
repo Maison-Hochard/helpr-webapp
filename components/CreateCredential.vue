@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { removeCredentials } from "~/composables/useProvider";
+
 const props = defineProps({
   providerName: {
     type: String,
@@ -10,7 +12,6 @@ const props = defineProps({
   },
   tokenLink: {
     type: String,
-    required: true,
   },
   refreshUserProviders: {
     type: Function,
@@ -20,32 +21,39 @@ const props = defineProps({
 
 const credentials = ref("");
 
-const addToken = async () => {
+async function addToken() {
   await addCredentials(props.providerName, credentials.value);
   props.refreshUserProviders();
-};
+}
+
+async function Deconnect() {
+  if (confirm("Are you sure you want to disconnect this provider?")) {
+    await removeCredentials(props.providerName);
+    props.refreshUserProviders();
+  }
+}
 </script>
 
 <template>
-  <form class="mt-10" action="#" method="POST" v-if="isConnected">
+  <form v-if="isConnected" @submit.prevent="addToken">
     <label for="github-key" class="block text-sm font-medium text-primary"> {{ providerName }} Token Api </label>
     <div class="flex flex-row gap-5">
-      <div class="mt-1">
-        <input
-          v-model="credentials"
-          id="github-key"
-          name="github-key"
-          type="password"
-          autocomplete="github-key"
-          class="input"
-        />
-        <p class="mt-2 text-sm text-muted">
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-row gap-5 items-center">
+          <input
+            v-model="credentials"
+            id="github-key"
+            name="github-key"
+            type="password"
+            autocomplete="github-key"
+            class="input mt-1"
+          />
+          <button class="btn btn-primary" :disabled="credentials === ''">Save</button>
+        </div>
+        <p class="mt-2 text-sm text-muted" v-if="tokenLink">
           You can find your {{ providerName }} Token Api in your
           <NuxtLink :to="tokenLink" target="_blank" class="text-primary">{{ providerName }} settings</NuxtLink>.
         </p>
-      </div>
-      <div class="mt-1">
-        <button class="btn btn-primary" @click="addToken" :disabled="credentials === ''">Save</button>
       </div>
     </div>
   </form>
@@ -53,6 +61,7 @@ const addToken = async () => {
     <div class="flex flex-row gap-5 items-center">
       <ProviderLogo :provider="providerName.toLowerCase()" />
       <p class="text-sm text-muted">You have already connected {{ providerName }}.</p>
+      <button class="btn-secondary" @click="Deconnect">Deconnect</button>
     </div>
   </div>
 </template>

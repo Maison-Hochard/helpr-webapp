@@ -74,10 +74,11 @@ useHead({
         </div>
         <hr class="border-muted my-8" />
         <div id="public-flows" class="mt-8 m-6">
-          <div>
+          <div class="mb-10">
             <h2 class="text-lg leading-6 font-medium text-primary">Public flows</h2>
             <p class="mt-1 text-sm text-gray-500">This is a list of all public flows.</p>
           </div>
+          <FlowLoader :nb-items="5" />
         </div>
       </article>
     </main>

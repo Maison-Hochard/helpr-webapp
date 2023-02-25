@@ -30,7 +30,7 @@ const app: Navigation[] = [
 ];
 
 const user: Navigation[] = [
-  { name: "Profile", to: "/app/profile/me", icon: UserCircleIcon },
+  { name: "Profile", to: "/app/profile/" + useUserStore().getUser?.id, icon: UserCircleIcon },
   { name: "Edit Profile", to: "/app/edit-profile", icon: PencilIcon },
   { name: "Settings", to: "/app/settings", icon: CogIcon },
 ];
