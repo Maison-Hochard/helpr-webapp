@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { LinkIcon } from "@heroicons/vue/24/outline";
+import { getUserFlowsById } from "~/composables/useFlow";
 const userId = useRoute().params.userId;
 
 const { data: user, error } = await useFetch("/api/getUserById", {
@@ -13,6 +14,11 @@ const { data: user, error } = await useFetch("/api/getUserById", {
 if (error.value !== null && !user.value) {
   throw createError({ statusCode: 404, message: "User not found" });
 }
+
+const { data: flows, pending } = await useLazyAsyncData(async () => {
+  const { data } = await getUserFlowsById(parseInt(userId as string));
+  return data;
+});
 
 useHead({
   title: "Profile - " + user.value?.firstname + " " + user.value?.lastname,
@@ -78,7 +84,15 @@ useHead({
             <h2 class="text-lg leading-6 font-medium text-primary">Public flows</h2>
             <p class="mt-1 text-sm text-gray-500">This is a list of all public flows.</p>
           </div>
-          <FlowLoader :nb-items="5" />
+          <FlowLoader :nb-items="5" v-if="pending" />
+          <div v-else>
+            <div v-if="flows.length === 0">
+              <p class="text-sm text-muted">No public flows yet.</p>
+            </div>
+            <div v-else>
+              <Flow :is-mine="false" v-for="flow in flows" :key="flow.id" :flow="flow" />
+            </div>
+          </div>
         </div>
       </article>
     </main>

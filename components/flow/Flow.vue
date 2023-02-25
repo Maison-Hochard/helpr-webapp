@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TrashIcon, GlobeAltIcon, LockClosedIcon } from "@heroicons/vue/24/outline";
-defineProps({
+const props = defineProps({
   flow: {
     type: Object,
     required: true,
@@ -9,7 +9,19 @@ defineProps({
     type: Function,
     required: true,
   },
+  isMine: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+const flowStore = useFlowStore();
+
+function goToFlow() {
+  console.log(props.flow);
+  flowStore.loadFlow(props.flow);
+  useRouter().push("/app/builder/new-flow");
+}
 </script>
 
 <template>
@@ -18,21 +30,23 @@ defineProps({
       <div class="px-4 py-5 sm:p-6">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-4">
-            <h3 class="text-lg font-medium leading-6 text-primary">{{ flow.name }}</h3>
+            <h3 class="text-lg font-medium leading-6 text-primary cursor-pointer hover:underline" @click="goToFlow">
+              {{ flow.name }}
+            </h3>
             <GlobeAltIcon v-if="flow.public" class="h-5 w-5 text-muted mt-1" aria-hidden="true" />
             <LockClosedIcon v-else class="h-5 w-5 text-muted mt-1" aria-hidden="true" />
           </div>
-          <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
+          <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" v-if="isMine" />
         </div>
         <div class="mt-2 max-w-xl text-sm text-muted">
           <p>{{ flow.description }}</p>
         </div>
         <div class="mt-6 flex items-center justify-between">
           <div class="flex gap-4">
-            <img
+            <ProviderLogo
               v-for="provider in flow.providers"
               :key="provider.id"
-              :src="provider.logo"
+              :provider="provider.name.toLowerCase()"
               class="h-6 w-6 rounded-full"
               :alt="provider.name"
             />
@@ -41,6 +55,7 @@ defineProps({
             <TrashIcon
               class="h-5 w-5 text-muted hover:text-red-500 cursor-pointer"
               @click="deleteFlow(flow.id, refresh)"
+              v-if="isMine"
             />
           </div>
         </div>

@@ -63,3 +63,13 @@ export async function getUserFlows() {
     return;
   }
 }
+
+export async function getUserFlowsById(userId: number) {
+  const response = await useAPI<ApiResponse>(`/flow/user/${userId}`, "GET");
+  if (response.statusCode === 200) {
+    return response.data;
+  } else {
+    useErrorToast(response.message);
+    return;
+  }
+}

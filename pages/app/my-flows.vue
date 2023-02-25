@@ -29,7 +29,7 @@ const {
     </div>
     <FlowLoader v-if="pending" :nb-items="4" />
     <div id="flows-wrapper" class="flex flex-col gap-4" v-else-if="flows && flows.length > 0">
-      <Flow :flow="flow" :refresh="refresh" v-for="flow in flows" :key="flow.id" />
+      <Flow :flow="flow" :refresh="refresh" v-for="flow in flows" :key="flow.id" :is-mine="true" />
     </div>
     <div v-else class="bg-secondary shadow rounded-lg p-4">
       <h3 class="text-lg font-medium leading-6 text-primary text-center">No flows found</h3>
