@@ -9,11 +9,19 @@ definePageMeta({
 });
 
 const {
-  data: services,
-  refresh,
-  pending,
+  data: userProviders,
+  refresh: refreshUserProviders,
+  pending: pendingUserProviders,
 } = await useLazyAsyncData(async () => {
-  // return await getAuthenticatedProviders();
+  // return await getUserProviders();
+});
+
+const {
+  data: providers,
+  refresh: refreshProviders,
+  pending: pendingProviders,
+} = await useLazyAsyncData(async () => {
+  return await getProviders();
 });
 
 const linearKey = ref("");
@@ -29,7 +37,7 @@ async function addGithubToken() {
 
 async function AddToken(provider: string, token: string) {
   await addCredentials(provider, token);
-  refresh();
+  refreshUserProviders();
 }
 
 function isConnected(service: string) {
@@ -64,8 +72,8 @@ const githubUrl =
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
       <h3 class="text-lg font-medium leading-6 text-primary">Add your tokens</h3>
       <p class="mt-1 text-sm text-muted">Add your tokens to connect your services.</p>
-      <LoginWithGoogle />
-      <button class="btn-secondary">
+      <LoginWithGoogle class="p-2" />
+      <button class="btn-secondary p-2">
         <NuxtLink :to="githubUrl" class="flex flex-row gap-5 items-center">
           <ProviderLogo :provider="'github'" />
           <span>Connect Github</span>
@@ -75,7 +83,7 @@ const githubUrl =
         <ProviderLogo :provider="'github'" />
         <span>Github Token</span>
       </button>
-      <Loader v-if="pending" />
+      <Loader v-if="pendingProviders" />
       <div class="flex flex-row mt-10 gap-5" v-else>
         <div class="flex flex-col gap-4">
           <form action="#" method="POST" v-if="!isConnected('linear')">
