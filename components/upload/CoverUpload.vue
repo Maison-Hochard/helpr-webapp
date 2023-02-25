@@ -37,13 +37,13 @@ async function uploadCover() {
         <img :src="user.cover" alt="" class="rounded-md h-32 w-full object-cover" />
         <div class="flex text-sm text-gray-600">
           <label
-            for="file-upload"
+            for="cover-upload"
             class="relative cursor-pointer rounded-md font-medium text-accent hover:text-accent-hover"
           >
             <span>Upload a file</span>
             <input
-              id="file-upload"
-              name="file-upload"
+              id="cover-upload"
+              name="cover-upload"
               type="file"
               class="sr-only"
               @change="cover_file = $event.target.files[0]"

@@ -24,13 +24,13 @@ async function uploadAvatar() {
       </span>
       <div>
         <label
-          for="file-upload"
+          for="avatar-upload"
           class="relative cursor-pointer rounded-md font-medium text-accent hover:text-accent-hover"
         >
           <span>Upload a file</span>
           <input
-            id="file-upload"
-            name="file-upload"
+            id="avatar-upload"
+            name="avatar-upload"
             type="file"
             class="sr-only"
             @change="avatar_file = $event.target.files[0]"

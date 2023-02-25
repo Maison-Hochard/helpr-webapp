@@ -1,4 +1,12 @@
+function checkSize(file: File, size: number) {
+  return file.size < size;
+}
+
 export async function useUploadAvatar(file: File) {
+  if (!checkSize(file, 10000000)) {
+    useErrorToast("File size is too big (max 10MB)");
+    return;
+  }
   const client = useSupabaseClient();
   const user = useUserStore().getUser;
   if (!user) return;
@@ -21,6 +29,10 @@ export async function useUploadAvatar(file: File) {
 }
 
 export async function useUploadCover(file: File) {
+  if (!checkSize(file, 10000000)) {
+    useErrorToast("File size is too big (max 10MB)");
+    return;
+  }
   const client = useSupabaseClient();
   const user = useUserStore().getUser;
   if (!user) return;
