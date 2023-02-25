@@ -13,6 +13,10 @@ defineProps({
     type: Boolean,
     required: true,
   },
+  flowPublic: {
+    type: Boolean,
+    required: true,
+  },
   flowTrigger: {
     type: Object,
     required: true,
@@ -37,6 +41,7 @@ const debug = ref(false);
       <span>Flow name: {{ flowName }}</span>
       <span>Flow description: {{ flowDescription }}</span>
       <span>Flow enabled: {{ flowEnabled }}</span>
+      <span>Flow public: {{ flowPublic }}</span>
       <span>Flow trigger: {{ flowTrigger.name }}</span>
       <span>Flow actions: {{ flowActions.map((action) => action.name) }}</span>
     </div>

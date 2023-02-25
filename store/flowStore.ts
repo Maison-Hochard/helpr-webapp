@@ -6,6 +6,7 @@ type FlowState = {
     name: string;
     description: string;
     enabled: boolean;
+    public: boolean;
     trigger: Trigger | object;
     actions: Action[];
   };
@@ -16,6 +17,7 @@ const defaultState: FlowState = {
     name: "Flow " + Math.floor(Math.random() * 1000),
     description: "",
     enabled: false,
+    public: false,
     trigger: {},
     actions: [],
   },
@@ -28,6 +30,7 @@ export const useFlowStore = defineStore({
       name: "Flow " + Math.floor(Math.random() * 1000),
       description: "",
       enabled: false,
+      public: false,
       trigger: {},
       actions: [],
     },

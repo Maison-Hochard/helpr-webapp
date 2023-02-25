@@ -50,7 +50,16 @@ useHead({
               <span class="text-sm text-muted"> Reset the flow </span>
             </div>
           </div>
-          <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-2">
+              <label class="text-sm text-muted">Enabled</label>
+              <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="text-sm text-muted">Public</label>
+              <Switch :model-value="flow.public" @update:value="flow.public = $event" />
+            </div>
+          </div>
         </div>
         <textarea
           v-model="flow.description"
@@ -98,6 +107,7 @@ useHead({
           :flow-actions="flow.actions"
           :flow-trigger="flow.trigger"
           :flow-enabled="flow.enabled"
+          :flow-public="flow.public"
           :flow-name="flow.name"
           :flow-description="flow.description"
         />

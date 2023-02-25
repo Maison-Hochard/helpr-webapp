@@ -5,6 +5,7 @@ interface createFlowInput {
   name: string;
   description: string;
   enabled: boolean;
+  public: boolean;
   trigger: Trigger;
   actions: Action[];
 }
@@ -14,6 +15,7 @@ export async function addFlow(flowData: createFlowInput) {
     name: flowData.name,
     description: flowData.description,
     enabled: flowData.enabled,
+    public: flowData.public,
     triggerId: flowData.trigger.id,
     actions: flowData.actions,
   });
