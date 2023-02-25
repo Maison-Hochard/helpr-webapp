@@ -14,8 +14,6 @@ if (error.value !== null && !user.value) {
   throw createError({ statusCode: 404, message: "User not found" });
 }
 
-const bio = "Not much to say here, just a test user.";
-
 useHead({
   title: "Profile - " + user.value?.firstname + " " + user.value?.lastname,
   meta: [
@@ -54,7 +52,7 @@ useHead({
                   </div>
                   <div class="sm:col-span-2 mt-5">
                     <dt class="text-sm font-medium text-gray-500">Bio</dt>
-                    <dd class="mt-1 max-w-prose space-y-5 text-sm text-primary" v-html="user.bio || bio" />
+                    <dd class="mt-1 max-w-prose space-y-5 text-sm text-primary" v-html="user.bio" />
                   </div>
                 </div>
               </div>

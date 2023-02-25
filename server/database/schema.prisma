@@ -46,7 +46,7 @@ model User {
   lastname            String
   password            String
   stripeCustomerId    String?
-  bio                 String?
+  bio                 String?               @default("No bio yet")
   createdAt           DateTime              @default(now())
   updatedAt           DateTime?             @updatedAt
   role                Int                   @default(1)
