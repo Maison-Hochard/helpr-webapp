@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-mailer",
     "@pinia/nuxt",
+    "@nuxtjs/supabase",
   ],
 
   imports: {

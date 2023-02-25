@@ -54,7 +54,8 @@ model User {
   refreshToken        String?               @unique
   authToken           String?               @unique
   id                  Int                   @id @default(autoincrement())
-  avatar              String                @default("https://storage.cloud.google.com/helpr/default-avatar.jpeg")
+  avatar              String                @default("https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public/avatars/default-avatar.jpeg")
+  cover               String                @default("https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public/avatars/banner.avif")
   providerId          Int?
   EmailVerification   EmailVerification[]
   Flow                Flow[]
@@ -93,6 +94,7 @@ model Flow {
   id            Int             @id @default(autoincrement())
   name          String
   description   String?
+  public        Boolean         @default(false)
   accessToken   String
   enabled       Boolean         @default(true)
   status        Int             @default(1)
@@ -135,6 +137,7 @@ model Trigger {
   name        String      @unique
   title       String      @unique
   value       String
+  webhook     Boolean     @default(false)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime?
   providerId  Int
