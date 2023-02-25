@@ -9,6 +9,17 @@ defineProps({
     required: false,
   },
 });
+
+const baseUrl = "https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public/logo/";
+
+const theme = computed(() => {
+  const currentTheme = useGlobalStore().getTheme;
+  if (currentTheme.includes("light")) {
+    return "dark";
+  } else {
+    return "light";
+  }
+});
 </script>
 
 <template>
@@ -16,12 +27,12 @@ defineProps({
     <div v-if="!source">
       <img
         class="block h-6 w-auto lg:hidden"
-        :src="'https://storage.cloud.google.com/helpr/' + provider + '-logo-white.svg'"
+        :src="baseUrl + theme + '/' + provider + '-logo.svg'"
         :alt="provider + ' logo'"
       />
       <img
         class="hidden h-6 w-auto lg:block"
-        :src="'https://storage.cloud.google.com/helpr/' + provider + '-logo-white.svg'"
+        :src="baseUrl + theme + '/' + provider + '-logo.svg'"
         :alt="provider + ' logo'"
       />
     </div>

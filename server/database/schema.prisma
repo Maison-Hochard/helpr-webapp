@@ -126,6 +126,7 @@ model Provider {
   description String
   logo        String
   premium     Boolean   @default(false)
+  tokenLink   String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
   Action      Action[]
@@ -136,7 +137,7 @@ model Provider {
 model Trigger {
   id          Int         @id @default(autoincrement())
   provider    String
-  name        String      @unique
+  key         String      @unique
   title       String      @unique
   value       String
   premium     Boolean     @default(false)
@@ -169,7 +170,7 @@ model Variables {
   triggerId Int?
   title     String
   type      String    @default("text")
-  required  Boolean   @default(false)
+  required  Boolean   @default(true)
   webhook   Boolean   @default(false)
   Trigger   Trigger?  @relation(fields: [triggerId], references: [id])
   Action    Action[]  @relation("ActionToVariables")

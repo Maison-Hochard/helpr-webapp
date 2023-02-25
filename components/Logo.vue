@@ -6,21 +6,24 @@ defineProps({
     default: false,
   },
 });
+
+const baseUrl = "https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public/logo/";
+
+const theme = computed(() => {
+  const currentTheme = useGlobalStore().getTheme;
+  if (currentTheme.includes("light")) {
+    return "dark";
+  } else {
+    return "light";
+  }
+});
 </script>
 
 <template>
   <div>
     <NuxtLink to="/" class="flex flex-shrink-0 items-center">
-      <img
-        class="block h-6 w-auto lg:hidden"
-        src="../assets/media/helpr-logo-icon-md-blanc.svg"
-        :alt="applicationName"
-      />
-      <img
-        class="hidden h-6 w-auto lg:block"
-        src="../assets/media/helpr-logo-icon-md-blanc.svg"
-        :alt="applicationName"
-      />
+      <img class="block h-6 w-auto lg:hidden" :src="baseUrl + theme + '/helpr-logo.svg'" :alt="applicationName" />
+      <img class="hidden h-6 w-auto lg:block" :src="baseUrl + theme + '/helpr-logo.svg'" :alt="applicationName" />
       <span class="text-md font-bold text-primary ml-2" v-if="isText">
         {{ applicationName }}
       </span>
