@@ -7,7 +7,7 @@ const props = defineProps({
   },
   refresh: {
     type: Function,
-    required: true,
+    required: false,
   },
   isMine: {
     type: Boolean,
