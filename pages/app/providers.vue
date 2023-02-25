@@ -27,19 +27,6 @@ const {
 const linearKey = ref("");
 const githubKey = ref("");
 
-async function addLinearToken() {
-  await addCredentials("linear", linearKey.value);
-}
-
-async function addGithubToken() {
-  await addCredentials("github", githubKey.value);
-}
-
-async function AddToken(provider: string, token: string) {
-  await addCredentials(provider, token);
-  refreshUserProviders();
-}
-
 function isConnected(service: string) {
   if (!providers.value) return false;
   for (const provider of providers.value) {
@@ -85,57 +72,13 @@ const githubUrl =
       </button>
       <Loader v-if="pendingProviders" />
       <div class="flex flex-row mt-10 gap-5" v-else>
-        <div class="flex flex-col gap-4">
-          <form action="#" method="POST" v-if="!isConnected('linear')">
-            <label for="linear-key" class="block text-sm font-medium text-primary"> Linear Token Api </label>
-            <div class="flex flex-row gap-5">
-              <div class="mt-1">
-                <input v-model="linearKey" id="linear-key" name="linear-key" type="password" class="input" />
-                <p class="mt-2 text-sm text-muted">
-                  You can find your Linear Token Api in your
-                  <a href="https://linear.app/settings/api" target="_blank" class="text-primary">Linear settings</a>.
-                </p>
-              </div>
-              <div class="mt-1">
-                <button class="btn btn-primary" @click="addLinearToken" :disabled="linearKey === ''">Save</button>
-              </div>
-            </div>
-          </form>
-          <div v-else>
-            <div class="flex flex-row gap-5 items-center">
-              <ProviderLogo :provider="'linear'" />
-              <p class="text-sm text-muted">You have already connected Linear.</p>
-            </div>
-          </div>
-          <form class="mt-10" action="#" method="POST" v-if="!isConnected('github')">
-            <label for="github-key" class="block text-sm font-medium text-primary"> GitHub Token Api </label>
-            <div class="flex flex-row gap-5">
-              <div class="mt-1">
-                <input
-                  v-model="githubKey"
-                  id="github-key"
-                  name="github-key"
-                  type="password"
-                  autocomplete="github-key"
-                  class="input"
-                />
-                <p class="mt-2 text-sm text-muted">
-                  You can find your GitHub Token Api in your
-                  <a href="" target="_blank" class="text-primary">GitHub settings</a>.
-                </p>
-              </div>
-              <div class="mt-1">
-                <button class="btn btn-primary" @click="addGithubToken" :disabled="githubKey === ''">Save</button>
-              </div>
-            </div>
-          </form>
-          <div v-else>
-            <div class="flex flex-row gap-5 items-center">
-              <ProviderLogo :provider="'github'" />
-              <p class="text-sm text-muted">You have already connected GitHub.</p>
-            </div>
-          </div>
-        </div>
+        <CreateCredential
+          v-for="provider in providers"
+          :key="provider.provider"
+          :is-connected="isConnected(provider.provider)"
+          :refresh-user-providers="refreshUserProviders"
+          :provider-name="provider.provider"
+        />
       </div>
     </div>
   </div>
