@@ -31,7 +31,7 @@ async function sendResetPasswordEmail() {
     <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div class="mx-auto w-full max-w-sm lg:w-96">
         <div>
-          <Logo :isText="false" :isLogo="true" class="flex justify-center" />
+          <Logo :isText="false" class="flex justify-center" size="12" />
           <h2 class="text-center mt-6 text-3xl font-bold tracking-tight text-primary">Forgot Password</h2>
           <p class="my-6 text-center text-sm text-muted">
             Enter your email address and we will send you a link to reset your password.

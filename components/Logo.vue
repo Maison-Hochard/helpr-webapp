@@ -5,6 +5,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  size: {
+    type: Number,
+    default: 6,
+  },
 });
 
 const baseUrl = "https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public/logo/";
@@ -22,8 +26,18 @@ const theme = computed(() => {
 <template>
   <div>
     <NuxtLink to="/" class="flex flex-shrink-0 items-center">
-      <img class="block h-6 w-auto lg:hidden" :src="baseUrl + theme + '/helpr-logo.svg'" :alt="applicationName" />
-      <img class="hidden h-6 w-auto lg:block" :src="baseUrl + theme + '/helpr-logo.svg'" :alt="applicationName" />
+      <img
+        class="block w-auto lg:hidden"
+        :class="size ? 'h-' + size : 'h-6'"
+        :src="baseUrl + theme + '/helpr-logo.svg'"
+        :alt="applicationName"
+      />
+      <img
+        class="hidden w-auto lg:block"
+        :class="size ? 'h-' + size : 'h-6'"
+        :src="baseUrl + theme + '/helpr-logo.svg'"
+        :alt="applicationName"
+      />
       <span class="text-md font-bold text-primary ml-2" v-if="isText">
         {{ applicationName }}
       </span>

@@ -22,7 +22,7 @@ async function signin() {
 <template>
   <div class="flex min-h-full flex-col justify-center py-12 px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <img class="mx-auto h-12 w-auto" src="../assets/media/helpr-logo-icon-md-blanc.svg" alt="Helpr" />
+      <Logo :isText="false" class="flex justify-center" size="h-12" />
       <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-primary">Sign in to your account</h2>
     </div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md mt-12">
