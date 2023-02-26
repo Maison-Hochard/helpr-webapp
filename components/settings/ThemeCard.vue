@@ -18,18 +18,11 @@ const props = defineProps({
 });
 
 const globalStore = useGlobalStore();
-
-const currentTheme = computed(() => {
-  return props.availableThemes.find((t) => t.value === globalStore.getTheme);
-});
 </script>
 
 <template>
   <div>
-    <div
-      class="cursor-pointer bg-primary rounded-md p-3 w-full border-2 border-muted"
-      :class="{ 'border-2 border-accent border-': isActive }"
-    >
+    <div class="cursor-pointer bg-primary rounded-md p-3 w-full" :class="{ 'border-2 border-accent': isActive }">
       <div class="flex flex-col gap-2">
         <div class="flex gap-2">
           <component :is="icon" class="w-5 h-5 text-accent" />

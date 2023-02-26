@@ -33,11 +33,9 @@ const user = computed(() => {
                 v-for="item in navigation"
                 :to="{ name: item.name }"
                 :key="item.name"
-                class="text-primary font-medium transition duration-300 ease-in-out"
+                class="font-medium transition duration-300 ease-in-out"
                 :class="[
-                  item.name === $route.name
-                    ? 'bg-accent-faded text-accent hover:text-muted'
-                    : 'text-primary hover:text-muted',
+                  item.name === $route.name ? 'bg-accent-faded text-accent' : 'text-primary hover:text-accent',
                   'px-4 py-1 rounded-md text-sm font-medium',
                 ]"
               >
@@ -91,10 +89,8 @@ const user = computed(() => {
             :to="{ name: item.name }"
             :key="item.name"
             :class="[
-              item.name === $route.name
-                ? 'bg-accent-faded text-accent'
-                : 'text-gray-300 hover:bg-gray-800 hover:text-white',
-              'block px-4 py-1 rounded-md text-primary font-medium',
+              item.name === $route.name ? 'bg-accent-faded text-accent' : 'text-primary hover:text-accent',
+              'px-4 py-1 rounded-md text-sm font-medium',
             ]"
           >
             {{ $t("navigation." + item.name.toLowerCase()) }}
