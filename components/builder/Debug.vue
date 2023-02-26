@@ -44,6 +44,9 @@ const debug = ref(false);
       <span>Flow public: {{ flowPublic }}</span>
       <span>Flow trigger: {{ flowTrigger.name }}</span>
       <span>Flow actions: {{ flowActions.map((action) => action.name) }}</span>
+      <span
+        >Flow actions payload: <span v-for="action in flowActions" :key="action.name">{{ action.payload }}</span></span
+      >
     </div>
     <div v-else>
       <div class="mb-10 flex items-center gap-2 mt-4 cursor-pointer" @click="debug = true">

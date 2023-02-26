@@ -13,6 +13,10 @@ const passwordConfirm = ref("");
 
 const loading = ref(false);
 
+const disabled = computed(() => {
+  return password.value.length < 8 || password.value !== passwordConfirm.value;
+});
+
 const signup = async () => {
   loading.value = true;
   await useSignup({
@@ -94,9 +98,13 @@ const signup = async () => {
           class="input w-full"
           v-model="passwordConfirm"
         />
-        <div>
-          <button type="submit" class="btn-primary w-full">Sign up</button>
-        </div>
+        <ButtonPrimary
+          :full-width="true"
+          :pending="loading"
+          type="submit"
+          :disabled="disabled"
+          :class="disabled ? 'opacity-50 cursor-not-allowed' : ''"
+        />
       </form>
       <NuxtLink :to="{ name: 'Login' }" class="btn-secondary w-full mt-6">
         Already have an account ? Login here

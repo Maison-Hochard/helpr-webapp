@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Plans } from "~/types/Pricing";
-import { useUserStore } from "~/store/userStore";
 import AvatarUpload from "~/components/upload/AvatarUpload.vue";
 import CoverUpload from "~/components/upload/CoverUpload.vue";
 

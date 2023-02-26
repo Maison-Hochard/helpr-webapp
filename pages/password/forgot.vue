@@ -7,9 +7,23 @@ definePageMeta({
 
 const email = ref("");
 
-const sendResetPasswordEmail = async () => {
-  //
-};
+const loading = ref<boolean>(false);
+async function sendResetPasswordEmail() {
+  loading.value = true;
+  const { data, error } = await useFetch("/api/auth/password/" + email.value, {
+    method: "POST",
+  });
+  if (error.value) {
+    useErrorToast(error.value.message || "Error sending email");
+    loading.value = false;
+    return;
+  }
+  if (data) {
+    loading.value = false;
+    useSuccessToast("Email sent!");
+    useRouter().push("/login");
+  }
+}
 </script>
 
 <template>
@@ -17,9 +31,7 @@ const sendResetPasswordEmail = async () => {
     <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div class="mx-auto w-full max-w-sm lg:w-96">
         <div>
-          <router-link to="/">
-            <img class="h-12 w-auto mx-auto" src="../assets/media/helpr-logo-icon-md-blanc.svg" alt="Your Company" />
-          </router-link>
+          <Logo :isText="false" :isLogo="true" class="flex justify-center" />
           <h2 class="text-center mt-6 text-3xl font-bold tracking-tight text-primary">Forgot Password</h2>
           <p class="my-6 text-center text-sm text-muted">
             Enter your email address and we will send you a link to reset your password.
@@ -34,7 +46,7 @@ const sendResetPasswordEmail = async () => {
             class="input w-full"
             v-model="email"
           />
-          <button type="submit" class="btn-primary w-full">Send</button>
+          <ButtonPrimary :full-width="true" :pending="loading" type="submit" />
         </form>
       </div>
     </div>

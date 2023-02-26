@@ -26,6 +26,11 @@ const selectedProvider = ref(
       )
     : ref(),
 );
+
+const filteredProviders = computed(() => {
+  return props.providers.filter((provider) => provider._count.actions > 0);
+});
+
 const selectedAction = ref(flow.actions.find((action) => action.index === props.index)) || ref();
 const payload = ref(selectedAction.value?.payload) || ref({});
 
@@ -57,7 +62,7 @@ function removeAction() {
       <Dropdown
         v-model="selectedProvider"
         :placeholder="'Linear, Github, etc...'"
-        :items="providers"
+        :items="filteredProviders"
         label="Select a provider"
         :is-logo="true"
       />
@@ -72,7 +77,7 @@ function removeAction() {
       <div v-if="selectedAction" id="createPayload" class="flex flex-col gap-4 w-full">
         <div v-for="(field, key) in selectedAction.variables" :key="key" class="flex flex-col gap-2">
           <label class="text-primary">{{ field.title }}</label>
-          <textarea class="bg-primary text-primary p-2 focus:outline-none rounded-md" v-model="payload[field.name]" />
+          <textarea class="bg-primary text-primary p-2 focus:outline-none rounded-md" v-model="payload[field.key]" />
         </div>
       </div>
     </div>

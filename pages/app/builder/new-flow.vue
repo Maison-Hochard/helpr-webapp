@@ -19,18 +19,16 @@ const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(asy
 if (!providers) {
   throw new Error("No providers found");
 }
-console.log(providers);
-
 const flowStore = useFlowStore();
 
-const flow = flowStore.getFlow;
+const flow = computed(() => flowStore.getFlow);
 
 async function createFlow() {
-  await addFlow(flow);
+  await addFlow(flow.value);
 }
 
 useHead({
-  title: flow.name,
+  title: flow.value.name,
 });
 </script>
 

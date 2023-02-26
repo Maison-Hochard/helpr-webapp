@@ -9,19 +9,19 @@ datasource db {
 }
 
 model EmailVerification {
-  token     String   @unique
-  createdAt DateTime @default(now())
   id        Int      @id @default(autoincrement())
-  userId    Int
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ResetPassword {
-  token     String   @unique
-  createdAt DateTime @default(now())
   id        Int      @id @default(autoincrement())
-  userId    Int
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {

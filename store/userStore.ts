@@ -23,6 +23,20 @@ export const useUserStore = defineStore("user", {
     };
   },
   getters: {
+    isAdmin(): boolean {
+      if (this.user) {
+        return this.user.role === 2;
+      } else {
+        return false;
+      }
+    },
+    isPremium(): boolean {
+      if (this.subscription) {
+        return this.subscription[0].name === "Premium";
+      } else {
+        return false;
+      }
+    },
     getAccessToken(): string {
       return this.accessToken;
     },
@@ -34,6 +48,11 @@ export const useUserStore = defineStore("user", {
     },
   },
   actions: {
+    setVerified() {
+      if (this.user) {
+        this.user.isVerified = true;
+      }
+    },
     setUser(user: User) {
       this.user = user;
     },

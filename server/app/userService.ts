@@ -8,17 +8,27 @@ import jwt from "jsonwebtoken";
 import { createStripeCustomer, deleteStripeCustomer } from "~/server/app/stripeService";
 import { createUserInput, updateUserInput } from "~/server/api/user/user.dto";
 import { Plans } from "~/types/Pricing";
+import resetPassword from "~/server/api/mailer/templates/reset-password";
+import { sendGmail } from "~/server/app/mailerService";
+import { generateEmailVerificationToken } from "~/server/app/authService";
 
 export async function createUser(userData: createUserInput) {
-  const findUser = await prisma.user.findFirst({
+  const foundUser = await prisma.user.findFirst({
     where: {
-      OR: [{ email: userData.email }, { username: userData.username }],
+      OR: [
+        {
+          username: userData.username,
+        },
+        {
+          email: userData.email,
+        },
+      ],
     },
   });
-  if (findUser) {
+  if (foundUser) {
     throw createError({
       statusCode: 400,
-      message: "User already exists",
+      statusMessage: "User already exists",
     });
   }
   const password = await bcrypt.hash(userData.password, 10);
@@ -42,6 +52,15 @@ export async function createUser(userData: createUserInput) {
       lastEventDate: stripeInfo.subscription.current_period_start,
       startDate: stripeInfo.subscription.current_period_start,
     },
+  });
+  const token = await generateEmailVerificationToken(user.id);
+  const appDomain = useRuntimeConfig().public.appDomain;
+  const url = `${appDomain}/verify/user?token=${token}`;
+  await sendGmail({
+    template: resetPassword(user.email, url),
+    to: user.email,
+    from: useRuntimeConfig().mailerUser,
+    subject: "Verify your email",
   });
   return exclude(user, ["password", "authToken", "refreshToken"]);
 }

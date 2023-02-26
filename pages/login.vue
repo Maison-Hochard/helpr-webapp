@@ -57,15 +57,12 @@ async function signin() {
         </div>
         <div class="flex items-center justify-end">
           <div class="text-sm">
-            <NuxtLink :to="{ name: 'ForgotPassword' }" class="font-medium text-accent hover:text-accent-hover"
+            <NuxtLink to="/password/forgot" class="font-medium text-accent hover:text-accent-hover"
               >Forgot your password?
             </NuxtLink>
           </div>
         </div>
-
-        <div>
-          <button type="submit" class="btn-primary w-full">Sign in</button>
-        </div>
+        <ButtonPrimary :full-width="true" :pending="loading" text="Sign in" type="submit" />
       </form>
       <NuxtLink :to="{ name: 'Signup' }" class="btn-secondary w-full mt-6"> Don't have an account ? Sign up </NuxtLink>
     </div>

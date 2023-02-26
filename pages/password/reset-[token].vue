@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import ButtonPrimary from "~/components/ButtonPrimary.vue";
+
 definePageMeta({
   name: "reset-password",
   title: "Reset Password",
@@ -10,7 +12,32 @@ const passwordConfirmation = ref("");
 
 const token = useRoute().params.token;
 
-const resetPassword = async () => {};
+const loading = ref<boolean>(false);
+
+const disabled = computed(() => {
+  return password.value.length < 8 || password.value !== passwordConfirmation.value;
+});
+
+async function resetPassword() {
+  loading.value = true;
+  const { data, error } = await useFetch("/api/auth/password/reset", {
+    method: "POST",
+    body: {
+      token,
+      password: password.value,
+    },
+  });
+  if (error.value) {
+    useErrorToast(error.value.message || "Error updating password");
+    loading.value = false;
+    return;
+  }
+  if (data) {
+    loading.value = false;
+    useSuccessToast("Password updated!");
+    useRouter().push("/login");
+  }
+}
 </script>
 
 <template>
@@ -18,9 +45,7 @@ const resetPassword = async () => {};
     <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div class="mx-auto w-full max-w-sm lg:w-96">
         <div>
-          <router-link to="/">
-            <img class="h-12 w-auto mx-auto" src="../assets/media/helpr-logo-icon-md-blanc.svg" alt="Your Company" />
-          </router-link>
+          <Logo :isText="false" :isLogo="true" class="flex justify-center" />
           <h2 class="text-center mt-6 text-3xl font-bold tracking-tight text-primary">Reset Password</h2>
           <p class="my-6 text-center text-sm text-muted">Please enter your new password.</p>
         </div>
@@ -43,7 +68,16 @@ const resetPassword = async () => {};
             class="input w-full"
             v-model="passwordConfirmation"
           />
-          <button type="submit" class="btn-primary w-full">Send</button>
+          <span class="text-sm text-muted text-red-600" v-if="disabled">
+            Password must match and be at least 8 characters.
+          </span>
+          <ButtonPrimary
+            :full-width="true"
+            :pending="loading"
+            type="submit"
+            :disabled="disabled"
+            :class="disabled ? 'opacity-50 cursor-not-allowed' : ''"
+          />
         </form>
       </div>
     </div>

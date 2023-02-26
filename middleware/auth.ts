@@ -4,4 +4,7 @@ export default defineNuxtRouteMiddleware(async () => {
   if ((user == null && user == undefined) || !user) {
     return "/login";
   }
+  if (user.isVerified == false) {
+    return "/verify/user";
+  }
 });
