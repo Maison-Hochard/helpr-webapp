@@ -72,7 +72,7 @@ const mobileMenuOpen = ref(false);
               v-for="item in navigation"
               :key="item.name"
               :to="item.to"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-primary hover:bg-gray-50"
+              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-primary hover:text-accent hover:bg-accent-faded"
               >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
             >
           </div>
