@@ -1,7 +1,8 @@
 [data-theme="lime"],
 [data-theme="cosmos"],
 [data-theme="ardent"],
-[data-theme="nebula"] {
+[data-theme="nebula"],
+[data-theme="premium"] {
   --bg-primary: #0C0C0D;
   --bg-primary-opacity: 12, 12, 13;
   --bg-secondary: #18181B;
@@ -54,13 +55,25 @@
 }
 
 [data-theme="nebula"] {
-    --accent-color: 4, 187, 244;
-    --accent-color-hover: 4, 187, 244;
-    --accent-color-faded: rgba(4, 187, 244, 0.1);
+  --accent-color: 4, 187, 244;
+  --accent-color-hover: 4, 187, 244;
+  --accent-color-faded: rgba(4, 187, 244, 0.1);
 
   --accent: #04BBF4; // Just to see the color only the -accent-color use in the app
   --accent-hover: #04BBF4; // Just to see the color only the -accent-color-hover use in the app
 
   --accent-primary: #04BBF4;
   --accent-secondary: #3E0CAB;
+}
+
+[data-theme="premium"] {
+    --accent-color: 211, 170, 0;
+    --accent-color-hover: 211, 170, 0;
+    --accent-color-faded: rgba(211, 170, 0, 0.1);
+
+    --accent: #CC8700;
+    --accent-hover: #CC8700;
+
+    --accent-primary: #CC8700;
+    --accent-secondary: #FFBB36;
 }
