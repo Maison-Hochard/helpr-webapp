@@ -64,6 +64,7 @@ const theme = computed(() => {
         <span class="text-muted text-sm"
           >© 2023
           <NuxtLink
+            target="_blank"
             to="https://www.maisonhochard.com"
             class="text-muted hover:text-primary transition-colors duration-300 ease-in-out"
           >

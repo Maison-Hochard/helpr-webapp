@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Footer from "@/components/layout/Footer.vue";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/vue/24/outline";
 
 definePageMeta({
