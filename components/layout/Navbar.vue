@@ -22,7 +22,7 @@ const mobileMenuOpen = ref(false);
             :key="item.name"
             :to="item.to"
             class="text-sm font-semibold leading-6 text-primary hover:text-accent"
-            >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
+            >{{ $t(item.name.toLowerCase()) }}</NuxtLink
           >
         </div>
         <div class="flex lg:hidden">
@@ -40,8 +40,8 @@ const mobileMenuOpen = ref(false);
       <div class="flex flex-1 justify-end items-center gap-x-4">
         <LanguageSelector />
         <div v-if="!user" class="hidden lg:flex lg:gap-x-4">
-          <NuxtLink to="/login" class="btn-primary py-1">{{ $t("navigation.login") }}</NuxtLink>
-          <NuxtLink to="/signup" class="btn-secondary py-1">{{ $t("navigation.signup") }}</NuxtLink>
+          <NuxtLink to="/login" class="btn-primary py-1">{{ $t("login") }}</NuxtLink>
+          <NuxtLink to="/signup" class="btn-secondary py-1">{{ $t("signup") }}</NuxtLink>
         </div>
         <NuxtLink to="/app/my-flows" class="hidden md:block btn-secondary py-1" v-else>Open app</NuxtLink>
       </div>
@@ -64,14 +64,14 @@ const mobileMenuOpen = ref(false);
             :key="item.name"
             :to="item.to"
             class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-primary hover:bg-gray-50"
-            >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
+            >{{ $t(item.name.toLowerCase()) }}</NuxtLink
           >
         </div>
         <div class="mt-10 flex flex-col gap-y-2">
           <LanguageSelector :is-text="true" />
           <div class="flex flex-col gap-y-2" v-if="!user">
-            <NuxtLink to="/login" class="btn-primary py-1">{{ $t("navigation.login") }}</NuxtLink>
-            <NuxtLink to="/signup" class="btn-secondary py-1">{{ $t("navigation.signup") }}</NuxtLink>
+            <NuxtLink to="/login" class="btn-primary py-1">{{ $t("login") }}</NuxtLink>
+            <NuxtLink to="/signup" class="btn-secondary py-1">{{ $t("signup") }}</NuxtLink>
           </div>
           <NuxtLink to="/app/my-flows" class="btn-secondary py-1" v-else>Open app</NuxtLink>
         </div>

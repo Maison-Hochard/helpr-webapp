@@ -33,7 +33,7 @@ const signup = async () => {
 <template>
   <div class="flex min-h-full flex-col justify-center py-12 px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <Logo :isText="false" class="flex justify-center" size="12" />
+      <Logo :isText="false" class="flex justify-center" :size="12" />
       <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-primary">Sign up for your account</h2>
     </div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md mt-12">
