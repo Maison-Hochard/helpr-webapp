@@ -34,7 +34,9 @@ const signup = async () => {
   <div class="flex min-h-full flex-col justify-center py-12 px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <Logo :isText="false" class="flex justify-center" :size="12" />
-      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-primary">Sign up for your account</h2>
+      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-primary">
+        {{ $t("signup.signup_to_your_account") }}
+      </h2>
     </div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md mt-12">
       <Loader v-if="loading" />
@@ -44,7 +46,7 @@ const signup = async () => {
           name="username"
           autocomplete="username"
           required
-          placeholder="Username"
+          :placeholder="$t('signup.username')"
           class="input w-full"
           v-model="username"
         />
@@ -54,7 +56,7 @@ const signup = async () => {
             name="firstname"
             autocomplete="firstname"
             required
-            placeholder="Firstname"
+            :placeholder="$t('signup.firstname')"
             class="input w-full"
             v-model="firstname"
           />
@@ -63,7 +65,7 @@ const signup = async () => {
             name="lastname"
             autocomplete="lastname"
             required
-            placeholder="Lastname"
+            :placeholder="$t('signup.lastname')"
             class="input w-full"
             v-model="lastname"
           />
@@ -74,7 +76,7 @@ const signup = async () => {
           type="email"
           autocomplete="email"
           required
-          placeholder="Email"
+          :placeholder="$t('signup.email')"
           class="input w-full"
           v-model="email"
         />
@@ -84,7 +86,7 @@ const signup = async () => {
           type="password"
           autocomplete="current-password"
           required
-          placeholder="Password"
+          :placeholder="$t('signup.password')"
           class="input w-full"
           v-model="password"
         />
@@ -94,7 +96,7 @@ const signup = async () => {
           type="password"
           autocomplete="current-password"
           required
-          placeholder="Confirm Password"
+          :placeholder="$t('signup.confirm_password')"
           class="input w-full"
           v-model="passwordConfirm"
         />
@@ -103,11 +105,12 @@ const signup = async () => {
           :pending="loading"
           type="submit"
           :disabled="disabled"
+          :text="$t('signup.signup')"
           :class="disabled ? 'opacity-50 cursor-not-allowed' : ''"
         />
       </form>
       <NuxtLink :to="{ name: 'Login' }" class="btn-secondary w-full mt-6">
-        Already have an account ? Login here
+        {{ $t("signup.already_have_an_account") }}
       </NuxtLink>
     </div>
   </div>
