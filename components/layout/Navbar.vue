@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Dialog, DialogPanel } from "@headlessui/vue";
-import { Bars3Icon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { Bars3Icon } from "@heroicons/vue/24/outline";
 import LanguageSelector from "~/components/settings/LanguageSelector.vue";
 
 const navigation = getNavigation("home");
@@ -8,88 +8,113 @@ const navigation = getNavigation("home");
 const user = computed(() => {
   return useUserStore().getUser;
 });
-
-const mobileMenuOpen = ref(false);
 </script>
 
 <template>
-  <div>
-    <header class="backdrop-blur-lg bg-primary-opacity/40 sticky top-0 z-50">
-      <nav class="mx-auto flex max-w-7xl items-center justify-between py-3 px-4" aria-label="Global">
-        <div class="flex flex-1">
-          <div class="hidden lg:flex lg:gap-x-12">
-            <NuxtLink
-              @click="mobileMenuOpen = false"
-              v-for="item in navigation"
-              :key="item.name"
-              :to="item.to"
-              class="text-sm font-semibold leading-6 text-primary hover:text-accent"
-              >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
-            >
-          </div>
-          <div class="flex lg:hidden">
-            <button
-              type="button"
-              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary"
-              @click="mobileMenuOpen = true"
-            >
-              <span class="sr-only">Open main menu</span>
-              <Bars3Icon class="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
+  <header class="backdrop-blur-lg bg-primary-opacity/40 sticky top-0 z-50">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between py-3 px-4">
+      <div class="flex flex-1 items-center">
+        <div class="hidden lg:flex lg:gap-x-12">
+          <NuxtLink
+            v-for="item in navigation"
+            :key="item.name"
+            :to="item.to"
+            class="text-sm font-semibold leading-6 text-primary hover:text-accent"
+            >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
+          >
         </div>
-        <Logo :isText="true" :size="6" />
-        <div class="flex flex-1 justify-end items-center gap-x-4">
-          <LanguageSelector />
-          <div v-if="!user" class="hidden lg:flex lg:gap-x-4">
-            <NuxtLink to="/login" class="btn-primary py-1" @click="mobileMenuOpen = false">{{
-              $t("navigation.login")
-            }}</NuxtLink>
-            <NuxtLink to="/signup" class="btn-secondary py-1" @click="mobileMenuOpen = false">{{
-              $t("navigation.signup")
-            }}</NuxtLink>
-          </div>
-          <NuxtLink to="/app/my-flows" class="btn-secondary py-1 hidden md:block" v-else>{{
-            $t("navigation.open_app")
-          }}</NuxtLink>
-        </div>
-      </nav>
-      <Dialog as="div" class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
-        <div class="fixed inset-0 z-10" />
-        <DialogPanel class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto bg-primary py-3 px-4">
-          <div class="flex items-center justify-between">
-            <div class="flex flex-1">
-              <button type="button" class="-m-2.5 rounded-md p-2.5 text-primary" @click="mobileMenuOpen = false">
-                <span class="sr-only">Close menu</span>
-                <XMarkIcon class="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <Logo :isText="true" :size="6" />
-          </div>
-          <div class="mt-6 space-y-2">
-            <NuxtLink
-              @click="mobileMenuOpen = false"
-              v-for="item in navigation"
-              :key="item.name"
-              :to="item.to"
-              class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-primary hover:text-accent hover:bg-accent-faded"
-              >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
+        <Menu as="div" class="relative inline-block text-left md:hidden">
+          <div>
+            <MenuButton
+              class="inline-flex w-full justify-center rounded-md font-medium text-primary focus:outline-none"
             >
+              <span class="sr-only">Open menu</span>
+              <Bars3Icon class="w-6 h-6" />
+            </MenuButton>
           </div>
-          <div class="mt-10 flex flex-col gap-y-2">
-            <LanguageSelector :is-text="true" />
-            <div class="flex flex-col gap-y-2" v-if="!user">
-              <NuxtLink to="/login" class="btn-primary py-1" @click="mobileMenuOpen = false">{{
-                $t("navigation.login")
-              }}</NuxtLink>
-              <NuxtLink to="/signup" class="btn-secondary py-1" @click="mobileMenuOpen = false">{{
-                $t("navigation.signup")
-              }}</NuxtLink>
-            </div>
-            <NuxtLink to="/app/my-flows" class="btn-secondary py-1" v-else>{{ $t("navigation.open_app") }}</NuxtLink>
-          </div>
-        </DialogPanel>
-      </Dialog>
-    </header>
-  </div>
+          <transition
+            enter-active-class="transition ease-out duration-100"
+            enter-from-class="transform opacity-0 scale-95"
+            enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition ease-in duration-75"
+            leave-from-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-95"
+          >
+            <MenuItems
+              class="absolute left-0 w-56 origin-top-left bg-secondary rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none divide-y divide-gray-600"
+            >
+              <div class="px-4 py-3" v-if="user">
+                <p class="text-sm">Signed in as</p>
+                <p class="truncate text-sm font-medium text-accent">{{ user.email }}</p>
+              </div>
+              <div>
+                <MenuItem v-slot="{ active }" v-for="item in navigation" :key="item.name">
+                  <NuxtLink
+                    :to="item.to"
+                    :class="[
+                      active || item.name === $route.name ? 'bg-accent-faded text-accent' : 'text-primary',
+                      'block w-full px-4 py-2 text-left text-sm',
+                    ]"
+                  >
+                    {{ $t("navigation." + item.name.toLowerCase()) }}
+                  </NuxtLink>
+                </MenuItem>
+              </div>
+              <div v-if="!user">
+                <MenuItem v-slot="{ active }">
+                  <NuxtLink
+                    to="/login"
+                    class="w-full block text-left px-4 py-2 text-sm text-primary"
+                    :class="active ? 'bg-accent-faded text-accent' : 'text-primary'"
+                  >
+                    {{ $t("navigation.login") }}
+                  </NuxtLink>
+                </MenuItem>
+                <MenuItem v-slot="{ active }">
+                  <NuxtLink
+                    to="/signup"
+                    class="w-full block text-left px-4 py-2 text-sm text-primary"
+                    :class="active ? 'bg-accent-faded text-accent' : 'text-primary'"
+                  >
+                    {{ $t("navigation.signup") }}
+                  </NuxtLink>
+                </MenuItem>
+              </div>
+              <div v-else>
+                <MenuItem v-slot="{ active }">
+                  <NuxtLink
+                    to="/app/my-flows"
+                    class="w-full block text-left px-4 py-2 text-sm text-primary"
+                    :class="active ? 'bg-accent-faded text-accent' : 'text-primary'"
+                  >
+                    {{ $t("navigation.open_app") }}
+                  </NuxtLink>
+                </MenuItem>
+                <MenuItem v-slot="{ active }">
+                  <button
+                    class="w-full block text-left px-4 py-2 text-sm text-primary"
+                    @click="useLogout()"
+                    :class="active ? 'bg-accent-faded text-accent' : 'text-red-600'"
+                  >
+                    {{ $t("navigation.logout") }}
+                  </button>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </transition>
+        </Menu>
+      </div>
+      <Logo :isText="true" :size="6" />
+      <div class="flex flex-1 justify-end items-center gap-x-4">
+        <LanguageSelector />
+        <div v-if="!user" class="hidden lg:flex lg:gap-x-4">
+          <NuxtLink to="/login" class="btn-primary py-1">{{ $t("navigation.login") }}</NuxtLink>
+          <NuxtLink to="/signup" class="btn-secondary py-1">{{ $t("navigation.signup") }}</NuxtLink>
+        </div>
+        <NuxtLink to="/app/my-flows" class="btn-secondary py-1 hidden md:block" v-else>{{
+          $t("navigation.open_app")
+        }}</NuxtLink>
+      </div>
+    </nav>
+  </header>
 </template>
