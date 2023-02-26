@@ -50,7 +50,7 @@ async function redirectToLogin() {
           </p>
           <div class="mt-10 flex items-center gap-x-4">
             <h4 class="flex-none text-sm font-semibold leading-6 text-muted">What’s included</h4>
-            <div class="h-px flex-auto bg-gray-100" />
+            <div class="h-px flex-auto bg-secondary" />
           </div>
           <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-muted sm:grid-cols-2 sm:gap-6">
             <li v-for="feature in premiumPlan.features" :key="feature" class="flex gap-x-3">
@@ -65,7 +65,7 @@ async function redirectToLogin() {
           class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0"
         >
           <div
-            class="rounded-2xl bg-secondary py-10 text-center ring-1 ring-inset ring-secondary lg:flex lg:flex-col lg:justify-center lg:py-16"
+            class="rounded-2xl bg-secondary py-10 text-center ring-1 ring-inset ring-muted lg:flex lg:flex-col lg:justify-center lg:py-16"
           >
             <div class="mx-auto max-w-xs px-8">
               <p class="text-base font-semibold text-muted">Increase your productivity now</p>
@@ -93,5 +93,6 @@ async function redirectToLogin() {
         </form>
       </div>
     </div>
+    <Footer />
   </div>
 </template>

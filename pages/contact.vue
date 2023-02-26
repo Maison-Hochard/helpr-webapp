@@ -137,5 +137,6 @@ async function submitForm() {
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
