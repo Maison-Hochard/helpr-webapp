@@ -10,8 +10,6 @@ defineProps({
   },
 });
 
-const baseUrl = "https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public/logo/";
-
 const theme = computed(() => {
   const currentTheme = useGlobalStore().getTheme;
   if (currentTheme.includes("light")) {
@@ -25,20 +23,12 @@ const theme = computed(() => {
 <template>
   <div class="flex flex-shrink-0 items-center">
     <div v-if="!source">
-      <img
-        class="block h-6 w-auto lg:hidden"
-        :src="baseUrl + theme + '/' + provider + '-logo.svg'"
-        :alt="provider + ' logo'"
-      />
-      <img
-        class="hidden h-6 w-auto lg:block"
-        :src="baseUrl + theme + '/' + provider + '-logo.svg'"
-        :alt="provider + ' logo'"
-      />
+      <nuxt-img class="block h-6 w-auto lg:hidden" :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'" />
+      <nuxt-img class="hidden h-6 w-auto lg:block" :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'" />
     </div>
     <div v-else>
-      <img class="block h-6 w-auto lg:hidden" :src="source" :alt="provider + ' logo'" />
-      <img class="hidden h-6 w-auto lg:block" :src="source" :alt="provider + ' logo'" />
+      <nuxt-img class="block h-6 w-auto lg:hidden" :src="source" :alt="provider + ' logo'" />
+      <nuxt-img class="hidden h-6 w-auto lg:block" :src="source" :alt="provider + ' logo'" />
     </div>
   </div>
 </template>

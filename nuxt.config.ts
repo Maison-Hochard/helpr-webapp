@@ -71,6 +71,10 @@ export default defineNuxtConfig({
   },
 
   image: {
+    alias: {
+      supabase: "https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public",
+    },
+    domains: ["uynsrkwqyplqhfrmdaqw.supabase.co"],
     dir: "assets/media",
   },
 });
