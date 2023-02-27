@@ -76,7 +76,7 @@ async function redirectToLogin() {
               </p>
               <input type="hidden" name="userId" :value="user?.id" />
               <button
-                :type="user ? 'submit' : 'button'"
+                  :type="user ? 'submit' : 'button'"
                 @click="user ? null : redirectToLogin()"
                 name="priceId"
                 :value="premiumPlan.priceId"

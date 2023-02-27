@@ -1,28 +1,31 @@
-describe('Home page', () => {
+const url = 'https://www.helprapp.fr'
+const localhost = 'http://localhost:8080'
+
+describe('Navigation Bar', () => {
 
   it('Go to Home page', () => {
-    cy.visit('https://www.helprapp.fr')
+    cy.visit(localhost)
     cy.viewport(1280, 720)
-    cy.contains('Home').click()
+      cy.get('#home').click()
   }),
 
       it('Go to Pricing page', () => {
-    cy.visit('https://www.helprapp.fr')
+    cy.visit(localhost)
     cy.viewport(1280, 720)
-    cy.contains('Pricing').click()
+    cy.get('#pricing').click()
     cy.url().should('include', '/pricing')
   }),
 
       it('Go to Contact page', () => {
-        cy.visit('https://www.helprapp.fr')
+          cy.visit(localhost)
         cy.viewport(1280, 720)
-        cy.contains('Contact').click()
+        cy.get('#contact').click()
         cy.url().should('include', '/contact')
     }),
 
       it('Click on helpr logo and back to Home page', () => {
-    cy.visit('https://www.helprapp.fr')
+          cy.visit(localhost)
     cy.viewport(1280, 720)
-    cy.contains('helpr').click()
+    cy.get('#logo').click()
   })
 })
