@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import * as gapi from "gapi-script";
 import {googleSdkLoaded} from "vue3-google-login";
 
 const login = () => {
-  const SCOPES = "email profile openid https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.owned https://www.googleapis.com/auth/spreadsheets https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.metadata https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/pubsub";
+  const SCOPES = "email profile openid https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/spreadsheets.readonly https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.owned https://www.googleapis.com/auth/spreadsheets https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/pubsub";
   googleSdkLoaded((google) => {
     google.accounts.oauth2
           .initTokenClient({
