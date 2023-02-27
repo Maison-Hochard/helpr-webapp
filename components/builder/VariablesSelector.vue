@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Action } from "~/types/Flow";
-import { Variable } from "~/store/flowStore";
 
 const props = defineProps({
   flow: {
@@ -10,9 +9,15 @@ const props = defineProps({
 });
 
 const variables = computed((): string[] => {
-  const triggerVariables = props.flow.trigger?.variables?.map((variable: Variable) => variable.value) || [];
+  const triggerVariables = props.flow.trigger?.variables?.map((variable) => variable.value) || [];
   const actionVariables =
     props.flow.actions?.flatMap((action: Action) => action.variables?.map((variable) => variable.value)) || [];
+  if (props.flow.actions?.some((action: Action) => action.endpoint === "openai")) {
+    actionVariables.push("{openai_response}");
+  }
+  if (props.flow.actions?.some((action: Action) => action.endpoint === "deepl")) {
+    actionVariables.push("{deepl_response}");
+  }
   return [...triggerVariables, ...actionVariables];
 });
 </script>

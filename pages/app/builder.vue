@@ -1,5 +1,3 @@
-// flow builder views
-
 <script setup>
 definePageMeta({
   name: "Builder",

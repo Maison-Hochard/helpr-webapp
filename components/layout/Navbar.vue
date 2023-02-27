@@ -23,7 +23,7 @@ const user = computed(() => {
             >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
           >
         </div>
-        <Menu as="div" class="relative inline-block text-left md:hidden">
+        <Menu as="div" class="relative inline-block text-left lg:hidden">
           <div>
             <MenuButton
               class="inline-flex w-full justify-center rounded-md font-medium text-primary focus:outline-none"

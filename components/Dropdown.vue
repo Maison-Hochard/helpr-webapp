@@ -59,7 +59,15 @@ const theme = computed(() => {
 });
 
 function canAccess(item) {
-  return (item.premium ? userStore.isPremium : userStore.isAdmin) || true;
+  if (item.premium) {
+    if (userStore.isAdmin) {
+      return true;
+    } else {
+      return userStore.isPremium;
+    }
+  } else {
+    return true;
+  }
 }
 </script>
 
@@ -102,11 +110,10 @@ function canAccess(item) {
           >
             <li :class="['relative select-none py-2 pl-3 pr-9', active ? 'bg-secondary' : 'text-primary']">
               <div class="flex items-center">
-                <img
+                <nuxt-img
                   v-if="isLogo"
-                  :src="baseUrl + theme + '/' + item.logo + '.svg'"
-                  alt=""
                   class="h-6 w-6 flex-shrink-0"
+                  :src="'/supabase/logo/' + theme + '/' + item.name.toLowerCase() + '-logo.svg'"
                 />
                 <span :class="isLogo ? 'ml-3' : ''" class="block truncate">
                   {{ item.title || item.name }}

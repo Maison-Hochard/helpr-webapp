@@ -10,6 +10,24 @@ interface createFlowInput {
   actions: Action[];
 }
 
+// create webhook if flowData.trigger.webhook is true
+
+// 9ee6881b-3afa-4cca-9b23-fc14c78181a3 Cooperantis
+// 34b08c67-0366-4cc0-8a32-07d481c045f1 Area
+
+async function createWebhook(provider: string, flowName: string) {
+  const response = await useAPI<ApiResponse>(`/${provider}/create-webhook`, "POST", {
+    name: "Helpr - " + flowName,
+    teamId: "34b08c67-0366-4cc0-8a32-07d481c045f1",
+  });
+  if (response.statusCode === 201) {
+    return response.data;
+  } else {
+    useErrorToast(response.message);
+    return;
+  }
+}
+
 export async function addFlow(flowData: createFlowInput) {
   const response = await useAPI<ApiResponse>("/flow", "POST", {
     name: flowData.name,

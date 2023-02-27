@@ -49,7 +49,7 @@ async function verify() {
     <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div class="mx-auto w-full max-w-sm lg:w-96">
         <div>
-          <Logo :isText="false" class="flex justify-center" size="12" />
+          <Logo :isText="false" class="flex justify-center" :size="12" />
           <h2 class="text-center mt-6 text-3xl font-bold tracking-tight text-primary">Verify your account</h2>
           <p class="my-6 text-center text-sm text-muted">
             We have sent you an email with a verification link. Please click on the link to verify your account.
