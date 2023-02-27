@@ -35,12 +35,7 @@ async function updateUser(user: User) {
         </p>
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-        <button
-          type="button"
-          class="inline-flex items-center justify-center rounded-md border border-transparent bg-accent px-4 py-2 text-sm font-medium text-inverted shadow-sm hover:bg-accent-hover"
-        >
-          Add user
-        </button>
+        <button type="button" class="btn-primary">Add user</button>
       </div>
     </div>
     <Loader v-if="pending" />
@@ -69,7 +64,7 @@ async function updateUser(user: User) {
                   <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                     <div class="flex items-center">
                       <div class="h-10 w-10 flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full" :src="user.avatar" alt="" />
+                        <img class="h-10 w-10 rounded-full object-cover" :src="user.avatar" alt="" />
                       </div>
                       <div class="ml-4">
                         <div class="font-medium text-primary">{{ user.firstname }} {{ user.lastname }}</div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LanguageSelector from "~/components/settings/LanguageSelector.vue";
 definePageMeta({
   name: "App Management",
   title: "App Management",

@@ -5,6 +5,7 @@ interface createFlowInput {
   name: string;
   description: string;
   enabled: boolean;
+  public: boolean;
   trigger: Trigger;
   actions: Action[];
 }
@@ -14,6 +15,7 @@ export async function addFlow(flowData: createFlowInput) {
     name: flowData.name,
     description: flowData.description,
     enabled: flowData.enabled,
+    public: flowData.public,
     triggerId: flowData.trigger.id,
     actions: flowData.actions,
   });
@@ -54,6 +56,16 @@ export async function deleteFlow(flowId: number, refresh: () => void) {
 
 export async function getUserFlows() {
   const response = await useAPI<ApiResponse>("/flow", "GET");
+  if (response.statusCode === 200) {
+    return response.data;
+  } else {
+    useErrorToast(response.message);
+    return;
+  }
+}
+
+export async function getUserFlowsById(userId: number) {
+  const response = await useAPI<ApiResponse>(`/flow/user/${userId}`, "GET");
   if (response.statusCode === 200) {
     return response.data;
   } else {

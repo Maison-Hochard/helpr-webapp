@@ -4,8 +4,8 @@ import {
   UserGroupIcon,
   UserCircleIcon,
   PencilIcon,
-  PlusCircleIcon,
   BookmarkIcon,
+  GlobeAltIcon,
 } from "@heroicons/vue/24/outline";
 
 type Where = "home" | "app" | "user" | "admin";
@@ -16,38 +16,32 @@ type Navigation = {
   icon: any;
 };
 
-const home: Navigation[] = [
-  { name: "Home", to: "/", icon: HomeIcon },
-  { name: "Pricing", to: "/pricing", icon: HomeIcon },
-  { name: "Contact", to: "/contact", icon: HomeIcon },
-];
-
-const app: Navigation[] = [
-  { name: "My Flows", to: "/app/my-flows", icon: BookmarkIcon },
-  { name: "Providers", to: "/app/providers", icon: HomeIcon },
-];
-
-const user: Navigation[] = [
-  { name: "Profile", to: "/app/profile/me", icon: UserCircleIcon },
-  { name: "Edit Profile", to: "/app/edit-profile", icon: PencilIcon },
-  { name: "Settings", to: "/app/settings", icon: CogIcon },
-];
-
-const admin: Navigation[] = [
-  { name: "Dashboard", to: "/app/admin/dashboard", icon: UserGroupIcon },
-  { name: "App Management", to: "/app/admin/app-management", icon: CogIcon },
-];
-
 export function getNavigation(where: Where): Navigation[] {
+  const userStore = useUserStore();
   switch (where) {
     case "home":
-      return home;
+      return [
+        { name: "Home", to: "/", icon: HomeIcon },
+        { name: "Pricing", to: "/pricing", icon: HomeIcon },
+        { name: "Contact", to: "/contact", icon: HomeIcon },
+      ];
     case "app":
-      return app;
+      return [
+        { name: "My Flows", to: "/app/my-flows", icon: BookmarkIcon },
+        { name: "Providers", to: "/app/providers", icon: HomeIcon },
+        { name: "Community", to: "/app/community", icon: GlobeAltIcon },
+      ];
     case "user":
-      return user;
+      return [
+        { name: "Profile", to: "/app/profile/" + userStore.getUser?.id, icon: UserCircleIcon },
+        { name: "Edit Profile", to: "/app/edit-profile", icon: PencilIcon },
+        { name: "Settings", to: "/app/settings", icon: CogIcon },
+      ];
     case "admin":
-      return admin;
+      return [
+        { name: "Dashboard", to: "/app/admin/dashboard", icon: UserGroupIcon },
+        { name: "App Management", to: "/app/admin/app-management", icon: CogIcon },
+      ];
     default:
       return [];
   }

@@ -6,6 +6,7 @@ type FlowState = {
     name: string;
     description: string;
     enabled: boolean;
+    public: boolean;
     trigger: Trigger | object;
     actions: Action[];
   };
@@ -16,6 +17,7 @@ const defaultState: FlowState = {
     name: "Flow " + Math.floor(Math.random() * 1000),
     description: "",
     enabled: false,
+    public: false,
     trigger: {},
     actions: [],
   },
@@ -28,6 +30,7 @@ export const useFlowStore = defineStore({
       name: "Flow " + Math.floor(Math.random() * 1000),
       description: "",
       enabled: false,
+      public: false,
       trigger: {},
       actions: [],
     },
@@ -44,6 +47,7 @@ export const useFlowStore = defineStore({
       }
     },
     saveTrigger(trigger: Trigger) {
+      console.log("Saving trigger", trigger);
       this.flow.trigger = trigger;
     },
     saveAction(index: number, action: Action) {
@@ -73,6 +77,9 @@ export const useFlowStore = defineStore({
     },
     deleteAction(index: number) {
       this.flow.actions.splice(index, 1);
+    },
+    loadFlow(flow: FlowState["flow"]) {
+      this.flow = flow;
     },
   },
 });

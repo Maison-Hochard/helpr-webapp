@@ -44,5 +44,6 @@ export interface Trigger {
   description: string;
   value: string;
   providerId: number;
+  webhook: boolean;
   variables: Variable[];
 }

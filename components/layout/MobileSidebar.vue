@@ -87,7 +87,7 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                            item.name === $route.name
+                            item.to === $route.path
                               ? 'bg-accent-faded text-accent'
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
@@ -97,7 +97,7 @@ const sidebarOpen = ref(false);
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
+                              item.to === $route.path ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"
@@ -113,17 +113,16 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                            item.name === $route.name
+                            item.to === $route.path
                               ? 'bg-accent-faded text-accent'
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                           ]"
-                          :aria-current="item.name === $route.name ? 'page' : undefined"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
+                              item.to === $route.path ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"
@@ -143,17 +142,16 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                            item.name === $route.name
+                            item.to === $route.path
                               ? 'bg-accent-faded text-accent'
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                           ]"
-                          :aria-current="item.name === $route.name ? 'page' : undefined"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
+                              item.to === $route.path ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"

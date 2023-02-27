@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { addCredentials, getAuthenticatedProviders } from "~/composables/useProvider";
 import { getGithubToken } from "~/composables/Provider/useGithub";
 import LoginWithGoogle from "~/components/loginWithGoogle.vue";
 
@@ -9,37 +8,24 @@ definePageMeta({
 });
 
 const {
-  data: services,
-  refresh,
-  pending,
+  data: userProviders,
+  refresh: refreshUserProviders,
+  pending: pendingUserProviders,
 } = await useLazyAsyncData(async () => {
-  // return await getAuthenticatedProviders();
+  return await getUserProviders();
 });
 
-const linearKey = ref("");
-const githubKey = ref("");
+const {
+  data: providers,
+  refresh: refreshProviders,
+  pending: pendingProviders,
+} = await useLazyAsyncData(async () => {
+  return await getProviders();
+});
 
-async function addLinearToken() {
-  await addCredentials("linear", linearKey.value);
-}
-
-async function addGithubToken() {
-  await addCredentials("github", githubKey.value);
-}
-
-async function AddToken(provider: string, token: string) {
-  await addCredentials(provider, token);
-  refresh();
-}
-
-function isConnected(service: string) {
-  if (!providers.value) return false;
-  for (const provider of providers.value) {
-    if (provider.provider === service) {
-      return true;
-    }
-  }
-  return false;
+function isConnected(provider: string) {
+  if (!userProviders) return false;
+  return userProviders.value.some((userProvider) => userProvider.name.toLowerCase() === provider.toLowerCase());
 }
 
 const code = computed(() => {
@@ -57,6 +43,25 @@ const githubUrl =
   githubConfig.callbackUrl +
   "&response_type=code" +
   "&scope=repo,read:user,user:email";
+
+const tokenProviders = ["github", "linear", "stripe", "notion"];
+const filteredProviders = computed(() => {
+  if (!providers.value) return [];
+  return providers.value.filter((provider) => tokenProviders.includes(provider.name.toLowerCase()));
+});
+
+const connectedProviders = computed(() => {
+  if (!userProviders.value) return [];
+  return userProviders.value.filter((provider) => tokenProviders.includes(provider.name.toLowerCase()));
+});
+
+const deconnectedProviders = computed(() => {
+  if (!userProviders.value) return [];
+  return filteredProviders.value.filter(
+    (provider) =>
+      !userProviders.value.some((userProvider) => userProvider.name.toLowerCase() === provider.name.toLowerCase()),
+  );
+});
 </script>
 
 <template>
@@ -64,8 +69,8 @@ const githubUrl =
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
       <h3 class="text-lg font-medium leading-6 text-primary">Add your tokens</h3>
       <p class="mt-1 text-sm text-muted">Add your tokens to connect your services.</p>
-      <LoginWithGoogle />
-      <button class="btn-secondary">
+      <LoginWithGoogle class="p-2" />
+      <button class="btn-secondary p-2">
         <NuxtLink :to="githubUrl" class="flex flex-row gap-5 items-center">
           <ProviderLogo :provider="'github'" />
           <span>Connect Github</span>
@@ -75,59 +80,28 @@ const githubUrl =
         <ProviderLogo :provider="'github'" />
         <span>Github Token</span>
       </button>
-      <Loader v-if="pending" />
-      <div class="flex flex-row mt-10 gap-5" v-else>
-        <div class="flex flex-col gap-4">
-          <form action="#" method="POST" v-if="!isConnected('linear')">
-            <label for="linear-key" class="block text-sm font-medium text-primary"> Linear Token Api </label>
-            <div class="flex flex-row gap-5">
-              <div class="mt-1">
-                <input v-model="linearKey" id="linear-key" name="linear-key" type="password" class="input" />
-                <p class="mt-2 text-sm text-muted">
-                  You can find your Linear Token Api in your
-                  <a href="https://linear.app/settings/api" target="_blank" class="text-primary">Linear settings</a>.
-                </p>
-              </div>
-              <div class="mt-1">
-                <button class="btn btn-primary" @click="addLinearToken" :disabled="linearKey === ''">Save</button>
-              </div>
-            </div>
-          </form>
-          <div v-else>
-            <div class="flex flex-row gap-5 items-center">
-              <ProviderLogo :provider="'linear'" />
-              <p class="text-sm text-muted">You have already connected Linear.</p>
-            </div>
-          </div>
-          <form class="mt-10" action="#" method="POST" v-if="!isConnected('github')">
-            <label for="github-key" class="block text-sm font-medium text-primary"> GitHub Token Api </label>
-            <div class="flex flex-row gap-5">
-              <div class="mt-1">
-                <input
-                  v-model="githubKey"
-                  id="github-key"
-                  name="github-key"
-                  type="password"
-                  autocomplete="github-key"
-                  class="input"
-                />
-                <p class="mt-2 text-sm text-muted">
-                  You can find your GitHub Token Api in your
-                  <a href="" target="_blank" class="text-primary">GitHub settings</a>.
-                </p>
-              </div>
-              <div class="mt-1">
-                <button class="btn btn-primary" @click="addGithubToken" :disabled="githubKey === ''">Save</button>
-              </div>
-            </div>
-          </form>
-          <div v-else>
-            <div class="flex flex-row gap-5 items-center">
-              <ProviderLogo :provider="'github'" />
-              <p class="text-sm text-muted">You have already connected GitHub.</p>
-            </div>
-          </div>
-        </div>
+      <Loader v-if="pendingProviders" />
+      <div class="flex flex-col mt-10 gap-4" v-else>
+        <hr class="border-primary" />
+        <label class="block text-sm font-medium text-primary">Connected services</label>
+        <CreateCredential
+          v-for="provider in connectedProviders"
+          :key="provider.provider"
+          :is-connected="false"
+          :refresh-user-providers="refreshUserProviders"
+          :provider-name="provider.name"
+          :token-link="provider.tokenLink"
+        />
+        <hr class="border-primary" />
+        <label class="block text-sm font-medium text-primary mt-5">Connect services</label>
+        <CreateCredential
+          v-for="provider in deconnectedProviders"
+          :key="provider.provider"
+          :is-connected="true"
+          :refresh-user-providers="refreshUserProviders"
+          :provider-name="provider.name"
+          :token-link="provider.tokenLink"
+        />
       </div>
     </div>
   </div>

@@ -5,17 +5,29 @@ const props = defineProps({
     required: true,
   },
 });
-const flow = useFlowStore().getFlow;
+const flowStore = useFlowStore();
+
+const flow = flowStore.getFlow;
 
 const selectedProvider = ref(
   flow.trigger?.provider
     ? props.providers.find((provider) => provider.name.toLowerCase() === flow.trigger.provider)
     : ref(),
 );
-const selectedTrigger = ref(flow.trigger) || ref();
+
+const selectedTrigger = computed(() => flow.trigger || ref());
+
+const filteredProviders = computed(() => {
+  return props.providers.filter((provider) => provider._count.triggers > 0);
+});
 
 function saveTrigger() {
-  useFlowStore().saveTrigger(selectedTrigger.value);
+  if (selectedTrigger.value?.id) {
+    flowStore.saveTrigger(selectedTrigger.value);
+    useSuccessToast("Trigger saved!");
+  } else {
+    useErrorToast("Please select a trigger");
+  }
 }
 </script>
 
@@ -27,13 +39,13 @@ function saveTrigger() {
       <Dropdown
         v-model="selectedProvider"
         :placeholder="'Linear, Github, etc...'"
-        :items="providers"
+        :items="filteredProviders"
         label="Select a provider"
         :is-logo="true"
       />
       <Dropdown
         v-if="selectedProvider"
-        v-model="selectedTrigger"
+        v-model="flow.trigger"
         placeholder="When a new issue is created, etc..."
         :items="selectedProvider.triggers"
         label="Select a trigger"

@@ -37,27 +37,46 @@ const props = defineProps({
   },
 });
 
+const userStore = useUserStore();
+
 const selectedItem = ref();
 
-const filteredItems = computed(() =>
-  props.items.filter((item) => item.name?.toLowerCase().includes(selectedItem.value?.name?.toLowerCase() || "")),
-);
+function setItem(item) {
+  selectedItem.value = item;
+}
+
+const filteredItems = computed(() => (selectedItem.value ? selectedItem.value : props.items));
+
+const baseUrl = "https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public/logo/";
+
+const theme = computed(() => {
+  const currentTheme = useGlobalStore().getTheme;
+  if (currentTheme.includes("light")) {
+    return "dark";
+  } else {
+    return "light";
+  }
+});
+
+function canAccess(item) {
+  return (item.premium ? userStore.isPremium : userStore.isAdmin) || true;
+}
 </script>
 
 <template>
-  <Combobox as="div" v-model="selectedItem" class="w-full" :default-value="placeholder">
-    <ComboboxLabel class="block text-sm font-medium text-primary">{{ label || "Select an item" }}</ComboboxLabel>
+  <Combobox as="div" v-model="selectedItem" class="w-full">
+    <ComboboxLabel class="block text-sm font-medium text-primary">{{ label }}</ComboboxLabel>
     <div class="relative mt-1">
       <ComboboxInput
         class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
         @change="selectedItem = $event.target.value"
-        :display-value="(item) => item?.title || item?.name || placeholder || ''"
+        :display-value="(item) => item?.title || item?.name"
+        :class="selectedItem ? 'text-primary' : 'text-muted'"
       >
       </ComboboxInput>
       <ComboboxButton class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
         <ChevronUpDownIcon class="h-5 w-5 text-muted" aria-hidden="true" />
       </ComboboxButton>
-
       <transition
         enter-active-class="transition duration-100 ease-out"
         enter-from-class="transform scale-95 opacity-0"
@@ -74,19 +93,32 @@ const filteredItems = computed(() =>
             v-for="item in filteredItems"
             :key="item.id"
             :value="item"
-            as="template"
-            v-slot="{ active, selected }"
+            as="div"
+            v-slot="{ active }"
+            @click="setItem(item)"
+            class="cursor-pointer"
+            :disabled="!canAccess(item)"
+            :class="!canAccess(item) ? 'opacity-50 cursor-not-allowed' : ''"
           >
-            <li
-              :class="['relative cursor-pointer select-none py-2 pl-3 pr-9', active ? 'bg-secondary' : 'text-primary']"
-            >
+            <li :class="['relative select-none py-2 pl-3 pr-9', active ? 'bg-secondary' : 'text-primary']">
               <div class="flex items-center">
-                <img v-if="isLogo" :src="item.logo" alt="" class="h-6 w-6 flex-shrink-0 rounded-full" />
-                <span :class="['ml-3 truncate', selected && 'font-semibold']">
+                <img
+                  v-if="isLogo"
+                  :src="baseUrl + theme + '/' + item.logo + '.svg'"
+                  alt=""
+                  class="h-6 w-6 flex-shrink-0"
+                />
+                <span :class="isLogo ? 'ml-3' : ''" class="block truncate">
                   {{ item.title || item.name }}
                 </span>
                 <span class="ml-3 truncate text-muted">
                   {{ item.description }}
+                </span>
+                <span
+                  v-if="item.premium"
+                  class="bg-amber-400 text-white px-2 py-0.5 rounded-md text-xs font-medium uppercase ml-2"
+                >
+                  Premium
                 </span>
               </div>
             </li>
