@@ -16,7 +16,9 @@ describe('Pricing Page', () => {
         cy.visit(pricingpage)
         cy.viewport(1280, 720)
         cy.get('.hidden > .btn-primary').click() // Click on Login button
+        cy.wait(500)
         cy.get('#login').type("testUser", { force: true}) // Type username
+        cy.wait(500)
         cy.get('#password').type("123soleil", { force: true}) // Type password
         cy.get('[type="submit"] > .w-full').click() // Click on Login button
         cy.wait(4000)
