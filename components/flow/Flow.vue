@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { TrashIcon, GlobeAltIcon, LockClosedIcon } from "@heroicons/vue/24/outline";
+import { updateFlowPublicStatus } from "~/composables/useFlow";
 const props = defineProps({
   flow: {
     type: Object,
@@ -15,6 +16,9 @@ const props = defineProps({
   },
 });
 
+const enable = ref(props.flow.enabled);
+const publicStatus = ref(props.flow.public);
+
 const flowStore = useFlowStore();
 
 function goToFlow() {
@@ -22,6 +26,17 @@ function goToFlow() {
   flowStore.loadFlow(props.flow);
   useRouter().push("/app/builder/new-flow");
 }
+
+async function changeStatus() {
+  await updateFlowStatus(props.flow.id, enable.value);
+}
+
+async function changePublic() {
+  publicStatus.value = !publicStatus.value;
+  await updateFlowPublicStatus(props.flow.id, publicStatus.value);
+}
+
+watch(enable, changeStatus);
 </script>
 
 <template>
@@ -33,10 +48,20 @@ function goToFlow() {
             <h3 class="text-lg font-medium leading-6 text-primary cursor-pointer hover:underline" @click="goToFlow">
               {{ flow.name }}
             </h3>
-            <GlobeAltIcon v-if="flow.public" class="h-5 w-5 text-muted mt-1" aria-hidden="true" />
-            <LockClosedIcon v-else class="h-5 w-5 text-muted mt-1" aria-hidden="true" />
+            <GlobeAltIcon
+              v-if="publicStatus"
+              class="h-5 w-5 text-muted mt-1 hover:text-accent cursor-pointer transition-colors duration-300 ease-in-out"
+              aria-hidden="true"
+              @click="changePublic"
+            />
+            <LockClosedIcon
+              v-else
+              class="h-5 w-5 text-muted mt-1 hover:text-accent cursor-pointer transition-colors duration-300 ease-in-out"
+              aria-hidden="true"
+              @click="changePublic"
+            />
           </div>
-          <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" v-if="isMine" />
+          <Switch :model-value="flow.enabled" @update:value="enable = $event" v-if="isMine" />
         </div>
         <div class="mt-2 max-w-xl text-sm text-muted">
           <p>{{ flow.description }}</p>

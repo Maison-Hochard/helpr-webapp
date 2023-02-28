@@ -97,7 +97,7 @@ useHead({
             <div v-if="flows.length === 0">
               <p class="text-sm text-muted">No public flows yet.</p>
             </div>
-            <div v-else>
+            <div v-else class="flex flex-col space-y-4">
               <Flow :is-mine="false" v-for="flow in flows" :key="flow.id" :flow="flow" />
             </div>
           </div>

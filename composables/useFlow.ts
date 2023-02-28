@@ -59,6 +59,18 @@ export async function updateFlowStatus(flowId: number, status: boolean) {
   }
 }
 
+export async function updateFlowPublicStatus(flowId: number, status: boolean) {
+  const response = await useAPI<ApiResponse>(`/flow/${flowId}/public`, "PUT", {
+    public: status,
+  });
+  if (response.statusCode === 200) {
+    useSuccessToast("Flow public status updated successfully");
+  } else {
+    useErrorToast(response.message);
+    return;
+  }
+}
+
 export async function deleteFlow(flowId: number, refresh: () => void) {
   if (confirm("Are you sure you want to delete this flow?")) {
     const response = await useAPI<ApiResponse>(`/flow/${flowId}`, "DELETE");
