@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="data in items" :key="data.name">
-      <template class="card" v-for="dat in data.datatable" :key="dataTitle">
+      <template v-for="dat in data.datatable" :key="dataTitle">
         <h2 class="font-bold text-2xl">{{ dat[0].title }}</h2>
         <h2 class="font-bold text-2xl">{{ dat[0].description }}</h2>
         <h2 class="font-bold text-2xl">{{ dat[0].use }}</h2>
