@@ -1,18 +1,29 @@
 <template>
-  <div>
+  <div class="bg-gray-100 p-8 rounded-lg">
     <template v-for="data in items" :key="data.name">
-      <template v-for="dat in data.datatable" :key="dataTitle">
-        <h2 class="font-bold text-2xl">{{ dat[0].title }}</h2>
-        <h2 class="font-bold text-2xl">{{ dat[0].description }}</h2>
-        <h2 class="font-bold text-2xl">{{ dat[0].use }}</h2>
+      <div class="bg-white shadow-lg rounded-lg p-4 mb-4">
+        <template v-for="dat in data.datatable" :key="dataTitle">
+          <h2 class="font-bold text-2xl mb-4 text-center md:text-left text-gray-700">{{ dat[0].title }}</h2>
+          <div class="bg-gray-200 p-4 rounded-lg mb-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-70 md:pr-8">
 
-        <img :src="dat[0].image" alt="" />
-        <h2 class="font-bold text-2xl">{{ dat[0].other }}</h2>
-      </template>
-
+              <p class="text-gray-700 mb-4">{{ dat[0].description }}</p>
+              <p class="text-gray-700 mb-4">{{ dat[0].use }}</p>
+              <p class="text-gray-700">{{ dat[0].other }}</p>
+            </div>
+            <div class="w-1/3">
+              <img class="rounded-lg" :src="dat[0].image" alt="" />
+            </div>
+          </div>
+        </template>
+      </div>
     </template>
   </div>
 </template>
+
+
+
+
 
 <script setup lang="ts">
 import { ParsedContent } from "@nuxt/content/dist/runtime/types";
