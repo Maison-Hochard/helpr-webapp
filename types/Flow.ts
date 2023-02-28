@@ -35,6 +35,10 @@ interface Variable {
   value: string;
   actionId?: number;
   triggerId?: number;
+  webhook?: boolean;
+  premium?: boolean;
+  type?: string;
+  required: boolean;
 }
 
 export interface Trigger {

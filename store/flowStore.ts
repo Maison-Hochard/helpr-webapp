@@ -5,6 +5,7 @@ type FlowState = {
   flow: {
     name: string;
     description: string;
+    webhookWhere: string;
     enabled: boolean;
     public: boolean;
     trigger: Trigger | object;
@@ -15,6 +16,7 @@ type FlowState = {
 const defaultState: FlowState = {
   flow: {
     name: "Flow " + Math.floor(Math.random() * 1000),
+    webhookWhere: "",
     description: "",
     enabled: false,
     public: false,
@@ -28,6 +30,7 @@ export const useFlowStore = defineStore({
   state: (): FlowState => ({
     flow: {
       name: "Flow " + Math.floor(Math.random() * 1000),
+      webhookWhere: "",
       description: "",
       enabled: false,
       public: false,
@@ -47,7 +50,6 @@ export const useFlowStore = defineStore({
       }
     },
     saveTrigger(trigger: Trigger) {
-      console.log("Saving trigger", trigger);
       this.flow.trigger = trigger;
     },
     saveAction(index: number, action: Action) {
