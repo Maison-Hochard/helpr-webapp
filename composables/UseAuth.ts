@@ -17,7 +17,7 @@ export async function useUser(): Promise<User | null> {
       return null;
     }
     useUserStore().setUser(data.value);
-    useUserStore().setSubscription(data.value.Subscription);
+    useUserStore().setSubscription(data.value.subscription);
   }
   return user;
 }
@@ -33,7 +33,7 @@ export async function useLogin(login: string, password: string) {
   if (data.value) {
     useState("user").value = data.value;
     useUserStore().setUser(data.value);
-    useUserStore().setSubscription(data.value.Subscription);
+    useUserStore().setSubscription(data.value.subscription);
     useRouter().push("/app/my-flows");
     return {
       user: data.value,

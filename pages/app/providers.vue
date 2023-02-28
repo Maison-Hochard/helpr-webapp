@@ -23,11 +23,6 @@ const {
   return await getProviders();
 });
 
-function isConnected(provider: string) {
-  if (!userProviders) return false;
-  return userProviders.value.some((userProvider) => userProvider.name.toLowerCase() === provider.toLowerCase());
-}
-
 const code = computed(() => {
   const route = useRoute();
   return route.query.code;
