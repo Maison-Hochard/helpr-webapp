@@ -8,7 +8,6 @@ export default defineNuxtConfig({
       mode: "out-in",
     },
   },
-
   css: ["~/assets/style/main.scss"],
 
   build: {

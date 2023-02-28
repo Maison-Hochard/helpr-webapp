@@ -23,7 +23,7 @@ const theme = computed(() => {
 
 <template>
   <div>
-    <NuxtLink to="/" class="flex flex-shrink-0 items-center">
+    <NuxtLink to="/" class="flex flex-shrink-0 items-center" id="logo">
       <nuxt-img
         class="block w-auto lg:hidden"
         :class="size ? 'h-' + size : 'h-6'"

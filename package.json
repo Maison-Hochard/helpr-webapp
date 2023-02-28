@@ -17,7 +17,8 @@
     "prisma:generate": "prisma generate",
     "prisma:pull": "prisma db pull",
     "prisma:push": "prisma db push",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "cypress:run": "npx cypress run"
   },
   "prisma": {
     "schema": "server/database/schema.prisma"
@@ -42,10 +43,12 @@
     "@vueuse/core": "^9.11.1",
     "@vueuse/nuxt": "^9.11.1",
     "bcrypt": "^5.1.0",
+    "cypress": "^12.7.0",
     "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.9.0",
+    "gapi-script": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "nuxt": "3.1.1",
     "nuxt-headlessui": "^1.1.1",

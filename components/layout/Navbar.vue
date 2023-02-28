@@ -19,8 +19,10 @@ const user = computed(() => {
             v-for="item in navigation"
             :key="item.name"
             :to="item.to"
+            :id="item.name.toLowerCase()"
             class="text-sm font-semibold leading-6 text-primary hover:text-accent"
-            >{{ $t("navigation." + item.name.toLowerCase()) }}</NuxtLink
+            >{{ $t("navigation." + item.name.toLowerCase()) }}
+          </NuxtLink
           >
         </div>
         <Menu as="div" class="relative inline-block text-left lg:hidden">
@@ -51,6 +53,7 @@ const user = computed(() => {
                 <MenuItem v-slot="{ active }" v-for="item in navigation" :key="item.name">
                   <NuxtLink
                     :to="item.to"
+                    :id="item.name.toLowerCase()"
                     :class="[
                       active || item.name === $route.name ? 'bg-accent-faded text-accent' : 'text-primary',
                       'block w-full px-4 py-2 text-left text-sm',
