@@ -24,7 +24,7 @@ const flowStore = useFlowStore();
 const flow = computed(() => flowStore.getFlow);
 
 async function createFlow() {
-  await addFlow(flow.value);
+  await addFlow(flow.value, flow.value.where);
 }
 
 useHead({

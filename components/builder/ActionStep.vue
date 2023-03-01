@@ -74,10 +74,6 @@ async function getProviderDataForAction(provider: string) {
       </div>
       <TrashIcon class="h-6 w-6 text-muted cursor-pointer hover:text-red-600" @click="removeAction" />
     </div>
-    <div class="flex flex-row gap-4 mt-4" v-if="variablesValues && Object.keys(variablesValues).length > 0">
-      <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />
-      <span class="text-sm text-muted">Connect to provider</span>
-    </div>
     <div class="flex flex-wrap gap-4 mt-4">
       <Dropdown
         v-model="selectedProvider"
@@ -105,14 +101,14 @@ async function getProviderDataForAction(provider: string) {
               v-if="field.type === 'textarea'"
               type="text"
               class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
-              v-model="payload[key]"
+              v-model="payload[field.key]"
               :required="field.required"
             />
-            <Switch v-else-if="field.type === 'boolean'" v-model="payload[key]" :required="field.required" />
+            <Switch v-else-if="field.type === 'boolean'" v-model="payload[field.key]" :required="field.required" />
             <select
               v-else-if="field.type === 'select'"
               class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
-              v-model="payload[key]"
+              v-model="payload[field.key]"
               :required="field.required"
             >
               <option v-for="data in variablesValues[field.key]" :key="data.value" :value="data.value">
@@ -123,7 +119,7 @@ async function getProviderDataForAction(provider: string) {
               v-else
               :type="field.type"
               class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
-              v-model="payload[key]"
+              v-model="payload[field.key]"
               :required="field.required"
             />
           </div>
@@ -132,24 +128,28 @@ async function getProviderDataForAction(provider: string) {
               type="text"
               rows="2"
               class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
-              v-model="payload[key]"
+              v-model="payload[field.key]"
               :required="field.required"
             />
           </div>
         </div>
       </div>
     </div>
-    <div class="flex flex-row gap-2 mt-4">
-      <button class="btn-secondary mt-4" type="submit">Save Action</button>
+    <div class="flex flex-row gap-2 items-center mt-4">
+      <button class="btn-secondary" type="submit">Save Action</button>
       <button
-        class="btn-secondary mt-4 ml-2"
+        class="btn-secondary"
         type="button"
         @click="getProviderDataForAction(selectedProvider.name)"
         :disabled="!selectedProvider"
         :class="{ 'cursor-not-allowed': !selectedProvider }"
       >
-        Get data for action
+        Get data for trigger
       </button>
+      <div class="flex flex-row gap-2 items-center" v-if="variablesValues && Object.keys(variablesValues).length > 0">
+        <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />
+        <span class="text-sm text-muted">Connected to provider</span>
+      </div>
     </div>
   </form>
 </template>
