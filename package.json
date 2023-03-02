@@ -24,6 +24,7 @@
     "schema": "server/database/schema.prisma"
   },
   "devDependencies": {
+    "@capacitor/cli": "^4.7.0",
     "@headlessui/vue": "^1.7.7",
     "@heroicons/vue": "^2.0.13",
     "@nuxt/image-edge": "1.0.0-27840416.dc1ed65",
@@ -64,5 +65,11 @@
     "vue-sweetalert2": "^5.0.5",
     "vue3-google-login": "^2.0.12",
     "vue3-google-oauth2": "^1.0.6"
+  },
+  "dependencies": {
+    "@capacitor/android": "^4.7.0",
+    "@capacitor/core": "^4.7.0",
+    "@capacitor/ios": "^4.7.0",
+    "ionic": "^5.4.16"
   }
 }
