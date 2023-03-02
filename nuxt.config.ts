@@ -3,6 +3,7 @@ import fr from "./locales/fr.json";
 
 export default defineNuxtConfig({
   app: {
+    layoutTransition: { name: "layout", mode: "out-in" },
     pageTransition: {
       name: "fade",
       mode: "out-in",
@@ -24,6 +25,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-mailer",
     "@pinia/nuxt",
+    "@nuxt/content",
   ],
 
   imports: {
