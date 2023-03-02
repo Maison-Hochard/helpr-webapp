@@ -1,43 +1,47 @@
 ---
-Title : "Nouveau thème disponible"
-description : "Voici un nouveau thème pour l'application"
-date : "2023-02-20"
-
-image : "/images/cosmos-theme.png"
-use : "Pour utiliser ce thème, il suffit de cliquer sur le bouton Thème dans le menu de gauche, puis de sélectionner le thème Cosmos."
-other : "Nada"
+Title : "2 Nouveaux thèmes disponibles"
+date : "Feb 20 2023"
+version : "0.1.0"
 ---
 
 # Title
 Nouveau thème disponible Cosmos
 
-## Description
-Voici un nouveau thème pour l'application. il s'aggit du thème "Cosmos". et Voici un aperçu de ce thème :
+## Tag de la version
+Voici un nouveau thème pour l'application. il s'aggit du thème "Cosmos". un mélanges de bleu et de violet pour un thème très agréable.
+Pour utiliser ce thème, il suffit de cliquer sur le bouton "Thème" dans le menu de gauche, puis de sélectionner le thème "Cosmos".
 
 ## Image
 ![Cosmos theme](/images/cosmos-theme.png)
 
-## How to use
-Pour utiliser ce thème, il suffit de cliquer sur le bouton "Thème" dans le menu de gauche, puis de sélectionner le thème "Cosmos".
+## Bugfix
+null
 
-## Other information
-Nada
+## NB
+null
+
+## Notes de version
+0.1.0
 
 
 # Title
 Nouveau thème disponible Fire
 
-## Description
-Voici un nouveau thème pour l'application. il s'aggit du thème "Fire". et Voici un aperçu de ce thème :
+## Tag de la version
+Voici un nouveau thème pour l'application. il s'aggit du thème "Ardent". Un thème rouge et noir pour un thème très agréable. 
+Pour utiliser ce thème, il suffit de cliquer sur le bouton "Thème" dans le menu de gauche, puis de sélectionner le thème "Ardent".
 
 ## Image
-![Cosmos theme](/images/cosmos.png)
+![Fire theme](/images/ardent-theme.png)
 
-## How to use
-Pour utiliser ce thème, il suffit de cliquer sur le bouton "Thème" dans le menu de gauche, puis de sélectionner le thème "Fire".
+## Bugfix
+null
 
-## Other information
-Nada
+## NB
+Merci d'avoir lu cette note de version. :)
+
+## Notes de version
+0.1.0
 
 
 

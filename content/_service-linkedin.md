@@ -1,19 +1,27 @@
 ---
 Title : "Nouveau service disponible Linkedin"
-date : "2023-02-10"
+date : "Feb 10 2023"
+version : "0.1.0"
 ---
 
 # Title
 Nouveau service disponible Linkedin
 
-## Description
-Voici un nouveau service pour l'application. il s'aggit du service "Linkedin". et Voici un aperçu de ce service :
+## Tag de la version
+Voici un nouveau service pour l'application. il s'aggit du service "Linkedin". Plusieurs actions sont disponibles pour ce service. Voici un aperçu de ce service : Create Issue / Create Pull Request / Create Repository / Create Repository from Template / Create Repository from Template (with custom name) / Create Repository from Template (with custom name and description) /
 
 ## Image
-![Cosmos theme](/images/cosmos.png)
+![Cosmos theme](null)
 
-## How to use
-Pour utiliser ce service, il suffit de cliquer sur le bouton "Service" dans le menu de gauche, puis de sélectionner le service "Linkedin".
+## Bugfix
+null
 
-## Other information
-Nada
+## NB
+Merci d'avoir lu cette note de version. :)
+
+## Notes de version
+0.1.0
+
+
+
+
