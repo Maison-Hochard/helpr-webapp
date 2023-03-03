@@ -19,7 +19,9 @@
     "app management": "App Management",
     "create flow": "Create Flow",
     "providers": "Providers",
-    "open_app": "Open App"
+    "open_app": "Open App",
+    "docs": "Documentation",
+    "changelog": "Changelog"
   },
   "login": {
     "signin_to_your_account": "Sign in to your account",

@@ -19,7 +19,9 @@
     "app management": "Gestion de l'application",
     "create flow": "Créer un flow",
     "providers": "Services",
-    "open_app": "Ouvrir l'application"
+    "open_app": "Ouvrir l'application",
+    "docs": "Documentation",
+    "changelog": "Changelog"
   },
   "login": {
     "signin_to_your_account": "Connectez-vous à votre compte",

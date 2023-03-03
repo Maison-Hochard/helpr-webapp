@@ -23,6 +23,8 @@ export function getNavigation(where: Where): Navigation[] {
       return [
         { name: "Home", to: "/", icon: HomeIcon },
         { name: "Pricing", to: "/pricing", icon: HomeIcon },
+        { name: "Changelog", to: "/changelog", icon: HomeIcon },
+        { name: "Docs", to: "/docs", icon: HomeIcon },
         { name: "Contact", to: "/contact", icon: HomeIcon },
       ];
     case "app":
