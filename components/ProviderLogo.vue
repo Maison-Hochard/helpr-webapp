@@ -9,25 +9,26 @@ defineProps({
     required: false,
   },
 });
+
+const theme = computed(() => {
+  const currentTheme = useGlobalStore().getTheme;
+  if (currentTheme.includes("light")) {
+    return "dark";
+  } else {
+    return "light";
+  }
+});
 </script>
 
 <template>
   <div class="flex flex-shrink-0 items-center">
     <div v-if="!source">
-      <img
-        class="block h-6 w-auto lg:hidden"
-        :src="'https://storage.cloud.google.com/helpr/' + provider + '-logo-white.svg'"
-        :alt="provider + ' logo'"
-      />
-      <img
-        class="hidden h-6 w-auto lg:block"
-        :src="'https://storage.cloud.google.com/helpr/' + provider + '-logo-white.svg'"
-        :alt="provider + ' logo'"
-      />
+      <nuxt-img class="block h-6 w-auto lg:hidden" :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'" />
+      <nuxt-img class="hidden h-6 w-auto lg:block" :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'" />
     </div>
     <div v-else>
-      <img class="block h-6 w-auto lg:hidden" :src="source" :alt="provider + ' logo'" />
-      <img class="hidden h-6 w-auto lg:block" :src="source" :alt="provider + ' logo'" />
+      <nuxt-img class="block h-6 w-auto lg:hidden" :src="source" :alt="provider + ' logo'" />
+      <nuxt-img class="hidden h-6 w-auto lg:block" :src="source" :alt="provider + ' logo'" />
     </div>
   </div>
 </template>

@@ -38,7 +38,12 @@ module.exports = {
       },
       ringColor: {
         accent: withOpacity("--accent-color"),
+        secondary: "var(--bg-secondary)",
         transparent: "transparent",
+      },
+      gradientColorStops: {
+        "accent-primary": "var(--accent-primary)",
+        "accent-secondary": "var(--accent-secondary)",
       },
       borderColor: {
         primary: "var(--border-primary)",

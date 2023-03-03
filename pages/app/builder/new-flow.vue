@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { PlusIcon } from "@heroicons/vue/24/outline";
+import { PlusIcon, ArrowPathIcon } from "@heroicons/vue/24/outline";
 import TriggerStep from "~/components/builder/TriggerStep.vue";
 import ActionStep from "~/components/builder/ActionStep.vue";
 import Debug from "~/components/builder/Debug.vue";
 import { useFlowStore } from "~/store/flowStore";
 import { flowBuilderData } from "~/types/Flow";
 import { endDrag, onDragEnter, onDragOver, onDrop, startDrag } from "~/composables/Builder/useBuilder";
+import VariablesSelector from "~/components/builder/VariablesSelector.vue";
 
 definePageMeta({
   name: "New Flow",
@@ -18,62 +19,58 @@ const { data: providers, pending } = await useLazyAsyncData<flowBuilderData>(asy
 if (!providers) {
   throw new Error("No providers found");
 }
-
 const flowStore = useFlowStore();
 
-const flow = flowStore.getFlow;
+const flow = computed(() => flowStore.getFlow);
 
 async function createFlow() {
-  useErrorToast("Aie, this feature is not implemented yet :(");
-  // await addFlow(flow.value);
+  await addFlow(flow.value);
 }
 
-const variables = computed(() => {
-  const triggerVariables = flow.trigger?.variables?.map((variable) => variable.value) || [];
-  const actionVariables = flow.actions?.flatMap((action) => action.variables?.map((variable) => variable.value)) || [];
-  return [...triggerVariables, ...actionVariables];
-});
-
 useHead({
-  title: flow.name,
+  title: flow.value.name,
 });
 </script>
 
 <template>
   <div>
-    <div class="m-4">
-      <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6 flex items-center justify-between">
-        <div>
-          <input
-            v-model="flow.name"
-            @input="flow.name = $event.target.value"
-            class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
-          />
-          <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
+    <div>
+      <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
+        <div class="flex items-center gap-4 justify-between">
+          <div>
+            <input
+              v-model="flow.name"
+              @input="flow.name = $event.target.value"
+              class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
+            />
+            <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
+            <div class="group flex items-center gap-2 mt-4 cursor-pointer" @click="flowStore.reset">
+              <ArrowPathIcon class="h-5 w-5 text-muted group-hover:animate-spin" aria-hidden="true" />
+              <span class="text-sm text-muted"> Reset the flow </span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-2">
+              <label class="text-sm text-muted">Enabled</label>
+              <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="text-sm text-muted">Public</label>
+              <Switch :model-value="flow.public" @update:value="flow.public = $event" />
+            </div>
+          </div>
         </div>
-        <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
+        <textarea
+          v-model="flow.description"
+          @input="flow.description = $event.target.value"
+          class="bg-transparent mt-6 border-none w-full text-sm text-muted focus:outline-none mt-4"
+          placeholder="Add a description"
+        />
       </div>
       <FlowLoader v-if="pending" :nb-items="4" />
       <div v-else class="flex flex-col gap-4 mt-4">
         <TriggerStep :providers="providers" />
-        <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
-          <h3 class="text-lg leading-6 font-medium text-primary">Variables</h3>
-          <p class="text-sm text-muted">
-            You can use these variables in your actions. Just click on them to copy them to your clipboard and paste
-            them in your action.
-          </p>
-          <div class="flex flex-wrap gap-4 mt-4" v-if="variables.length > 0">
-            <button
-              v-for="variable in variables"
-              :key="variable"
-              class="btn-secondary"
-              @click="copyToClipboard(variable)"
-            >
-              {{ variable }}
-            </button>
-          </div>
-          <div v-else class="text-muted text-center mt-4">No variables found</div>
-        </div>
+        <VariablesSelector :flow="flow" />
         <div class="flex flex-col gap-4 mt-4" @dragover.prevent @dragenter.prevent @drop="onDrop">
           <ActionStep
             v-for="action in flow.actions"
@@ -109,7 +106,9 @@ useHead({
           :flow-actions="flow.actions"
           :flow-trigger="flow.trigger"
           :flow-enabled="flow.enabled"
+          :flow-public="flow.public"
           :flow-name="flow.name"
+          :flow-description="flow.description"
         />
       </div>
     </div>

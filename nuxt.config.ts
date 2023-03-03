@@ -9,7 +9,6 @@ export default defineNuxtConfig({
       mode: "out-in",
     },
   },
-
   css: ["~/assets/style/main.scss"],
 
   build: {
@@ -26,6 +25,7 @@ export default defineNuxtConfig({
     "nuxt-mailer",
     "@pinia/nuxt",
     "@nuxt/content",
+    "@nuxtjs/supabase",
   ],
 
   imports: {
@@ -72,6 +72,10 @@ export default defineNuxtConfig({
   },
 
   image: {
+    alias: {
+      supabase: "https://uynsrkwqyplqhfrmdaqw.supabase.co/storage/v1/object/public",
+    },
+    domains: ["uynsrkwqyplqhfrmdaqw.supabase.co"],
     dir: "assets/media",
   },
 });

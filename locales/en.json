@@ -18,7 +18,27 @@
     "dashboard": "Dashboard",
     "app management": "App Management",
     "create flow": "Create Flow",
-    "providers": "Providers"
+    "providers": "Providers",
+    "open_app": "Open App"
+  },
+  "login": {
+    "signin_to_your_account": "Sign in to your account",
+    "login": "Login",
+    "password": "Password",
+    "forgot_password": "Forgot password?",
+    "signin": "Sign in",
+    "dont_have_an_account": "Don't have an account? Sign up"
+  },
+  "signup": {
+    "signup_to_your_account": "Sign up to your account",
+    "username": "Username",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "signup": "Sign up",
+    "already_have_an_account": "Already have an account? Sign in"
   },
   "pages": {
     "profile": {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Footer from "@/components/layout/Footer.vue";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/vue/24/outline";
 
 definePageMeta({
@@ -131,16 +132,12 @@ async function submitForm() {
               />
             </div>
             <div>
-              <button
-                type="submit"
-                class="inline-flex justify-center rounded-md border border-transparent bg-accent py-2 px-6 text-base font-medium text-white shadow-sm hover:bg-accent-hover"
-              >
-                Submit
-              </button>
+              <button type="submit" class="btn-primary">Submit</button>
             </div>
           </form>
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>

@@ -74,8 +74,9 @@ const sidebarOpen = ref(false);
                     <nav class="mt-5 flex-1" aria-label="Sidebar">
                       <div class="space-y-1 px-2">
                         <NuxtLink
+                          @click="sidebarOpen = false"
                           to="/app/builder/new-flow"
-                          class="flex items-center px-2 py-2 text-sm font-medium rounded-md text-white bg-accent"
+                          class="mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient"
                         >
                           <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
                           Create Flow
@@ -86,7 +87,7 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                            item.name === $route.name
+                            item.to === $route.path
                               ? 'bg-accent-faded text-accent'
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
@@ -96,7 +97,7 @@ const sidebarOpen = ref(false);
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
+                              item.to === $route.path ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"
@@ -112,17 +113,16 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                            item.name === $route.name
+                            item.to === $route.path
                               ? 'bg-accent-faded text-accent'
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                           ]"
-                          :aria-current="item.name === $route.name ? 'page' : undefined"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
+                              item.to === $route.path ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"
@@ -142,17 +142,16 @@ const sidebarOpen = ref(false);
                           :key="item.name"
                           :to="item.to"
                           :class="[
-                            item.name === $route.name
+                            item.to === $route.path
                               ? 'bg-accent-faded text-accent'
                               : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                           ]"
-                          :aria-current="item.name === $route.name ? 'page' : undefined"
                         >
                           <component
                             :is="item.icon"
                             :class="[
-                              item.name === $route.name ? 'text-accent' : 'text-muted group-hover:text-accent',
+                              item.to === $route.path ? 'text-accent' : 'text-muted group-hover:text-accent',
                               'mr-3 flex-shrink-0 h-6 w-6',
                             ]"
                             aria-hidden="true"

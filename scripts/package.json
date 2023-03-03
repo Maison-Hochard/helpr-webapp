@@ -1,0 +1,14 @@
+{
+  "name": "generate-about",
+  "version": "1.0.0",
+  "type": "module",
+  "prisma": {
+    "datamodel": "../server/prisma/schema.prisma",
+    "generate": {
+      "output": "../server/generated/prisma-client"
+    }
+  },
+  "dependencies": {
+    "prisma": "^4.10.1"
+  }
+}

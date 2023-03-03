@@ -8,6 +8,15 @@ export async function addCredentials(provider: string, accessToken: string) {
   console.log(res);
 }
 
+export async function removeCredentials(provider: string) {
+  const url = "/provider/deconnect";
+  const { data } = await useAPI<ApiResponse>(url, "DELETE", {
+    provider: provider.toLowerCase(),
+  });
+  if (data) useSuccessToast("Provider disconnected");
+  else useErrorToast("Error while disconnecting provider");
+}
+
 export async function getUserProviders() {
   const url = "/provider/user";
   const { data: services } = await useAPI<ApiResponse>(url, "GET");
