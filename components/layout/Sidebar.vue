@@ -39,7 +39,7 @@ async function logout() {
                 class="mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient"
               >
                 <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
-                Create Flow
+                {{ $t("navigation.create flow") }}
               </NuxtLink>
               <NuxtLink
                 v-for="item in appNav"
@@ -51,7 +51,6 @@ async function logout() {
                     : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                   'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                 ]"
-                :aria-current="item.name === $route.name ? 'page' : undefined"
               >
                 <component
                   :is="item.icon"
@@ -61,7 +60,7 @@ async function logout() {
                   ]"
                   aria-hidden="true"
                 />
-                {{ item.name }}
+                {{ $t("navigation." + item.name.toLowerCase()) }}
               </NuxtLink>
             </div>
             <hr class="my-5 border-t border-muted" aria-hidden="true" />
@@ -76,7 +75,6 @@ async function logout() {
                     : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                   'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                 ]"
-                :aria-current="item.name === $route.name ? 'page' : undefined"
               >
                 <component
                   :is="item.icon"
@@ -86,7 +84,7 @@ async function logout() {
                   ]"
                   aria-hidden="true"
                 />
-                {{ item.name }}
+                {{ $t("navigation." + item.name.toLowerCase()) }}
               </NuxtLink>
             </div>
             <hr class="my-5 border-t border-muted" aria-hidden="true" v-if="user && user.role === Role.ADMIN" />
@@ -101,7 +99,6 @@ async function logout() {
                     : 'text-gray-600 hover:bg-accent-faded hover:text-accent',
                   'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                 ]"
-                :aria-current="item.name === $route.name ? 'page' : undefined"
               >
                 <component
                   :is="item.icon"
@@ -111,7 +108,7 @@ async function logout() {
                   ]"
                   aria-hidden="true"
                 />
-                {{ item.name }}
+                {{ $t("navigation." + item.name.toLowerCase()) }}
               </NuxtLink>
             </div>
             <hr class="my-5 border-t border-muted" aria-hidden="true" />
@@ -122,7 +119,7 @@ async function logout() {
                 @click="logout"
               >
                 <ArrowLeftOnRectangleIcon class="mr-3 h-6 w-6 flex-shrink-0 text-muted group-hover:text-accent-hover" />
-                Logout
+                {{ $t("navigation.logout") }}
               </button>
             </div>
           </nav>

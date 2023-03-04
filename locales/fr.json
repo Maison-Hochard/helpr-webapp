@@ -13,10 +13,13 @@
     "logout": "Déconnexion",
     "signup": "Inscription",
     "profile": "Profil",
+    "edit profile": "Modifier le profil",
+    "community": "Communauté",
     "settings": "Paramètres",
     "admin": "Admin",
     "dashboard": "Tableau de bord",
     "app management": "Gestion de l'application",
+    "my flows": "Mes flows",
     "create flow": "Créer un flow",
     "providers": "Services",
     "open_app": "Ouvrir l'application",
@@ -114,6 +117,8 @@
   "settings": {
     "title": "Paramètres",
     "description": "Gérez les paramètres de l'application",
-    "language": "Langue"
+    "language": "Langue",
+    "theme": "Thème",
+    "theme_description": "Choisissez le thème de l'application"
   }
 }

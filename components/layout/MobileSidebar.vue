@@ -88,7 +88,7 @@ const sidebarOpen = ref(false);
                           class="mb-2 flex items-center px-2 py-2 text-sm font-medium rounded-md text-white gradient"
                         >
                           <PlusCircleIcon class="mr-3 flex-shrink-0 h-6 w-6 text-white" aria-hidden="true" />
-                          Create Flow
+                          {{ $t("navigation.create flow") }}
                         </NuxtLink>
                         <NuxtLink
                           @click="sidebarOpen = false"
@@ -111,7 +111,7 @@ const sidebarOpen = ref(false);
                             ]"
                             aria-hidden="true"
                           />
-                          {{ item.name }}
+                          {{ $t("navigation." + item.name.toLowerCase()) }}
                         </NuxtLink>
                       </div>
                       <hr class="my-5 border-t border-muted" aria-hidden="true" />
@@ -136,7 +136,7 @@ const sidebarOpen = ref(false);
                             ]"
                             aria-hidden="true"
                           />
-                          {{ item.name }}
+                          {{ $t("navigation." + item.name.toLowerCase()) }}
                         </NuxtLink>
                       </div>
                       <hr
@@ -165,7 +165,7 @@ const sidebarOpen = ref(false);
                             ]"
                             aria-hidden="true"
                           />
-                          {{ item.name }}
+                          {{ $t("navigation." + item.name.toLowerCase()) }}
                         </NuxtLink>
                       </div>
                       <hr class="my-5 border-t border-muted" aria-hidden="true" />
@@ -178,7 +178,7 @@ const sidebarOpen = ref(false);
                           <ArrowLeftOnRectangleIcon
                             class="mr-3 h-6 w-6 flex-shrink-0 text-muted group-hover:text-accent-hover"
                           />
-                          Logout
+                          {{ $t("navigation.logout") }}
                         </button>
                       </div>
                     </nav>

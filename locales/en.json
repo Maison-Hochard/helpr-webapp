@@ -13,10 +13,13 @@
     "logout": "Logout",
     "signup": "Sign Up",
     "profile": "Profile",
+    "edit profile": "Edit Profile",
+    "community": "Community",
     "settings": "Settings",
     "admin": "Admin",
     "dashboard": "Dashboard",
     "app management": "App Management",
+    "my flows": "My Flows",
     "create flow": "Create Flow",
     "providers": "Providers",
     "open_app": "Open App",
@@ -114,6 +117,8 @@
   "settings": {
     "title": "Settings",
     "description": "Here you can change your application settings.",
-    "language": "Language"
+    "language": "Language",
+    "theme": "Theme",
+    "theme_description": "Choose the theme you want to use."
   }
 }
