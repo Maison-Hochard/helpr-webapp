@@ -8,9 +8,9 @@ export default eventHandler(async (event: H3Event) => {
   if (!userId) {
     throw createError({
       statusCode: 400,
-      statusMessage: "User not found",
+      statusMessage: "invalid_code",
     });
   }
   await verifyEmail(userId);
-  return { statusCode: 200, body: { message: "Email verified" } };
+  return { statusCode: 200, body: { message: "email_verified" } };
 });

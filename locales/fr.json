@@ -23,13 +23,24 @@
     "docs": "Documentation",
     "changelog": "Changelog"
   },
+  "error": {
+    "404": "Cette page n'existe pas",
+    "404_message": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "500": "Erreur interne du serveur",
+    "user_not_found": "Utilisateur introuvable",
+    "invalid_password": "Mot de passe incorrect",
+    "user_already_exists": "Cet utilisateur existe déjà",
+    "unknown_error": "Une erreur inconnue s'est produite",
+    "invalid_code": "Code de vérification incorrect"
+  },
   "login": {
     "signin_to_your_account": "Connectez-vous à votre compte",
     "login": "Identifiant",
     "password": "Mot de passe",
     "forgot_password": "Mot de passe oublié?",
     "signin": "Connexion",
-    "dont_have_an_account": "Vous n'avez pas de compte? Inscrivez-vous"
+    "dont_have_an_account": "Vous n'avez pas de compte? Inscrivez-vous",
+    "welcome_back": "Bienvenue"
   },
   "signup": {
     "signup_to_your_account": "Inscrivez-vous à votre compte",
@@ -40,21 +51,54 @@
     "password": "Mot de passe",
     "confirm_password": "Confirmer le mot de passe",
     "signup": "S'inscrire",
-    "already_have_an_account": "Vous avez déjà un compte? Connectez-vous"
+    "already_have_an_account": "Vous avez déjà un compte? Connectez-vous",
+    "signup_success": "Votre compte a été créé avec succès"
   },
-  "pages": {
-    "profile": {
-      "title": "Profil",
-      "username": "Nom d'utilisateur",
-      "firstname": "Prénom",
-      "lastname": "Nom",
-      "email": "Email",
-      "password": "Mot de passe",
-      "update": "Mettre à jour",
-      "cancel_my_account": "Annuler mon compte",
-      "are_you_sure": "Êtes-vous sûr?",
-      "delete_account": "Supprimer le compte",
-      "delete_my_account": "Supprimer mon compte"
-    }
+  "verify": {
+    "verify_your_account": "Vérifiez votre compte",
+    "verify": "Vérifier",
+    "verification_code_sent": "Un code de vérification a été envoyé à votre adresse email, veuillez le saisir ci-dessous",
+    "verification_code_sent_again": "Un nouveau code de vérification a été envoyé à votre adresse email",
+    "resend_email": "Renvoyer l'email",
+    "didnt_receive_email": "Vous n'avez pas reçu d'email ?",
+    "verification_successful": "Votre compte a été vérifié avec succès"
+  },
+  "password": {
+    "reset_password": "Réinitialiser le mot de passe",
+    "description": "Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe",
+    "enter_new_password": "Entrez votre nouveau mot de passe",
+    "password_reset_success": "Votre mot de passe a été réinitialisé avec succès",
+    "email_sent": "L'email a été envoyé avec succès",
+    "send": "Envoyer",
+    "password_required": "Le mot de passe doit contenir au moins 8 caractères et doivent être identiques",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe"
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Gérez votre profil, attention ces informations seront public dans la version finale",
+    "username": "Nom d'utilisateur",
+    "bio": "Bio",
+    "avatar": "Avatar",
+    "delete_my_account": "Supprimer mon compte",
+    "delete_my_account_description": "Une fois votre compte supprimé, toutes vos données seront définitivement supprimées. Cette action est irréversible.",
+    "logout": "A bientôt",
+    "profile_update_confirmation": "Êtes-vous sûr de vouloir mettre à jour votre profil ?",
+    "profile_delete_confirmation": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+    "avatar_upload": "Télécharger un avatar",
+    "avatar_upload_success": "Votre avatar a été mis à jour avec succès",
+    "avatar_upload_error": "Une erreur s'est produite lors de la mise à jour de votre avatar",
+    "avatar_uploaded": "Avatar téléchargé",
+    "avatar_none": "Aucun avatar",
+    "avatar_save": "Modifier l'avatar",
+    "update_profile": "Mettre à jour le profil",
+    "profile_update_success": "Votre profil a été mis à jour avec succès",
+    "profile_delete_success": "Votre compte a été supprimé avec succès",
+    "username_or_email_already_exists": "Ce nom d'utilisateur existe déjà"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "description": "Gérez les paramètres de l'application",
+    "language": "Langue"
   }
 }

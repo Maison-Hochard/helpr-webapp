@@ -73,18 +73,20 @@ export const useUserStore = defineStore("user", {
         }
       }
     },
-    async updateUser(toast = true) {
-      if (confirm("Are you sure you want to update your profile?")) {
-        if (this.user) {
-          const { data: updatedUser } = await useFetch<User>("/api/user/" + this.user.id, {
-            method: "PUT",
-            body: this.user,
-          });
-          this.user = updatedUser.value;
-          if (toast) {
-            useSuccessToast("Profile updated successfully");
-          }
-        }
+    async updateUser(toast = true, confirmation = true) {
+      if (confirmation && !confirm("Are you sure you want to update your profile ?")) return;
+      if (!this.user) return;
+      const { data: updatedUser, error } = await useFetch<User>(`/api/user/${this.user.id}`, {
+        method: "PUT",
+        body: this.user,
+      });
+      if (error.value?.statusMessage === "username_or_email_already_exists") {
+        useErrorToast("Username already exists");
+        return;
+      }
+      this.user = updatedUser.value;
+      if (toast) {
+        useSuccessToast("Profile updated");
       }
     },
   },

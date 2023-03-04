@@ -23,13 +23,24 @@
     "docs": "Documentation",
     "changelog": "Changelog"
   },
+  "error": {
+    "404": "Cette page n'existe pas",
+    "404_message": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "500": "Erreur interne du serveur",
+    "user_not_found": "Utilisateur introuvable",
+    "invalid_password": "Mot de passe incorrect",
+    "user_already_exists": "Cet utilisateur existe déjà",
+    "unknown_error": "Une erreur inconnue s'est produite",
+    "invalid_code": "Code de vérification incorrect"
+  },
   "login": {
     "signin_to_your_account": "Sign in to your account",
     "login": "Login",
     "password": "Password",
     "forgot_password": "Forgot password?",
     "signin": "Sign in",
-    "dont_have_an_account": "Don't have an account? Sign up"
+    "dont_have_an_account": "Don't have an account? Sign up",
+    "welcome_back": "Welcome back"
   },
   "signup": {
     "signup_to_your_account": "Sign up to your account",
@@ -40,21 +51,54 @@
     "password": "Password",
     "confirm_password": "Confirm Password",
     "signup": "Sign up",
-    "already_have_an_account": "Already have an account? Sign in"
+    "already_have_an_account": "Already have an account? Sign in",
+    "signup_success": "You have successfully registered"
   },
-  "pages": {
-    "profile": {
-      "title": "Profile",
-      "username": "Username",
-      "firstname": "Firstname",
-      "lastname": "Lastname",
-      "email": "Email",
-      "password": "Password",
-      "update": "Update",
-      "cancel_my_account": "Cancel my account",
-      "are_you_sure": "Are you sure?",
-      "delete_account": "Delete account",
-      "delete_my_account": "Delete my account"
-    }
+  "verify": {
+    "verify_your_account": "Verify your account",
+    "verify": "Verify",
+    "verification_code_sent": "A verification code has been sent to your email address",
+    "verification_code_sent_again": "A new verification code has been sent to your email address",
+    "resend_email": "Resend email",
+    "didnt_receive_email": "Didn't receive the email ?",
+    "verification_successful": "Your account has been verified"
+  },
+  "password": {
+    "reset_password": "Reset your password",
+    "description": "Enter your email address and we'll send you a link to reset your password.",
+    "enter_new_password": "Enter your new password",
+    "password_reset_success": "Your password has been successfully changed",
+    "email_sent": "An email has been sent to your address",
+    "send": "Send",
+    "password_required": "Password need to be at least 8 characters long and match the confirmation",
+    "password": "Password",
+    "confirm_password": "Confirm Password"
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Be careful, this information will be visible to all users in the final version of the application.",
+    "username": "Username",
+    "bio": "Bio",
+    "avatar": "Avatar",
+    "delete_my_account": "Delete my account",
+    "delete_my_account_description": "Once your account is deleted, all of your data will be permanently removed. This action cannot be undone.",
+    "logout": "See you soon",
+    "profile_update_confirmation": "Are you sure you want to update your profile ?",
+    "profile_delete_confirmation": "Are you sure you want to delete your account ?",
+    "avatar_upload": "Upload an avatar",
+    "avatar_upload_success": "Your avatar has been uploaded",
+    "avatar_upload_error": "An error has occurred while uploading your avatar",
+    "avatar_uploaded": "Avatar uploaded",
+    "avatar_none": "No avatar",
+    "avatar_save": "Change avatar",
+    "update_profile": "Update profile",
+    "profile_update_success": "Your profile has been updated",
+    "profile_delete_success": "Your account has been deleted",
+    "username_or_email_already_exists": "Username already exists"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Here you can change your application settings.",
+    "language": "Language"
   }
 }

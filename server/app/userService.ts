@@ -1,5 +1,5 @@
 import { Subscription, User } from "@prisma/client";
-import prisma, { exclude } from "~/server/database/client";
+import prisma, { formatUser } from "~/server/database/client";
 import bcrypt from "bcrypt";
 import { isString } from "@vueuse/core";
 import { H3Event } from "h3";
@@ -62,7 +62,7 @@ export async function createUser(userData: createUserInput) {
     from: useRuntimeConfig().mailerUser,
     subject: "Verify your email",
   });
-  return exclude(user, ["password", "authToken", "refreshToken"]);
+  return formatUser(user);
 }
 
 export async function getUserById(userId: number) {
@@ -72,7 +72,7 @@ export async function getUserById(userId: number) {
     },
   });
   if (!user) throw createError({ statusCode: 404, message: "User not found" });
-  return exclude(user, ["password", "authToken", "refreshToken"]);
+  return formatUser(user);
 }
 
 export async function getUserByLogin(login: string) {
@@ -90,7 +90,7 @@ export async function getAllUsers() {
     },
   });
   return users.map((user) => {
-    return exclude(user, ["password", "authToken", "refreshToken"]);
+    return formatUser(user);
   });
 }
 
@@ -104,11 +104,11 @@ export async function getUserByAuthToken(authToken: string) {
     },
   });
   if (!user) return null;
-  return exclude(user, ["password"]);
+  return formatUser(user);
 }
 
 export async function setAuthToken(userId: number) {
-  const user = (await getUserById(userId)) as User;
+  const user = await getUserById(userId);
   const authToken = jwt.sign(
     {
       id: user.id,
@@ -141,7 +141,7 @@ export async function setAuthToken(userId: number) {
       subscription: true,
     },
   });
-  return exclude(updatedUser, ["password"]);
+  return formatUser(updatedUser);
 }
 
 export async function adminCheck(event: H3Event): Promise<boolean> {
@@ -173,7 +173,7 @@ export async function updateUser(userId: number, updateUserInput: updateUserInpu
       subscription: true,
     },
   });
-  return exclude(user, ["password", "authToken", "refreshToken"]);
+  return formatUser(user);
 }
 
 export async function updateStripeCustomerId(data: User): Promise<User> {
@@ -192,7 +192,7 @@ export async function getUserByStripeCustomerId(stripeCustomerId: string) {
     },
   });
   if (!user) throw createError({ statusCode: 404, message: "User not found" });
-  return exclude(user, ["password", "authToken", "refreshToken"]);
+  return formatUser(user);
 }
 
 export async function getCurrentSubscription(userId: number): Promise<Subscription | null> {

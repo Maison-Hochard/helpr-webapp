@@ -10,7 +10,7 @@ export default eventHandler(async (event: H3Event) => {
   if (!user) {
     throw createError({
       statusCode: 400,
-      statusMessage: "User not found",
+      statusMessage: "user_not_found",
     });
   }
   const token = await generateEmailVerificationToken(user.id);
@@ -22,5 +22,5 @@ export default eventHandler(async (event: H3Event) => {
     from: useRuntimeConfig().mailerUser,
     subject: "Verify your email",
   });
-  return { statusCode: 200, body: { message: "Email sent" } };
+  return { statusCode: 200, body: { message: "email_sent" } };
 });
