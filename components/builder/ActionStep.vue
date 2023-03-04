@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TrashIcon } from "@heroicons/vue/24/outline";
+import { TrashIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
 const props = defineProps({
   providers: {
     type: Array,
@@ -44,13 +44,29 @@ function saveAction() {
   }
 }
 
+type VariablesValues = {
+  [key: string]: any;
+};
+
+const variablesValues = ref<VariablesValues>({});
+
 function removeAction() {
   flowStore.deleteAction(props.index);
+  variablesValues.value = {};
+}
+
+async function getProviderDataForAction(provider: string) {
+  try {
+    const { data } = await useAPI(`/${provider}/data`, "GET");
+    variablesValues.value = data;
+  } catch (error) {
+    useErrorToast("Error while fetching data from provider");
+  }
 }
 </script>
 
 <template>
-  <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
+  <form class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6" @submit.prevent="saveAction">
     <div class="flex flex-row justify-between">
       <div>
         <h3 class="text-lg leading-6 font-medium text-primary">{{ action.title }}</h3>
@@ -76,11 +92,64 @@ function removeAction() {
       />
       <div v-if="selectedAction" id="createPayload" class="flex flex-col gap-4 w-full">
         <div v-for="(field, key) in selectedAction.variables" :key="key" class="flex flex-col gap-2">
-          <label class="text-primary">{{ field.title }}</label>
-          <textarea class="bg-primary text-primary p-2 focus:outline-none rounded-md" v-model="payload[field.key]" />
+          <div class="flex flex-row gap-2">
+            <label class="text-primary">{{ field.title }}</label>
+            <span v-if="field.required" class="text-red-600">*</span>
+          </div>
+          <div v-if="variablesValues && Object.keys(variablesValues).length > 0">
+            <textarea
+              v-if="field.type === 'textarea'"
+              type="text"
+              class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
+              v-model="payload[field.key]"
+              :required="field.required"
+            />
+            <Switch v-else-if="field.type === 'boolean'" v-model="payload[field.key]" :required="field.required" />
+            <select
+              v-else-if="field.type === 'select'"
+              class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
+              v-model="payload[field.key]"
+              :required="field.required"
+            >
+              <option v-for="data in variablesValues[field.key]" :key="data.value" :value="data.value">
+                {{ data.name }}
+              </option>
+            </select>
+            <input
+              v-else
+              :type="field.type"
+              class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
+              v-model="payload[field.key]"
+              :required="field.required"
+            />
+          </div>
+          <div v-else>
+            <textarea
+              type="text"
+              rows="2"
+              class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
+              v-model="payload[field.key]"
+              :required="field.required"
+            />
+          </div>
         </div>
       </div>
     </div>
-    <button class="btn-secondary mt-4" @click="saveAction">Save Action</button>
-  </div>
+    <div class="flex flex-row gap-2 items-center mt-4">
+      <button class="btn-secondary" type="submit">Save Action</button>
+      <button
+        class="btn-secondary"
+        type="button"
+        @click="getProviderDataForAction(selectedProvider.name)"
+        :disabled="!selectedProvider"
+        :class="{ 'cursor-not-allowed': !selectedProvider }"
+      >
+        Get data for trigger
+      </button>
+      <div class="flex flex-row gap-2 items-center" v-if="variablesValues && Object.keys(variablesValues).length > 0">
+        <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />
+        <span class="text-sm text-muted">Connected to provider</span>
+      </div>
+    </div>
+  </form>
 </template>

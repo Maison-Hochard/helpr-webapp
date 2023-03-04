@@ -15,10 +15,10 @@ interface createFlowInput {
 // 9ee6881b-3afa-4cca-9b23-fc14c78181a3 Cooperantis
 // 34b08c67-0366-4cc0-8a32-07d481c045f1 Area
 
-async function createWebhook(provider: string, flowName: string) {
+async function createWebhook(provider: string, flowName: string, where: string) {
   const response = await useAPI<ApiResponse>(`/${provider}/create-webhook`, "POST", {
     name: "Helpr - " + flowName,
-    teamId: "34b08c67-0366-4cc0-8a32-07d481c045f1",
+    where: where,
   });
   if (response.statusCode === 201) {
     return response.data;
@@ -28,7 +28,10 @@ async function createWebhook(provider: string, flowName: string) {
   }
 }
 
-export async function addFlow(flowData: createFlowInput) {
+export async function addFlow(flowData: createFlowInput, where: string) {
+  if (flowData.trigger.webhook) {
+    await createWebhook(flowData.trigger.provider, flowData.name, where);
+  }
   const response = await useAPI<ApiResponse>("/flow", "POST", {
     name: flowData.name,
     description: flowData.description,
@@ -37,7 +40,6 @@ export async function addFlow(flowData: createFlowInput) {
     triggerId: flowData.trigger.id,
     actions: flowData.actions,
   });
-  console.log(response);
   if (response.statusCode === 201) {
     useSuccessToast("Flow created successfully");
     useRouter().push("/app/my-flows");
