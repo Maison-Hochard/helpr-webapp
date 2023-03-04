@@ -118,7 +118,7 @@ function canAccess(item) {
                 <span :class="isLogo ? 'ml-3' : ''" class="block truncate">
                   {{ item.title || item.name }}
                 </span>
-                <span class="ml-3 truncate text-muted">
+                <span class="ml-3 truncate text-muted hidden sm:block">
                   {{ item.description }}
                 </span>
                 <span

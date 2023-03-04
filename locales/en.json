@@ -145,7 +145,7 @@
     "already_connected": "You are already connected to",
     "save": "Save"
   },
-  "my-flows": {
+  "my_flows": {
     "title": "My flows",
     "description": "Manage your flows, edit, delete, and share them.",
     "no_flows": "You don't have any flows yet",

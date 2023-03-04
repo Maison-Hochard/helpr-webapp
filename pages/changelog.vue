@@ -15,7 +15,7 @@ definePageMeta({
         <div v-for="article in list" :key="article._path" class="mx-auto max-w-5xl">
           <div class="flex gap-6">
             <div class="flex flex-col space-y-5 justify-center items-center">
-              <span class="text-2xl font-bold">
+              <span class="text-2xl font-bold text-center text-primary">
                 {{ article.title }}
               </span>
               <div class="flex gap-2">
