@@ -29,7 +29,7 @@ async function uploadAvatar() {
           for="avatar-upload"
           class="relative cursor-pointer rounded-md font-medium text-accent hover:text-accent-hover"
         >
-          <span>{{ $t("profile.avatar_upload") }}</span>
+          <span>{{ $t("profile.upload") }}</span>
           <input
             id="avatar-upload"
             name="avatar-upload"
@@ -40,11 +40,11 @@ async function uploadAvatar() {
         </label>
         <p class="text-xs text-muted">PNG, JPG, GIF up to 10MB</p>
         <span class="text-xs text-muted">
-          {{ $t("profile.avatar_uploaded") }}: {{ avatar_file ? avatar_file.name : $t("profile.avatar_none") }}
+          {{ $t("profile.uploaded") }}: {{ avatar_file ? avatar_file.name : $t("profile.none") }}
         </span>
       </div>
       <button @click="uploadAvatar" type="button" class="btn-secondary">
-        {{ $t("profile.avatar_save") }}
+        {{ $t("profile.save") }}
       </button>
     </div>
   </div>

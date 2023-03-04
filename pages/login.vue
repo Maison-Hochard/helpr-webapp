@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import LanguageSelector from "~/components/settings/LanguageSelector.vue";
-
 const { t } = useI18n();
+
 import { User } from "~/types/User";
 
 definePageMeta({
   name: "Login",
   title: "Login",
   description: "Login to your account",
-  middleware: ["already-auth"],
+});
+
+const user = computed(() => useUserStore().getUser);
+
+watch(user, (user) => {
+  if (user) {
+    useRouter().push("/app/my-flows");
+  }
 });
 
 const login = ref("");
