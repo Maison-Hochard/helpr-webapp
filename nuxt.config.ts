@@ -3,7 +3,6 @@ import fr from "./locales/fr.json";
 
 export default defineNuxtConfig({
   app: {
-    layoutTransition: { name: "layout", mode: "out-in" },
     pageTransition: {
       name: "fade",
       mode: "out-in",
@@ -27,6 +26,16 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/supabase",
   ],
+
+  content: {
+    documentDriven: true,
+    markdown: {
+      mdc: true,
+    },
+    highlight: {
+      theme: "github-dark",
+    },
+  },
 
   imports: {
     dirs: ["store"],
