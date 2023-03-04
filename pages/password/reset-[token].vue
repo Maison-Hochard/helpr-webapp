@@ -85,6 +85,8 @@ async function resetPassword() {
         />
       </form>
     </div>
-    <LanguageSelector :is-text="true" class="mt-6" />
+    <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col justify-center items-center">
+      <LanguageSelector :is-text="true" class="mt-6" />
+    </div>
   </div>
 </template>

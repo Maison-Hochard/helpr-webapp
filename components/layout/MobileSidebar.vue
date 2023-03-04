@@ -2,17 +2,26 @@
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { ArrowLeftOnRectangleIcon, Bars3BottomLeftIcon, XMarkIcon, PlusCircleIcon } from "@heroicons/vue/24/outline";
 import { Role } from "~/types/Role";
-
-const user = useUserStore().getUser;
+const { t } = useI18n();
 
 const appNav = getNavigation("app");
 const userNav = getNavigation("user");
 const adminNav = getNavigation("admin");
 
-const logout = async () => {
-  await useLogout();
-  useSuccessToast("You have been logged out.");
-};
+const userStore = useUserStore();
+
+const user = computed(() => {
+  return userStore.getUser;
+});
+
+async function logout() {
+  await useFetch("/api/auth/logout", {
+    method: "POST",
+  });
+  useSuccessToast(t("profile.logout") + " " + user.value?.username ?? "");
+  userStore.logout();
+  useRouter().push("/login");
+}
 
 const sidebarOpen = ref(false);
 </script>

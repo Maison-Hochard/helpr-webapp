@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import LanguageSelector from "~/components/settings/LanguageSelector.vue";
+
 definePageMeta({
   name: "Signup",
   title: "Signup",
@@ -40,7 +42,7 @@ const signup = async () => {
     </div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md mt-12">
       <Loader v-if="loading" />
-      <form class="space-y-6" @submit.prevent="signup" v-else>
+      <form class="space-y-4" @submit.prevent="signup" v-else>
         <input
           id="username"
           name="username"
@@ -112,6 +114,9 @@ const signup = async () => {
       <NuxtLink :to="{ name: 'Login' }" class="btn-secondary w-full mt-6">
         {{ $t("signup.already_have_an_account") }}
       </NuxtLink>
+    </div>
+    <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col justify-center items-center">
+      <LanguageSelector :is-text="true" class="mt-6" />
     </div>
   </div>
 </template>

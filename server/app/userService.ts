@@ -129,7 +129,7 @@ export async function setAuthToken(userId: number) {
     useRuntimeConfig().private.refreshTokenSecret,
     { expiresIn: "30d" },
   );
-  const updatedUser = await prisma.user.update({
+  return await prisma.user.update({
     where: {
       id: userId,
     },
@@ -141,7 +141,6 @@ export async function setAuthToken(userId: number) {
       subscription: true,
     },
   });
-  return formatUser(updatedUser);
 }
 
 export async function adminCheck(event: H3Event): Promise<boolean> {

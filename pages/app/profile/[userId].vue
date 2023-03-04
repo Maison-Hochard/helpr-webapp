@@ -94,7 +94,7 @@ useHead({
           </div>
           <FlowLoader :nb-items="5" v-if="pending" />
           <div v-else>
-            <div v-if="flows.length === 0">
+            <div v-if="flows && flows.length === 0">
               <p class="text-sm text-muted">No public flows yet.</p>
             </div>
             <div v-else class="flex flex-col space-y-4">

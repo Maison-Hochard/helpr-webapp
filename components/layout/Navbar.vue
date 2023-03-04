@@ -2,12 +2,23 @@
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import { Bars3Icon } from "@heroicons/vue/24/outline";
 import LanguageSelector from "~/components/settings/LanguageSelector.vue";
+const { t } = useI18n();
 
 const navigation = getNavigation("home");
+const userStore = useUserStore();
 
 const user = computed(() => {
-  return useUserStore().getUser;
+  return userStore.getUser;
 });
+
+async function logout() {
+  await useFetch("/api/auth/logout", {
+    method: "POST",
+  });
+  useSuccessToast(t("profile.logout") + " " + user.value?.username ?? "");
+  userStore.logout();
+  useRouter().push("/login");
+}
 </script>
 
 <template>
@@ -22,8 +33,7 @@ const user = computed(() => {
             :id="item.name.toLowerCase()"
             class="text-sm font-semibold leading-6 text-primary hover:text-accent"
             >{{ $t("navigation." + item.name.toLowerCase()) }}
-          </NuxtLink
-          >
+          </NuxtLink>
         </div>
         <Menu as="div" class="relative inline-block text-left lg:hidden">
           <div>
@@ -96,7 +106,7 @@ const user = computed(() => {
                 <MenuItem v-slot="{ active }">
                   <button
                     class="w-full block text-left px-4 py-2 text-sm text-primary"
-                    @click="useLogout()"
+                    @click="logout()"
                     :class="active ? 'bg-accent-faded text-accent' : 'text-red-600'"
                   >
                     {{ $t("navigation.logout") }}

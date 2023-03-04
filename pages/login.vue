@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import LanguageSelector from "~/components/settings/LanguageSelector.vue";
+
+const { t } = useI18n();
+import { User } from "~/types/User";
+
 definePageMeta({
   name: "Login",
   title: "Login",
   description: "Login to your account",
+  middleware: ["already-auth"],
 });
 
 const login = ref("");
@@ -12,9 +18,25 @@ const loading = ref(false);
 
 async function signin() {
   loading.value = true;
-  const { user, error } = await useLogin(login.value, password.value);
-  if (error) useErrorToast("Invalid login or password");
-  else useSuccessToast("Welcome back " + user?.firstname);
+  const { data, error } = await useFetch<User>("/api/auth/login", {
+    method: "POST",
+    body: {
+      login: login.value,
+      password: password.value,
+    },
+  });
+  if (data.value) {
+    useSuccessToast(t("login.welcome_back") + " " + data.value.username);
+    useUserStore().setUser(data.value);
+    useUserStore().setSubscription(data.value.subscription);
+    useRouter().push("/app/my-flows");
+  } else if (error.value?.statusMessage === "user_not_found") {
+    useErrorToast(t("error.user_not_found"));
+  } else if (error.value?.statusMessage === "invalid_password") {
+    useErrorToast(t("error.invalid_password"));
+  } else {
+    useErrorToast(t("error.unknown_error"));
+  }
   loading.value = false;
 }
 </script>
@@ -28,8 +50,7 @@ async function signin() {
       </h2>
     </div>
     <div class="sm:mx-auto sm:w-full sm:max-w-md mt-12">
-      <Loader v-if="loading" />
-      <form class="space-y-6" @submit.prevent="signin" v-else>
+      <form class="space-y-4" @submit.prevent="signin">
         <div>
           <div class="mt-1">
             <input
@@ -69,6 +90,9 @@ async function signin() {
       <NuxtLink :to="{ name: 'Signup' }" class="btn-secondary w-full mt-6">{{
         $t("login.dont_have_an_account")
       }}</NuxtLink>
+    </div>
+    <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col justify-center items-center">
+      <LanguageSelector :is-text="true" class="mt-6" />
     </div>
   </div>
 </template>
