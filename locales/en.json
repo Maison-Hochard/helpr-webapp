@@ -124,5 +124,34 @@
     "language": "Language",
     "theme": "Theme",
     "theme_description": "Choose the theme you want to use."
+  },
+  "community": {
+    "title": "Our community",
+    "description": "Meet our awesome community of developers, designers, and entrepreneurs. We're always looking for new members to join our team.",
+    "search_members": "Search members",
+    "no_members_found": "No members found",
+    "search": "Search",
+    "try_other_search": "Try another search"
+  },
+  "provider": {
+    "title": "Connect your providers",
+    "description": "Connect your providers to start using them in your flows.",
+    "connect": "Connect",
+    "connected": "Connected providers",
+    "connected_providers": "Connected providers",
+    "no_connected_providers": "No connected providers",
+    "connect_provider": "Connect provider",
+    "disconnect": "Disconnect",
+    "already_connected": "You are already connected to",
+    "save": "Save"
+  },
+  "my-flows": {
+    "title": "My flows",
+    "description": "Manage your flows, edit, delete, and share them.",
+    "no_flows": "You don't have any flows yet",
+    "no_flows_description": "Create your first flow by clicking on the button below."
+  },
+  "builder": {
+
   }
 }

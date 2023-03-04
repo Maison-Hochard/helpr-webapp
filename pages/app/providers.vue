@@ -62,8 +62,12 @@ const deconnectedProviders = computed(() => {
 <template>
   <div>
     <div class="bg-secondary mb-5 px-4 py-5 shadow rounded-lg sm:p-6">
-      <h3 class="text-lg font-medium leading-6 text-primary">Add your tokens</h3>
-      <p class="mt-1 text-sm text-muted">Add your tokens to connect your services.</p>
+      <h3 class="text-lg font-medium leading-6 text-primary">
+        {{ $t("provider.title") }}
+      </h3>
+      <p class="mt-1 text-sm text-muted">
+        {{ $t("provider.description") }}
+      </p>
       <LoginWithGoogle class="p-2" />
       <button class="btn-secondary p-2">
         <NuxtLink :to="githubUrl" class="flex flex-row gap-5 items-center">
@@ -78,7 +82,9 @@ const deconnectedProviders = computed(() => {
       <Loader v-if="pendingProviders" />
       <div class="flex flex-col mt-10 gap-4" v-else>
         <hr class="border-primary" />
-        <label class="block text-sm font-medium text-primary">Connected services</label>
+        <label class="block text-sm font-medium text-primary">
+          {{ $t("provider.connected_providers") }}
+        </label>
         <CreateCredential
           v-for="provider in connectedProviders"
           :key="provider.provider"
@@ -88,7 +94,9 @@ const deconnectedProviders = computed(() => {
           :token-link="provider.tokenLink"
         />
         <hr class="border-primary" />
-        <label class="block text-sm font-medium text-primary mt-5">Connect services</label>
+        <label class="block text-sm font-medium text-primary mt-5">
+          {{ $t("provider.connect_provider") }}
+        </label>
         <CreateCredential
           v-for="provider in deconnectedProviders"
           :key="provider.provider"

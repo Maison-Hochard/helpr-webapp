@@ -38,20 +38,23 @@ watchEffect(() => {
     <FlowLoader v-if="pending" :nb-items="3" />
     <div class="bg-secondary rounded-lg p-4" v-else>
       <div class="flex flex-col items-center justify-center gap-4">
-        <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Our Community</h2>
+        <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
+          {{ $t("community.title") }}
+        </h2>
         <p class="max-w-2xl text-xl text-muted text-center">
-          Meet our awesome community of developers, designers, and entrepreneurs. We're always looking for new members
-          to join our team.
+          {{ $t("community.description") }}
         </p>
         <div class="flex items-center justify-center gap-4 w-full">
           <input
             v-model="search"
             type="text"
             class="w-full px-4 py-2 bg-primary border border-muted rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-            placeholder="Search for a user"
+            :placeholder="$t('community.search_members')"
             @keyup.enter="searchUser"
           />
-          <button type="button" class="btn btn-primary" :disabled="search === ''" @click="searchUser">Search</button>
+          <button type="button" class="btn btn-primary" :disabled="search === ''" @click="searchUser">
+            {{ $t("community.search") }}
+          </button>
         </div>
       </div>
       <ul
@@ -90,8 +93,12 @@ watchEffect(() => {
       </div>
     </div>
     <div v-else-if="searchedUsers && searchedUsers.length === 0" class="bg-secondary rounded-lg p-4 mt-4">
-      <p class="text-center text-muted">No user found</p>
-      <p class="text-center text-muted">Try again with another search</p>
+      <p class="text-center text-muted">
+        {{ $t("community.no_members_found") }}
+      </p>
+      <p class="text-center text-muted">
+        {{ $t("community.try_other_search") }}
+      </p>
     </div>
   </div>
 </template>

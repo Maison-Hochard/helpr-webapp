@@ -21,7 +21,7 @@
     "app management": "Gestion de l'application",
     "my flows": "Mes flows",
     "create flow": "Créer un flow",
-    "providers": "Services",
+    "providers": "Intégrations",
     "open_app": "Ouvrir l'application",
     "docs": "Documentation",
     "changelog": "Changelog"
@@ -124,5 +124,31 @@
     "language": "Langue",
     "theme": "Thème",
     "theme_description": "Choisissez le thème de l'application"
+  },
+  "community": {
+    "title": "Notre communauté",
+    "description": "Rejoignez notre communauté de développeurs, designers et autres passionnés. Nous sommes toujours heureux d'accueillir de nouveaux membres",
+    "search_members": "Rechercher des membres",
+    "no_members_found": "Aucun membre trouvé",
+    "search": "Rechercher",
+    "try_other_search": "Essayez une autre recherche"
+  },
+  "provider": {
+    "title": "Ajouter des intégrations",
+    "description": "Ajoutez des intégrations à votre compte pour pouvoir les utiliser dans vos flows",
+    "connect": "Connecter",
+    "connected": "Connecté",
+    "connected_providers": "Intégrations connectées",
+    "no_connected_providers": "Aucune intégration connectée",
+    "connect_provider": "Connecter une intégration",
+    "disconnect": "Déconnecter",
+    "already_connected": "Vous êtes déjà connecté à",
+    "save": "Enregistrer"
+  },
+  "my_flows": {
+    "title": "Mes flows",
+    "description": "Gérez vos flows, vous pouvez les modifier, les supprimer ou les partager",
+    "no_flows": "Vous n'avez pas encore créé de flows",
+    "no_flows_description": "Commencez par créer votre premier flow en cliquant sur le bouton ci-dessous"
   }
 }

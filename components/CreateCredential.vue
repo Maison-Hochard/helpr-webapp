@@ -48,7 +48,9 @@ async function Deconnect() {
             autocomplete="github-key"
             class="input mt-1"
           />
-          <button class="btn btn-primary" :disabled="credentials === ''">Save</button>
+          <button class="btn btn-primary" :disabled="credentials === ''">
+            {{ $t("provider.save") }}
+          </button>
         </div>
         <p class="mt-2 text-sm text-muted" v-if="tokenLink">
           You can find your {{ providerName }} Token Api in your
@@ -60,8 +62,10 @@ async function Deconnect() {
   <div v-else>
     <div class="flex flex-row gap-5 items-center">
       <ProviderLogo :provider="providerName.toLowerCase()" />
-      <p class="text-sm text-muted">You have already connected {{ providerName }}.</p>
-      <button class="btn-secondary" @click="Deconnect">Deconnect</button>
+      <p class="text-sm text-muted">{{ $t("provider.already_connected") }} {{ providerName }}.</p>
+      <button class="btn-secondary" @click="Deconnect">
+        {{ $t("provider.disconnect") }}
+      </button>
     </div>
   </div>
 </template>
