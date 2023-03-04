@@ -105,7 +105,11 @@
     "cover_upload_error": "Une erreur s'est produite lors de la mise à jour de votre couverture",
     "uploaded": "Téléchargé",
     "none": "Aucun",
-    "avatar_save": "Modifier l'avatar"
+    "avatar_save": "Modifier l'avatar",
+    "copy_link": "Copier le lien vers le profil",
+    "public_flows": "Flows publics",
+    "public_flows_description": "Liste des flows publics de l'utilisateur",
+    "no_public_flows": "Cet utilisateur n'a pas de flows publics pour le moment"
   },
   "subscription": {
     "manage_subscription": "Gérer votre abonnement",

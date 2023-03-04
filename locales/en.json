@@ -105,7 +105,11 @@
     "cover_upload_error": "An error occurred while uploading your cover",
     "uploaded": "Uploaded",
     "none": "None",
-    "avatar_save": "Save avatar"
+    "avatar_save": "Save avatar",
+    "copy_link": "Copy link to profile",
+    "public_flows": "Public flows",
+    "public_flows_description": "List of public flows created by this user",
+    "no_public_flows": "No public flows yet"
   },
   "subscription": {
     "manage_subscription": "Manage subscription",

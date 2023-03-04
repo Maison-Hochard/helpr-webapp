@@ -76,7 +76,9 @@ useHead({
                 <h1 class="truncate text-2xl font-bold text-primary">{{ user.firstname }} {{ user.lastname }}</h1>
                 <div class="flex items-center space-x-2 cursor-pointer" @click="copyProfileLink(user.id)">
                   <LinkIcon class="h-5 w-5 text-muted" />
-                  <p class="text-sm text-muted">Copy link to profile</p>
+                  <p class="text-sm text-muted">
+                    {{ $t("profile.copy_link") }}
+                  </p>
                 </div>
               </div>
               <div class="sm:col-span-2 mt-5">
@@ -89,13 +91,19 @@ useHead({
         <hr class="border-muted my-8" />
         <div id="public-flows" class="mt-8 m-6">
           <div class="mb-10">
-            <h2 class="text-lg leading-6 font-medium text-primary">Public flows</h2>
-            <p class="mt-1 text-sm text-gray-500">This is a list of all public flows.</p>
+            <h2 class="text-lg leading-6 font-medium text-primary">
+              {{ $t("profile.public_flows") }}
+            </h2>
+            <p class="mt-1 text-sm text-gray-500">
+              {{ $t("profile.public_flows_description") }}
+            </p>
           </div>
           <FlowLoader :nb-items="5" v-if="pending" />
           <div v-else>
             <div v-if="flows && flows.length === 0">
-              <p class="text-sm text-muted">No public flows yet.</p>
+              <p class="text-sm text-muted">
+                {{ $t("profile.no_public_flows") }}
+              </p>
             </div>
             <div v-else class="flex flex-col space-y-4">
               <Flow :is-mine="false" v-for="flow in flows" :key="flow.id" :flow="flow" />
