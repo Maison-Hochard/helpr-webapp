@@ -24,10 +24,11 @@ const variables = computed((): string[] => {
 
 <template>
   <div class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6">
-    <h3 class="text-lg leading-6 font-medium text-primary">Variables</h3>
+    <h3 class="text-lg leading-6 font-medium text-primary">
+      {{ $t("builder.variables") }}
+    </h3>
     <p class="text-sm text-muted">
-      You can use these variables in your actions. Just click on them to copy them to your clipboard and paste them in
-      your action.
+      {{ $t("builder.variables_description") }}
     </p>
     <div class="flex flex-wrap gap-2 mt-4" v-if="variables.length > 0">
       <button
@@ -39,6 +40,8 @@ const variables = computed((): string[] => {
         {{ variable }}
       </button>
     </div>
-    <div v-else class="text-muted text-center mt-4">No variables found</div>
+    <div v-else class="text-muted text-center mt-4">
+      {{ $t("builder.no_variables") }}
+    </div>
   </div>
 </template>

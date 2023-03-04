@@ -43,19 +43,27 @@ useHead({
               @input="flow.name = $event.target.value"
               class="bg-transparent border-none w-full text-3xl font-bold text-primary focus:outline-none"
             />
-            <p class="mt-1 text-sm text-muted">You can change the name of the flow just by clicking on it.</p>
+            <p class="mt-1 text-sm text-muted">
+              {{ $t("builder.change_name") }}
+            </p>
             <div class="group flex items-center gap-2 mt-4 cursor-pointer" @click="flowStore.reset">
               <ArrowPathIcon class="h-5 w-5 text-muted group-hover:animate-spin" aria-hidden="true" />
-              <span class="text-sm text-muted"> Reset the flow </span>
+              <span class="text-sm text-muted">
+                {{ $t("builder.reset_flow") }}
+              </span>
             </div>
           </div>
           <div class="flex flex-col gap-4">
             <div class="flex items-center gap-2">
-              <label class="text-sm text-muted">Enabled</label>
+              <label class="text-sm text-muted">
+                {{ $t("builder.enable") }}
+              </label>
               <Switch :model-value="flow.enabled" @update:value="flow.enabled = $event" />
             </div>
             <div class="flex items-center gap-2">
-              <label class="text-sm text-muted">Public</label>
+              <label class="text-sm text-muted">
+                {{ $t("builder.public") }}
+              </label>
               <Switch :model-value="flow.public" @update:value="flow.public = $event" />
             </div>
           </div>
@@ -64,7 +72,7 @@ useHead({
           v-model="flow.description"
           @input="flow.description = $event.target.value"
           class="bg-transparent mt-6 border-none w-full text-sm text-muted focus:outline-none mt-4"
-          placeholder="Add a description"
+          :placeholder="$t('builder.add_description')"
         />
       </div>
       <FlowLoader v-if="pending" :nb-items="4" />
@@ -97,11 +105,15 @@ useHead({
               class="inline-flex items-center rounded-full border border-muted bg-secondary px-4 py-1.5 text-sm font-medium leading-5 text-muted"
             >
               <PlusIcon class="-ml-1.5 mr-1 h-5 w-5 text-muted" aria-hidden="true" />
-              <span>Add Action</span>
+              <span>
+                {{ $t("builder.add_action") }}
+              </span>
             </button>
           </div>
         </div>
-        <button @click="createFlow" class="btn-primary w-full">Save Flow</button>
+        <button @click="createFlow" class="btn-primary w-full">
+          {{ $t("builder.create_flow") }}
+        </button>
         <Debug
           :flow-actions="flow.actions"
           :flow-trigger="flow.trigger"

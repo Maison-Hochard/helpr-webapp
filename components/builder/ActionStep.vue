@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { TrashIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
+const { t } = useI18n();
 const props = defineProps({
   providers: {
     type: Array,
@@ -38,9 +39,9 @@ function saveAction() {
   if (selectedAction.value?.name !== "empty") {
     selectedAction.value.payload = payload.value;
     flowStore.saveAction(props.index, selectedAction.value);
-    useSuccessToast("Action saved!");
+    useSuccessToast(t("builder.action_saved"));
   } else {
-    useErrorToast("Please select an action");
+    useErrorToast(t("builder.need_action"));
   }
 }
 
@@ -69,7 +70,7 @@ async function getProviderDataForAction(provider: string) {
   <form class="bg-secondary px-4 py-5 shadow rounded-lg sm:p-6" @submit.prevent="saveAction">
     <div class="flex flex-row justify-between">
       <div>
-        <h3 class="text-lg leading-6 font-medium text-primary">{{ action.title }}</h3>
+        <h3 class="text-lg leading-6 font-medium text-primary">{{ action.title || $t("builder.select_action") }}</h3>
         <h4 class="text-sm text-muted">{{ action.description || "" }}</h4>
       </div>
       <TrashIcon class="h-6 w-6 text-muted cursor-pointer hover:text-red-600" @click="removeAction" />
@@ -79,7 +80,7 @@ async function getProviderDataForAction(provider: string) {
         v-model="selectedProvider"
         :placeholder="'Linear, Github, etc...'"
         :items="filteredProviders"
-        label="Select a provider"
+        :label="$t('builder.select_provider')"
         :is-logo="true"
       />
       <Dropdown
@@ -87,7 +88,7 @@ async function getProviderDataForAction(provider: string) {
         v-model="selectedAction"
         :items="selectedProvider.actions"
         :placeholder="'Create a new issue, etc...'"
-        label="Select an action"
+        :label="$t('builder.select_action')"
         :is-logo="false"
       />
       <div v-if="selectedAction" id="createPayload" class="flex flex-col gap-4 w-full">
@@ -136,7 +137,9 @@ async function getProviderDataForAction(provider: string) {
       </div>
     </div>
     <div class="flex flex-row gap-2 items-center mt-4">
-      <button class="btn-secondary" type="submit">Save Action</button>
+      <button class="btn-secondary" type="submit">
+        {{ $t("builder.save_action") }}
+      </button>
       <button
         class="btn-secondary"
         type="button"
@@ -144,11 +147,13 @@ async function getProviderDataForAction(provider: string) {
         :disabled="!selectedProvider"
         :class="{ 'cursor-not-allowed': !selectedProvider }"
       >
-        Get data for trigger
+        {{ $t("builder.get_data_action") }}
       </button>
       <div class="flex flex-row gap-2 items-center" v-if="variablesValues && Object.keys(variablesValues).length > 0">
         <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />
-        <span class="text-sm text-muted">Connected to provider</span>
+        <span class="text-sm text-muted">
+          {{ $t("builder.data_fetched") }}
+        </span>
       </div>
     </div>
   </form>

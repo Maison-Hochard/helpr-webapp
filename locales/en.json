@@ -152,6 +152,31 @@
     "no_flows_description": "Create your first flow by clicking on the button below."
   },
   "builder": {
-
+    "change_name": "You can change the name of your flow by clicking on it.",
+    "enable": "Enable",
+    "public": "Public",
+    "reset_flow": "Reset the builder",
+    "add_description": "Add a description",
+    "select_provider": "Select a provider",
+    "select_action": "Select an action",
+    "select_trigger": "Select a trigger",
+    "save_trigger": "Save trigger",
+    "save_action": "Save action",
+    "get_data_trigger": "Get data for trigger",
+    "get_data_action": "Get data for action",
+    "variables": "Variables",
+    "variables_description": "You can use these variables in your actions. Just click on them to copy them to your clipboard and paste them in your action.",
+    "no_variables": "No variables available",
+    "add_action": "Add action",
+    "show_debug": "Show debug",
+    "create_flow": "Create flow",
+    "create_flow_success": "Your flow has been created, well done!",
+    "create_flow_error": "An error occurred while creating your flow",
+    "action_saved": "Action saved!",
+    "trigger_saved": "Trigger saved!",
+    "data_fetched": "Connected to provider",
+    "where_trigger": "Where your flow will be triggered",
+    "need_trigger": "You need to add a trigger",
+    "need_action": "You need to add an action"
   }
 }

@@ -150,5 +150,33 @@
     "description": "Gérez vos flows, vous pouvez les modifier, les supprimer ou les partager",
     "no_flows": "Vous n'avez pas encore créé de flows",
     "no_flows_description": "Commencez par créer votre premier flow en cliquant sur le bouton ci-dessous"
+  },
+  "builder": {
+    "change_name": "Vous pouvez changer le nom de votre flow en cliquant sur directement sur le nom",
+    "enable": "Activer",
+    "public": "Public",
+    "reset_flow": "Réinitialiser le builder",
+    "add_description": "Ajouter une description",
+    "select_provider": "Sélectionner une intégration",
+    "select_action": "Sélectionner une action",
+    "select_trigger": "Sélectionner un déclencheur",
+    "save_trigger": "Enregistrer le déclencheur",
+    "save_action": "Enregistrer l'action",
+    "get_data_trigger": "Récupérer des données pour le déclencheur",
+    "get_data_action": "Récupérer des données pour l'action",
+    "variables": "Variables",
+    "variables_description": "Vous pouvez utiliser les variables dans les champs de texte, cliquez dessus pour les ajouter au presse-papier et collez-les dans le champ de texte",
+    "no_variables": "Aucune variable disponible",
+    "add_action": "Ajouter une action",
+    "show_debug": "Afficher le débogage",
+    "create_flow": "Créer le flow",
+    "create_flow_success": "Votre flow a été créé avec succès, bien joué !",
+    "create_flow_error": "Une erreur s'est produite lors de la création de votre flow",
+    "action_saved": "L'action a été enregistrée avec succès",
+    "trigger_saved": "Le déclencheur a été enregistré avec succès",
+    "data_fetched": "L'intégration est connectée",
+    "where_trigger": "Où votre flow doit-il être déclenché",
+    "need_trigger": "Vous devez ajouter un déclencheur",
+    "need_action": "Vous devez ajouter une action"
   }
 }
