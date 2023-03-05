@@ -11,8 +11,7 @@ export default eventHandler(async (event) => {
   const returnUrl = useRuntimeConfig().public.appDomain;
   const portalSession = await stripe.billingPortal.sessions.create({
     customer: stripeCustomerId,
-    return_url: returnUrl + "app/profile",
+    return_url: returnUrl + "app/edit-profile",
   });
-
   await sendRedirect(event, portalSession.url);
 });

@@ -1,10 +1,10 @@
-import pkg, { User } from "@prisma/client";
+import pkg, { Subscription, User } from "@prisma/client";
 
 const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 export default prisma;
 
-export function formatUser(user: User) {
+export function formatUser(user: User & { subscription: Subscription[] }) {
   return {
     id: user.id,
     username: user.username,
@@ -19,5 +19,7 @@ export function formatUser(user: User) {
     authToken: user.authToken,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,
+    stripeCustomerId: user.stripeCustomerId,
+    subscription: user.subscription,
   };
 }

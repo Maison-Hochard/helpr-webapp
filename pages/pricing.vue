@@ -11,15 +11,16 @@ definePageMeta({
 const premiumPlan: Plan = {
   id: "prod_NEMP9hBJdE3WNV",
   name: "Premium",
-  price: 10,
+  price: 7.99,
   priceId: Plans.PREMIUM.priceId,
-  description: "Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis.",
+  description: "Upgrade to Premium to unlock all the features of Helpr !!!",
   features: [
-    "Pariatur quod similique",
-    "Sapiente libero doloribus modi nostrum",
-    "Vel ipsa esse repudiandae excepturi",
-    "Itaque cupiditate adipisci quibusdam",
-    "Sapiente libero doloribus modi nostrum",
+    "Unlimited flows",
+    "Unlimited actions",
+    "Unlimited triggers",
+    "Unlimited integrations",
+    "Unlimited team members",
+    "Priority support",
   ],
 };
 
@@ -53,8 +54,7 @@ async function redirectToLogin() {
         <div class="p-8 sm:p-10 lg:flex-auto">
           <h3 class="text-2xl font-bold tracking-tight text-primary">Premium Membership</h3>
           <p class="mt-6 text-base leading-7 text-muted">
-            Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis
-            repellendus etur quidem assumenda.
+            {{ premiumPlan.description }}
           </p>
           <div class="mt-10 flex items-center gap-x-4">
             <h4 class="flex-none text-sm font-semibold leading-6 text-muted">

@@ -14,19 +14,9 @@ export async function createStripeCustomer(userData: createUserInput) {
     email: userData.email,
     name: `${userData.firstname} ${userData.lastname}`,
   });
-  const subscription = await setCustomerToTrial(customer.id);
   return {
     stripeCustomerId: customer.id,
-    subscription,
   };
-}
-
-async function setCustomerToTrial(stripeCustomerId: string) {
-  return await stripe.subscriptions.create({
-    customer: stripeCustomerId,
-    items: [{ price: Plans.TRIAL.priceId }],
-    trial_from_plan: true,
-  });
 }
 
 export async function deleteStripeCustomer(stripeCustomerId: string) {
@@ -75,7 +65,8 @@ export async function handleSubscriptionChange(
 
   const stripeCustomerId = subscription.customer as string;
 
-  const user = (await getUserByStripeCustomerId(stripeCustomerId)) as User;
+  const user = await getUserByStripeCustomerId(stripeCustomerId);
+  const isPremium = subscription.items.data[0].price.id === Plans.PREMIUM.priceId;
 
   const data = {
     userId: user.id,

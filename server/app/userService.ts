@@ -39,18 +39,8 @@ export async function createUser(userData: createUserInput) {
       password,
       stripeCustomerId: stripeInfo.stripeCustomerId,
     },
-  });
-  await prisma.subscription.create({
-    data: {
-      userId: user.id,
-      name: Plans.TRIAL.name,
-      stripeId: stripeInfo.subscription.id,
-      stripeStatus: stripeInfo.subscription.status,
-      stripePriceId: stripeInfo.subscription.items.data[0].price.id,
-      trialEndsAt: stripeInfo.subscription.trial_end,
-      endsAt: stripeInfo.subscription.current_period_end,
-      lastEventDate: stripeInfo.subscription.current_period_start,
-      startDate: stripeInfo.subscription.current_period_start,
+    include: {
+      subscription: true,
     },
   });
   const token = await generateEmailVerificationToken(user.id);
@@ -69,6 +59,9 @@ export async function getUserById(userId: number) {
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
+    },
+    include: {
+      subscription: true,
     },
   });
   if (!user) throw createError({ statusCode: 404, message: "User not found" });
@@ -153,7 +146,7 @@ export async function adminCheck(event: H3Event): Promise<boolean> {
 }
 
 export async function deleteUser(userId: number) {
-  const user = (await getUserById(userId)) as User;
+  const user = await getUserById(userId);
   await deleteStripeCustomer(user.stripeCustomerId as string);
   return await prisma.user.delete({
     where: {
@@ -189,13 +182,16 @@ export async function getUserByStripeCustomerId(stripeCustomerId: string) {
     where: {
       stripeCustomerId: stripeCustomerId,
     },
+    include: {
+      subscription: true,
+    },
   });
   if (!user) throw createError({ statusCode: 404, message: "User not found" });
   return formatUser(user);
 }
 
 export async function getCurrentSubscription(userId: number): Promise<Subscription | null> {
-  const user = (await getUserById(userId)) as User;
+  const user = await getUserById(userId);
   return await prisma.subscription.findFirst({
     where: {
       userId: user.id,
@@ -212,7 +208,18 @@ export async function getSubscriptionById(stripeId: string) {
 }
 
 export async function createOrUpdateSubscription(data: Subscription) {
-  const subName = data.stripePriceId === Plans.TRIAL.priceId ? Plans.TRIAL.name : Plans.PRO.name;
+  const subName = data.stripePriceId === Plans.PREMIUM.priceId ? "Premium" : "";
+  if (!subName) {
+    await prisma.subscription.delete({
+      where: {
+        stripeId: data.stripeId,
+      },
+    });
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: "Subscription deleted" }),
+    };
+  }
   return await prisma.subscription.upsert({
     where: {
       stripeId: data.stripeId,

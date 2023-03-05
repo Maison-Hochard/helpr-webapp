@@ -12,6 +12,5 @@ export default defineEventHandler(async (event) => {
     await handleSubscriptionChange(subscription, stripeEvent.created);
     return `handled ${stripeEvent.type}.`;
   }
-
   return createError({ statusCode: 400, statusMessage: "Invalid event type" });
 });

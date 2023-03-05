@@ -113,12 +113,8 @@ const deleteAccount = async () => {
           </p>
         </div>
         <div>
-          <div v-if="subscription && subscription.length > 0 && subscription[0].name === 'Pro'">
+          <div v-if="subscription && subscription.length > 0 && subscription[0].name === Plans.PREMIUM.name">
             <i class="fas fa-check-circle text-green-600"></i>
-            {{ subscription[0].name }}
-          </div>
-          <div v-if="subscription && subscription.length > 0 && subscription[0].name === 'Trial'">
-            <i class="fas fa-check-circle text-yellow-600"></i>
             {{ subscription[0].name }}
           </div>
           <div v-else>
@@ -132,7 +128,7 @@ const deleteAccount = async () => {
               <input type="hidden" name="userId" :value="user.id" />
               <button
                 name="priceId"
-                :value="Plans.PRO.priceId"
+                :value="Plans.PREMIUM.priceId"
                 type="submit"
                 class="rounded-md bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
               >

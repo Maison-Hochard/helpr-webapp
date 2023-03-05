@@ -49,13 +49,13 @@ watch(enable, changeStatus);
               {{ flow.name }}
             </h3>
             <GlobeAltIcon
-              v-if="publicStatus"
+              v-if="publicStatus && isMine"
               class="h-5 w-5 text-muted mt-1 hover:text-accent cursor-pointer transition-colors duration-300 ease-in-out"
               aria-hidden="true"
               @click="changePublic"
             />
             <LockClosedIcon
-              v-else
+              v-else-if="!publicStatus && isMine"
               class="h-5 w-5 text-muted mt-1 hover:text-accent cursor-pointer transition-colors duration-300 ease-in-out"
               aria-hidden="true"
               @click="changePublic"
