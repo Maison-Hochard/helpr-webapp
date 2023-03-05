@@ -34,8 +34,8 @@ const linkedinCode = computed(() => {
   return route.query.code;
 });
 
-
 const githubConfig = useRuntimeConfig().public.github;
+const linkedinConfig = useRuntimeConfig().public.linkedin;
 
 const githubUrl =
   "https://github.com/login/oauth/authorize" +
@@ -50,9 +50,9 @@ const linkedinUrl =
   "https://www.linkedin.com/oauth/v2/authorization" +
   "?response_type=code" +
   "&client_id=" +
-  "78mgm14d5vyzd4" +
+  linkedinConfig.clientId +
   "&redirect_uri=" +
-  "http://localhost:8080/app/providers" +
+  linkedinConfig.callbackUrl +
   "&scope=r_liteprofile%20r_emailaddress%20w_member_social";
 
 const tokenProviders = ["github", "linear", "stripe", "notion"];
@@ -101,7 +101,11 @@ const deconnectedProviders = computed(() => {
           <span>Connect Linkedin</span>
         </NuxtLink>
       </button>
-      <button @click="getLinkedinToken(linkedinCode)" class="btn-secondary flex flex-row gap-5 items-center" v-if="linkedinCode">
+      <button
+        @click="getLinkedinToken(linkedinCode)"
+        class="btn-secondary flex flex-row gap-5 items-center"
+        v-if="linkedinCode"
+      >
         <ProviderLogo :provider="'linkedin'" />
         <span>Linkedin Token</span>
       </button>
