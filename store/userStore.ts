@@ -32,7 +32,7 @@ export const useUserStore = defineStore("user", {
     },
     isPremium(): boolean {
       if (this.subscription) {
-        return this.subscription[0].name === "Premium";
+        return this.subscription[0] && this.subscription[0].name === "Premium";
       } else {
         return false;
       }
