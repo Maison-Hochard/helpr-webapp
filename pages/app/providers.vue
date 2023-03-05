@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { getGithubToken } from "~/composables/Provider/useGithub";
 import LoginWithGoogle from "~/components/loginWithGoogle.vue";
+import { getLinkedinToken } from "~/composables/Provider/useLinkedin";
 
 definePageMeta({
   name: "Providers",
@@ -28,6 +29,12 @@ const code = computed(() => {
   return route.query.code;
 });
 
+const linkedinCode = computed(() => {
+  const route = useRoute();
+  return route.query.code;
+});
+
+
 const githubConfig = useRuntimeConfig().public.github;
 
 const githubUrl =
@@ -38,6 +45,15 @@ const githubUrl =
   githubConfig.callbackUrl +
   "&response_type=code" +
   "&scope=repo,read:user,user:email";
+
+const linkedinUrl =
+  "https://www.linkedin.com/oauth/v2/authorization" +
+  "?response_type=code" +
+  "&client_id=" +
+  "78mgm14d5vyzd4" +
+  "&redirect_uri=" +
+  "http://localhost:8080/app/providers" +
+  "&scope=r_liteprofile%20r_emailaddress%20w_member_social";
 
 const tokenProviders = ["github", "linear", "stripe", "notion"];
 const filteredProviders = computed(() => {
@@ -78,6 +94,16 @@ const deconnectedProviders = computed(() => {
       <button @click="getGithubToken(code)" class="btn-secondary flex flex-row gap-5 items-center" v-if="code">
         <ProviderLogo :provider="'github'" />
         <span>Github Token</span>
+      </button>
+      <button class="btn-secondary p-2">
+        <NuxtLink :to="linkedinUrl" class="flex flex-row gap-5 items-center">
+          <ProviderLogo :provider="'linkedin'" />
+          <span>Connect Linkedin</span>
+        </NuxtLink>
+      </button>
+      <button @click="getLinkedinToken(linkedinCode)" class="btn-secondary flex flex-row gap-5 items-center" v-if="linkedinCode">
+        <ProviderLogo :provider="'linkedin'" />
+        <span>Linkedin Token</span>
       </button>
       <Loader v-if="pendingProviders" />
       <div class="flex flex-col mt-10 gap-4" v-else>
