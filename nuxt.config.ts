@@ -61,6 +61,11 @@ export default defineNuxtConfig({
         clientSecret: process.env.LINEAR_CLIENT_SECRET,
         callbackUrl: process.env.LINEAR_CALLBACK_URL,
       },
+      linkedin: {
+        clientId: process.env.LINKEDIN_CLIENT_ID,
+        clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+        callbackUrl: process.env.LINKEDIN_CALLBACK_URL,
+      },
       appDomain: process.env.FRONTEND_URL,
       appEnv: process.env.APP_ENV,
       apiUrl: process.env.API_URL,
