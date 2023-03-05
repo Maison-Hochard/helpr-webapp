@@ -33,24 +33,32 @@ async function redirectToLogin() {
 </script>
 
 <template>
-  <div class="bg-primary py-24 sm:py-32">
+  <div class="py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl sm:text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">Simple no-tricks pricing</h2>
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
+          {{ $t("pricing.title") }}
+        </h2>
         <p class="mt-6 text-lg leading-8 text-muted">
-          Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in.
-          Explicabo id ut laborum.
+          {{ $t("pricing.description") }}
         </p>
       </div>
-      <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-secondary sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+      <div
+        class="relative backdrop-blur-md bg-primary-opacity/30 mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-secondary sm:mt-20 lg:mx-0 lg:flex lg:max-w-none"
+      >
+        <div
+          class="backdrop-shadow-sm bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
+        ></div>
         <div class="p-8 sm:p-10 lg:flex-auto">
-          <h3 class="text-2xl font-bold tracking-tight text-primary">Premium membership</h3>
+          <h3 class="text-2xl font-bold tracking-tight text-primary">Premium Membership</h3>
           <p class="mt-6 text-base leading-7 text-muted">
             Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis
             repellendus etur quidem assumenda.
           </p>
           <div class="mt-10 flex items-center gap-x-4">
-            <h4 class="flex-none text-sm font-semibold leading-6 text-muted">What’s included</h4>
+            <h4 class="flex-none text-sm font-semibold leading-6 text-muted">
+              {{ $t("pricing.whats_included") }}
+            </h4>
             <div class="h-px flex-auto bg-secondary" />
           </div>
           <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-muted sm:grid-cols-2 sm:gap-6">
@@ -66,28 +74,29 @@ async function redirectToLogin() {
           class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0"
         >
           <div
-            class="rounded-2xl bg-secondary py-10 text-center ring-1 ring-inset ring-muted lg:flex lg:flex-col lg:justify-center lg:py-16"
+            class="rounded-2xl backdrop-blur-md bg-primary-opacity/60 shadow-2xl py-10 text-center lg:flex lg:flex-col lg:justify-center lg:py-16"
           >
             <div class="mx-auto max-w-xs px-8">
-              <p class="text-base font-semibold text-muted">Increase your productivity now</p>
+              <p class="text-base font-semibold text-muted">
+                {{ $t("pricing.boost") }}
+              </p>
               <p class="mt-6 flex items-baseline justify-center gap-x-2">
                 <span class="text-5xl font-bold tracking-tight text-primary">{{ premiumPlan.price }}€</span>
-                <span class="text-sm font-semibold leading-6 tracking-wide text-muted">/mo</span>
+                <span class="text-sm font-semibold leading-6 tracking-wide text-muted">/m</span>
               </p>
               <input type="hidden" name="userId" :value="user?.id" />
               <button
-                  :type="user ? 'submit' : 'button'"
+                :type="user ? 'submit' : 'button'"
                 @click="user ? null : redirectToLogin()"
                 name="priceId"
                 :value="premiumPlan.priceId"
                 class="btn-primary mt-8 w-full"
                 :aria-describedby="user ? null : 'login-required'"
               >
-                S'inscrire
+                {{ $t("pricing.subscribe") }}
               </button>
               <p class="mt-6 text-xs leading-5 text-muted">
-                Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis
-                repellendus etur quidem assumenda.
+                {{ $t("pricing.terms") }}
               </p>
             </div>
           </div>

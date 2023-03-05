@@ -207,5 +207,13 @@
       "customizable": "Personnalisable",
       "customizableDescription": "Vous pouvez créer vos propres intégrations, vous pouvez aussi créer vos propres thèmes"
     }
+  },
+  "pricing": {
+    "title": "Entrez dans une nouvelle ère",
+    "description": "Repoussez les limites de votre productivité en connectant IA, traduction, API et plus encore !!!",
+    "boost": "Boostez votre productivité maintenant",
+    "terms": "Abonnement mensuel. Vous pouvez annuler votre abonnement à tout moment",
+    "subscribe": "S'abonner",
+    "whats_included": "Ce qui est inclus"
   }
 }

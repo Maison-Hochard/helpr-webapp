@@ -150,11 +150,4 @@ const features = computed(() => [
   </div>
 </template>
 
-<style scoped lang="scss">
-.backdrop-shadow {
-  position: absolute;
-  filter: blur(150px);
-  width: 30%;
-  height: 30%;
-}
-</style>
+<style scoped lang="scss"></style>

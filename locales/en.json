@@ -207,5 +207,13 @@
       "customizable": "Customizable",
       "customizableDescription": "Helpr is customizable, you can create your own themes and integrations"
     }
+  },
+  "pricing": {
+    "title": "Enter a new era of productivity",
+    "description": "Push the boundaries of your productivity by connecting AI, translation, APIs and more!!!",
+    "boost": "Boost your productivity now",
+    "terms": "Mensual subscription. You can cancel your subscription at any time.",
+    "subscribe": "Subscribe",
+    "whats_included": "What's included"
   }
 }

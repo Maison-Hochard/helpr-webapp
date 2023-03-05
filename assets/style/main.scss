@@ -65,3 +65,18 @@ html,body, #__nuxt, #__layout{
     @apply absolute p-6 flex flex-col inset-0 justify-end;
   }
 }
+
+.backdrop-shadow {
+  position: absolute;
+  filter: blur(150px);
+  width: 30%;
+  height: 30%;
+}
+
+.backdrop-shadow-sm {
+  position: absolute;
+  filter: blur(150px);
+  width: 40%;
+  height: 20%;
+  z-index: -1;
+}
