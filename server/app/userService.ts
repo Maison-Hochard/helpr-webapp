@@ -207,6 +207,14 @@ export async function getSubscriptionById(stripeId: string) {
   });
 }
 
+async function deleteSubscription(stripeId: string) {
+  return await prisma.subscription.delete({
+    where: {
+      stripeId: stripeId,
+    },
+  });
+}
+
 export async function createOrUpdateSubscription(data: Subscription) {
   const subName = data.stripePriceId === Plans.PREMIUM.priceId ? "Premium" : "";
   if (!subName) {
@@ -219,6 +227,9 @@ export async function createOrUpdateSubscription(data: Subscription) {
       statusCode: 200,
       body: JSON.stringify({ message: "Subscription deleted" }),
     };
+  }
+  if (data.stripeStatus === "canceled") {
+    await deleteSubscription(data.stripeId);
   }
   return await prisma.subscription.upsert({
     where: {

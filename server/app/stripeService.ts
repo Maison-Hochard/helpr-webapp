@@ -66,8 +66,6 @@ export async function handleSubscriptionChange(
   const stripeCustomerId = subscription.customer as string;
 
   const user = await getUserByStripeCustomerId(stripeCustomerId);
-  const isPremium = subscription.items.data[0].price.id === Plans.PREMIUM.priceId;
-
   const data = {
     userId: user.id,
     name: subscription.id,
