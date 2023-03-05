@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  title: "Team",
+  name: "Team",
+});
 const { t } = useI18n();
 
 const people = [
@@ -13,7 +17,7 @@ const people = [
   {
     name: "Paul Marniquet",
     role: t("team.developer"),
-    imageUrl: "/team/paul-marniquet-troll.jpeg",
+    imageUrl: "/team/paul-marniquet.jpeg",
     bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
     linkedinUrl: "https://www.linkedin.com/in/paul-marniquet/",
     githubUrl: "https://github.com/paulmarniquet",
