@@ -8,6 +8,7 @@
     "home": "Home",
     "about": "About",
     "pricing": "Pricing",
+    "team": "Team",
     "contact": "Contact",
     "login": "Login",
     "logout": "Logout",
@@ -227,5 +228,11 @@
     "submit": "Send",
     "success": "Your message has been sent, we will contact you as soon as possible",
     "error": "An error occurred while sending your message"
+  },
+  "team": {
+    "title": "Our team",
+    "description": "Meet our awesome team of developers, designers, and entrepreneurs. We're always looking for new members to join our team.",
+    "founder": "Founder",
+    "developer": "Developer"
   }
 }

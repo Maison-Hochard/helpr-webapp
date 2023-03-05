@@ -8,6 +8,7 @@
     "home": "Accueil",
     "about": "À propos",
     "pricing": "Tarifs",
+    "team": "L'équipe",
     "contact": "Contact",
     "login": "Connexion",
     "logout": "Déconnexion",
@@ -227,5 +228,12 @@
     "submit": "Envoyer",
     "success": "Votre message a été envoyé avec succès",
     "error": "Une erreur s'est produite lors de l'envoi de votre message"
+  },
+  "team": {
+    "title": "Notre équipe",
+    "description": "Rencontrez notre super équipe de développeurs. Nous sommes toujours à la recherche de nouveaux talents, n'hésitez pas à nous contacter si vous êtes intéressé",
+    "founder": "Fondateur",
+    "developer": "Développeur",
+    "designer": "Designer"
   }
 }
