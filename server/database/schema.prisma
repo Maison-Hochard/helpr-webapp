@@ -154,12 +154,12 @@ model Trigger {
 
 model FlowVariables {
   id        Int       @id @default(autoincrement())
-  key       String
+  key       String    @unique
   value     String
   createdAt DateTime  @default(now())
   updatedAt DateTime?
   flowId    Int?
-  Flow      Flow?     @relation(fields: [flowId], references: [id])
+  Flow      Flow?     @relation(fields: [flowId], references: [id], onDelete: Cascade)
 }
 
 model Variables {
