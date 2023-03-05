@@ -59,14 +59,14 @@ const features = computed(() => [
           <ProviderRow :nb="10" />
           <ProviderRow :nb="6" />
         </div>
-        <div class="md:-mt-32">
+        <div class="md:-mt-32 drop-shadow-2xl">
           <div class="flex items-center justify-center drop-shadow-xl">
             <div class="gradient rounded-md px-6 py-4 drop-shadow-xl">
               <Logo :size="12" />
             </div>
           </div>
           <h1 class="drop-shadow-2xl text-4xl font-bold tracking-tight text-primary sm:text-5xl text-center mt-4">
-            <span class="text-shadow">
+            <span class="drop-shadow-2xl">
               Take the work out of your<br />
               <span class="text-gradient">
                 {{ t("home.workflow") }}
@@ -74,7 +74,7 @@ const features = computed(() => [
             </span>
           </h1>
           <NuxtLink class="drop-shadow-xl mt-5 flex justify-center gap-6" to="/signup">
-            <button type="button" class="btn-primary py-1 px-10 mt-4 flex items-center group">
+            <button type="button" class="hover-shadow-gradient btn-primary py-1 px-10 mt-4 flex items-center group">
               {{ t("home.start") }}
               <ArrowLongRightIcon
                 class="w-5 h-5 ml-2 text-inverted group-hover:translate-x-1 transition-transform duration-300"
@@ -141,8 +141,8 @@ const features = computed(() => [
           <p class="mt-3 text-xl text-muted text-center">
             {{ t("home.cta.description") }}
           </p>
-          <div class="mt-10 flex justify-center gap-6">
-            <NuxtLink to="/signup">
+          <div class="mt-10 flex justify-center gap-6 flex-col sm:flex-row">
+            <NuxtLink to="/signup" class="flex justify-center">
               <button type="button" class="btn-primary py-1">
                 {{ t("home.start") }}
               </button>
@@ -157,9 +157,3 @@ const features = computed(() => [
     </main>
   </div>
 </template>
-
-<style scoped lang="scss">
-.text-shadow {
-  text-shadow: 15px 15px 60px black;
-}
-</style>
