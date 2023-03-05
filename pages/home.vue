@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ArrowLongRightIcon } from "@heroicons/vue/24/outline";
 import Footer from "@/components/layout/Footer.vue";
+import ProviderRow from "~/components/ProviderRow.vue";
 const { t } = useI18n();
 
 definePageMeta({
@@ -53,27 +54,34 @@ const features = computed(() => [
         <div
           class="backdrop-shadow bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
         ></div>
-        <div class="flex items-center justify-center">
-          <div class="gradient rounded-md px-6 py-4">
-            <Logo :size="12" />
-          </div>
+        <div class="flex flex-col items-center justify-center z-10 gap-4 hidden lg:flex">
+          <ProviderRow :nb="6" />
+          <ProviderRow :nb="10" />
+          <ProviderRow :nb="6" />
         </div>
-        <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-5xl text-center mt-4">
-          <span>
-            Take the work out of your<br />
-            <span class="text-gradient">
-              {{ t("home.workflow") }}
+        <div class="md:-mt-32">
+          <div class="flex items-center justify-center drop-shadow-xl">
+            <div class="gradient rounded-md px-6 py-4 drop-shadow-xl">
+              <Logo :size="12" />
+            </div>
+          </div>
+          <h1 class="drop-shadow-2xl text-4xl font-bold tracking-tight text-primary sm:text-5xl text-center mt-4">
+            <span class="text-shadow">
+              Take the work out of your<br />
+              <span class="text-gradient">
+                {{ t("home.workflow") }}
+              </span>
             </span>
-          </span>
-        </h1>
-        <NuxtLink class="mt-5 flex justify-center gap-6" to="/signup">
-          <button type="button" class="btn-primary py-1 px-10 mt-4 flex items-center group">
-            {{ t("home.start") }}
-            <ArrowLongRightIcon
-              class="w-5 h-5 ml-2 text-inverted group-hover:translate-x-1 transition-transform duration-300"
-            />
-          </button>
-        </NuxtLink>
+          </h1>
+          <NuxtLink class="drop-shadow-xl mt-5 flex justify-center gap-6" to="/signup">
+            <button type="button" class="btn-primary py-1 px-10 mt-4 flex items-center group">
+              {{ t("home.start") }}
+              <ArrowLongRightIcon
+                class="w-5 h-5 ml-2 text-inverted group-hover:translate-x-1 transition-transform duration-300"
+              />
+            </button>
+          </NuxtLink>
+        </div>
       </div>
 
       <hr class="my-16 border-gray-600 w-3/4 mx-auto" />
@@ -150,4 +158,8 @@ const features = computed(() => [
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.text-shadow {
+  text-shadow: 15px 15px 60px black;
+}
+</style>

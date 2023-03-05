@@ -8,6 +8,11 @@ defineProps({
     type: String,
     required: false,
   },
+  size: {
+    type: Number,
+    required: false,
+    default: 6,
+  },
 });
 
 const theme = computed(() => {
@@ -23,12 +28,20 @@ const theme = computed(() => {
 <template>
   <div class="flex flex-shrink-0 items-center">
     <div v-if="!source">
-      <nuxt-img class="block h-6 w-auto lg:hidden" :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'" />
-      <nuxt-img class="hidden h-6 w-auto lg:block" :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'" />
+      <nuxt-img
+        class="block w-auto lg:hidden"
+        :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'"
+        :class="['h-' + size]"
+      />
+      <nuxt-img
+        class="hidden w-auto lg:block"
+        :src="'/supabase/logo/' + theme + '/' + provider + '-logo.svg'"
+        :class="['h-' + size]"
+      />
     </div>
     <div v-else>
-      <nuxt-img class="block h-6 w-auto lg:hidden" :src="source" :alt="provider + ' logo'" />
-      <nuxt-img class="hidden h-6 w-auto lg:block" :src="source" :alt="provider + ' logo'" />
+      <nuxt-img class="block w-auto lg:hidden" :src="source" :alt="provider + ' logo'" :class="['h-' + size]" />
+      <nuxt-img class="hidden w-auto lg:block" :src="source" :alt="provider + ' logo'" :class="['h-' + size]" />
     </div>
   </div>
 </template>

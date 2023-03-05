@@ -19,6 +19,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: "var(--bg-primary)",
+        "primary-opacity": withOpacity("--bg-primary-opacity"),
+        secondary: "var(--bg-secondary)",
+        accent: withOpacity("--accent-color"),
+        "accent-hover": withOpacity("--accent-color-hover"),
+        "accent-faded": "var(--accent-color-faded)",
+        muted: "var(--font-muted)",
+      },
       textColor: {
         primary: "var(--font-primary)",
         muted: "var(--font-muted)",

@@ -64,6 +64,12 @@ html,body, #__nuxt, #__layout{
   .card-content {
     @apply absolute p-6 flex flex-col inset-0 justify-end;
   }
+
+  .border-gradient {
+    @apply bg-gradient-to-r from-accent-primary to-accent-secondary;
+    @apply bg-clip-text text-transparent;
+    @apply border border-accent;
+  }
 }
 
 .backdrop-shadow {
