@@ -7,6 +7,7 @@ const { t } = useI18n();
 
 const people = [
   {
+    id: 2,
     name: "Hugo Richard",
     role: "Co-Founder / CEO",
     imageUrl: "/team/hugo-richard.jpeg",
@@ -15,6 +16,7 @@ const people = [
     githubUrl: "https://github.com/HugoRCD",
   },
   {
+    id: 1,
     name: "Paul Marniquet",
     role: t("team.developer"),
     imageUrl: "/team/paul-marniquet.jpeg",
@@ -23,6 +25,7 @@ const people = [
     githubUrl: "https://github.com/paulmarniquet",
   },
   {
+    id: 3,
     name: "Johann Cavallucci",
     role: t("team.developer"),
     imageUrl: "/team/johann-cavallucci.jpg",
@@ -31,6 +34,7 @@ const people = [
     githubUrl: "https://github.com/cavalluccijohann",
   },
   {
+    id: 4,
     name: "Morgan Wolff",
     role: t("team.developer"),
     imageUrl: "/team/morgan-wolff.jpeg",
@@ -56,7 +60,11 @@ const people = [
         <li v-for="person in people" :key="person.name" class="flex flex-col gap-10 pt-12 sm:flex-row">
           <img class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover" :src="person.imageUrl" alt="" />
           <div class="max-w-xl flex-auto">
-            <h3 class="text-lg font-semibold leading-8 tracking-tight text-primary">{{ person.name }}</h3>
+            <NuxtLink :to="`/app/profile/${person.id}`" class="text-primary hover:underline">
+              <h3 class="text-lg font-semibold leading-8 tracking-tight cursor-pointer">
+                {{ person.name }}
+              </h3>
+            </NuxtLink>
             <p class="text-base leading-7 text-muted">{{ person.role }}</p>
             <p class="mt-6 text-base leading-7 text-muted">{{ person.bio }}</p>
             <ul role="list" class="mt-6 flex gap-x-6">
