@@ -180,6 +180,32 @@
     "need_action": "Vous devez ajouter une action"
   },
   "home": {
-
+    "start": "Commencer",
+    "workflow": "workflow",
+    "details": {
+      "first": "Comme aucun autres",
+      "tool": "outils",
+      "second": "que vous avez utilisés auparavant",
+      "description": "Designer pour être rapide, simple et efficace, Helpr combine performance et UI d'excellence"
+    },
+    "cta": {
+      "title": "Dites bonjour à votre tout nouveau",
+      "description": "Rejoignez notre communautés de personnes qui ne perdent pas de temps",
+      "download": "Télécharger l'application"
+    },
+    "features": {
+      "fast": "Rapide",
+      "fastDescription": "Les flows sont exécutés en temps réel, vous n'avez pas besoin de créer des applications pour automatiser vos tâches",
+      "dynamic": "Dynamique",
+      "dynamicDescription": "Vous pouvez utiliser des variables dans vos flows, vous pouvez aussi utiliser des conditions pour déclencher des actions",
+      "integrations": "Intégrations",
+      "integrationsDescription": "Vous pouvez connecter plus de 100 intégrations à votre compte, vous pouvez aussi créer vos propres intégrations",
+      "secure": "Sécurisé",
+      "secureDescription": "Toutes les données sont stockées de manière sécurisée, vous pouvez aussi créer des flows privés",
+      "crossPlatform": "Multi-plateformes",
+      "crossPlatformDescription": "Vous pouvez utiliser Helpr sur votre ordinateur, votre tablette ou votre smartphone",
+      "customizable": "Personnalisable",
+      "customizableDescription": "Vous pouvez créer vos propres intégrations, vous pouvez aussi créer vos propres thèmes"
+    }
   }
 }

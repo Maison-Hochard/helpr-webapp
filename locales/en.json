@@ -178,5 +178,34 @@
     "where_trigger": "Where your flow will be triggered",
     "need_trigger": "You need to add a trigger",
     "need_action": "You need to add an action"
+  },
+  "home": {
+    "start": "Get started",
+    "workflow": "workflow",
+    "details": {
+      "first": "Unlike any",
+      "tool": "tool",
+      "second": "you've used before",
+      "description": "Designed to be fast to the last pixel, helpr combines UI excellence and fast performance."
+    },
+    "cta": {
+      "title": "Say hello to your\nbrand new",
+      "description": "Join our communities of people who dont waste time",
+      "download": "Download the app"
+    },
+    "features": {
+      "fast": "Fast",
+      "fastDescription": "Helpr is fast, you can create your first flow in less than 5 minutes",
+      "dynamic": "Dynamic",
+      "dynamicDescription": "You can create dynamic flows, you can also create your own variables",
+      "integrations": "Integrations",
+      "integrationsDescription": "Helpr is integrated with many providers, you can also create your own integrations",
+      "secure": "Secure",
+      "secureDescription": "Helpr is secure, your data is encrypted and we don't store your credentials",
+      "crossPlatform": "Cross-platform",
+      "crossPlatformDescription": "Helpr is available on all platforms, you can use it on your computer, tablet, or phone",
+      "customizable": "Customizable",
+      "customizableDescription": "Helpr is customizable, you can create your own themes and integrations"
+    }
   }
 }

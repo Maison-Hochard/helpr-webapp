@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ArrowLongRightIcon } from "@heroicons/vue/24/outline";
 import Footer from "@/components/layout/Footer.vue";
+const { t } = useI18n();
+
 definePageMeta({
   title: "Home",
   name: "Home",
@@ -8,6 +10,39 @@ definePageMeta({
   description: "Home page",
   keywords: "Home",
 });
+
+const features = computed(() => [
+  {
+    name: t("home.features.fast"),
+    description: t("home.features.fastDescription"),
+    image: "/images/landing/fast.webp",
+  },
+  {
+    name: t("home.features.dynamic"),
+    description: t("home.features.dynamicDescription"),
+    image: "/images/landing/dynamic.webp",
+  },
+  {
+    name: t("home.features.integrations"),
+    description: t("home.features.integrationsDescription"),
+    image: "/images/landing/integrations.webp",
+  },
+  {
+    name: t("home.features.secure"),
+    description: t("home.features.secureDescription"),
+    image: "/images/landing/secure.webp",
+  },
+  {
+    name: t("home.features.crossPlatform"),
+    description: t("home.features.crossPlatformDescription"),
+    image: "/images/landing/cross-platform.webp",
+  },
+  {
+    name: t("home.features.customizable"),
+    description: t("home.features.customizableDescription"),
+    image: "/images/landing/customize.webp",
+  },
+]);
 </script>
 
 <template>
@@ -25,18 +60,20 @@ definePageMeta({
         </div>
         <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-5xl text-center mt-4">
           <span>
-            Built by <span class="text-gradient">developers</span><br />
-            for developers
+            Take the work out of your<br />
+            <span class="text-gradient">
+              {{ t("home.workflow") }}
+            </span>
           </span>
         </h1>
-        <div class="mt-5 flex justify-center gap-6">
+        <NuxtLink class="mt-5 flex justify-center gap-6" to="/signup">
           <button type="button" class="btn-primary py-1 px-10 mt-4 flex items-center group">
-            Get started
+            {{ t("home.start") }}
             <ArrowLongRightIcon
               class="w-5 h-5 ml-2 text-inverted group-hover:translate-x-1 transition-transform duration-300"
             />
           </button>
-        </div>
+        </NuxtLink>
       </div>
 
       <hr class="my-16 border-gray-600 w-3/4 mx-auto" />
@@ -49,85 +86,24 @@ definePageMeta({
         <div class="flex flex-col items-center justify-center">
           <div class="flex flex-col items-center">
             <h2 class="text-2xl font-bold tracking-tight text-primary sm:text-3xl text-center">
-              Unlike any <span class="text-gradient">tool</span><br />
-              you've used before
+              {{ t("home.details.first") }}
+              <span class="text-gradient"> {{ t("home.details.tool") }} </span><br />
+              {{ t("home.details.second") }}
             </h2>
             <p class="mt-3 text-xl text-muted text-center">
-              Designed to be fast to the last pixel, helpr<br />
-              combines UI excellence and fast performance.
+              {{ t("home.details.description") }}
             </p>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
-            <div class="glass-card">
-              <img src="/images/landing/fast.webp" alt="Fast" class="rounded-md" />
+            <div class="glass-card" v-for="feature in features" :key="feature.name">
+              <img :src="feature.image" :alt="feature.name" class="w-full h-48 object-cover" />
               <div class="card-content">
                 <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
-                  <span>Fast</span>
+                  <span>{{ feature.name }}</span>
                 </h3>
                 <p class="mt-3 text-lg text-muted text-center">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                  amet fugiat veniam occaecat fugiat aliqua.
-                </p>
-              </div>
-            </div>
-            <div class="glass-card">
-              <img src="/images/landing/dynamic.webp" alt="Dynamic" class="rounded-md" />
-              <div class="card-content">
-                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
-                  <span>Dynamic</span>
-                </h3>
-                <p class="mt-3 text-lg text-muted text-center">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                  amet fugiat veniam occaecat fugiat aliqua.
-                </p>
-              </div>
-            </div>
-            <div class="glass-card">
-              <img src="/images/landing/integrations.webp" alt="Integrations" class="rounded-md" />
-              <div class="card-content">
-                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
-                  <span>Integrations</span>
-                </h3>
-                <p class="mt-3 text-lg text-muted text-center">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                  amet fugiat veniam occaecat fugiat aliqua.
-                </p>
-              </div>
-            </div>
-            <div class="glass-card">
-              <img src="/images/landing/secure.webp" alt="Secure" class="rounded-md" />
-              <div class="card-content">
-                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
-                  <span>Secure</span>
-                </h3>
-                <p class="mt-3 text-lg text-muted text-center">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                  amet fugiat veniam occaecat fugiat aliqua.
-                </p>
-              </div>
-            </div>
-            <div class="glass-card">
-              <img src="/images/landing/cross-platform.webp" alt="Cross-platform" class="rounded-md" />
-              <div class="card-content">
-                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
-                  <span>Cross-platform</span>
-                </h3>
-                <p class="mt-3 text-lg text-muted text-center">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                  amet fugiat veniam occaecat fugiat aliqua.
-                </p>
-              </div>
-            </div>
-            <div class="glass-card">
-              <img src="/images/landing/customize.webp" alt="Customize" class="rounded-md" />
-              <div class="card-content">
-                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
-                  <span>Customize</span>
-                </h3>
-                <p class="mt-3 text-lg text-muted text-center">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                  amet fugiat veniam occaecat fugiat aliqua.
+                  {{ feature.description }}
                 </p>
               </div>
             </div>
@@ -149,15 +125,23 @@ definePageMeta({
             <Logo :size="12" />
           </div>
           <h2 class="text-2xl font-bold tracking-tight text-primary sm:text-3xl text-center mt-4">
-            Say hello to your <br />brand new <span class="text-gradient">workflow</span>
+            {{ t("home.cta.title") }}
+            <span class="text-gradient">
+              {{ t("home.workflow") }}
+            </span>
           </h2>
           <p class="mt-3 text-xl text-muted text-center">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-            fugiat veniam occaecat fugiat aliqua.
+            {{ t("home.cta.description") }}
           </p>
           <div class="mt-10 flex justify-center gap-6">
-            <button type="button" class="btn-primary py-1">Get started</button>
-            <button type="button" class="btn-secondary py-1">Learn more</button>
+            <NuxtLink to="/signup">
+              <button type="button" class="btn-primary py-1">
+                {{ t("home.start") }}
+              </button>
+            </NuxtLink>
+            <button type="button" class="btn-secondary py-1">
+              {{ t("home.cta.download") }}
+            </button>
           </div>
         </div>
       </div>
