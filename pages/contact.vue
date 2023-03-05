@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Footer from "@/components/layout/Footer.vue";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/vue/24/outline";
+const { t } = useI18n();
 
 definePageMeta({
   name: "Contact",
@@ -14,7 +15,10 @@ const subject = ref("");
 const phone = ref("");
 const fullname = ref("");
 
+const loading = ref(false);
+
 async function submitForm() {
+  loading.value = true;
   const { data } = await useFetch("/api/mailer/sendMailToSupport", {
     method: "POST",
     body: {
@@ -25,7 +29,17 @@ async function submitForm() {
       fullname: fullname.value,
     },
   });
-  if (data) alert("Message sent!");
+  if (data) {
+    email.value = "";
+    message.value = "";
+    subject.value = "";
+    phone.value = "";
+    fullname.value = "";
+    useSuccessToast(t("contact.success"));
+  } else {
+    useErrorToast(t("contact.error"));
+  }
+  loading.value = false;
 }
 </script>
 
@@ -37,31 +51,30 @@ async function submitForm() {
     <div class="relative mx-auto max-w-7xl lg:grid lg:grid-cols-5">
       <div class="py-16 px-6 lg:col-span-2 lg:px-8 lg:py-24 xl:pr-12">
         <div class="mx-auto max-w-lg">
-          <h2 class="text-2xl font-bold tracking-tight text-primary sm:text-3xl">Get in touch</h2>
+          <h2 class="text-2xl font-bold tracking-tight text-primary sm:text-3xl">
+            {{ t("contact.title") }}
+          </h2>
           <p class="mt-3 text-lg leading-6 text-muted">
-            Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus
-            arcu.
+            {{ t("contact.description") }}
           </p>
           <dl class="mt-8 text-base text-muted">
             <div>
-              <dt class="sr-only">Postal address</dt>
               <dd>
-                <p>742 Evergreen Terrace</p>
-                <p>Springfield, OR 12345</p>
+                <p>113 Boulevard René Cassin</p>
+                <p>06200 Nice, France</p>
               </dd>
             </div>
             <div class="mt-6">
-              <dt class="sr-only">Phone number</dt>
               <dd class="flex">
                 <PhoneIcon class="h-6 w-6 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                <span class="ml-3">+1 (555) 123-4567</span>
+                <span class="ml-3">(+33) 6 21 56 22 18</span>
               </dd>
             </div>
             <div class="mt-3">
               <dt class="sr-only">Email</dt>
               <dd class="flex">
                 <EnvelopeIcon class="h-6 w-6 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                <span class="ml-3">support@example.com</span>
+                <span class="ml-3">contact@helprapp.fr</span>
               </dd>
             </div>
           </dl>
@@ -71,7 +84,9 @@ async function submitForm() {
         <div class="mx-auto max-w-lg lg:max-w-none">
           <form @submit.prevent="submitForm" class="grid grid-cols-1 gap-y-6">
             <div>
-              <label for="fullname" class="sr-only">Full name</label>
+              <label for="fullname" class="sr-only">
+                {{ t("contact.fullname") }}
+              </label>
               <input
                 v-model="fullname"
                 type="text"
@@ -79,11 +94,13 @@ async function submitForm() {
                 id="full-name"
                 autocomplete="name"
                 class="input w-full"
-                placeholder="Full name"
+                :placeholder="t('contact.fullname')"
               />
             </div>
             <div>
-              <label for="email" class="sr-only">Email</label>
+              <label for="email" class="sr-only">
+                {{ t("contact.email") }}
+              </label>
               <input
                 required
                 v-model="email"
@@ -92,11 +109,13 @@ async function submitForm() {
                 type="email"
                 autocomplete="email"
                 class="input w-full"
-                placeholder="Email"
+                :placeholder="t('contact.email')"
               />
             </div>
             <div>
-              <label for="phone" class="sr-only">Phone</label>
+              <label for="phone" class="sr-only">
+                {{ t("contact.phone") }}
+              </label>
               <input
                 v-model="phone"
                 type="text"
@@ -104,11 +123,13 @@ async function submitForm() {
                 id="phone"
                 autocomplete="tel"
                 class="input w-full"
-                placeholder="Phone"
+                :placeholder="t('contact.phone')"
               />
             </div>
             <div>
-              <label for="text" class="sr-only">Subject</label>
+              <label for="text" class="sr-only">
+                {{ t("contact.subject") }}
+              </label>
               <input
                 required
                 v-model="subject"
@@ -116,11 +137,13 @@ async function submitForm() {
                 name="subject"
                 id="subject"
                 class="input w-full"
-                placeholder="Subject"
+                :placeholder="t('contact.subject')"
               />
             </div>
             <div>
-              <label for="message" class="sr-only">Message</label>
+              <label for="message" class="sr-only">
+                {{ t("contact.message") }}
+              </label>
               <textarea
                 required
                 v-model="message"
@@ -128,12 +151,12 @@ async function submitForm() {
                 name="message"
                 rows="4"
                 class="input w-full"
-                placeholder="Message"
+                :placeholder="t('contact.message')"
               />
             </div>
-            <div>
-              <button type="submit" class="btn-primary">Submit</button>
-            </div>
+            <ButtonPrimary type="submit" :pending="loading">
+              {{ t("contact.submit") }}
+            </ButtonPrimary>
           </form>
         </div>
       </div>

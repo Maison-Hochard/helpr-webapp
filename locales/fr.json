@@ -215,5 +215,17 @@
     "terms": "Abonnement mensuel. Vous pouvez annuler votre abonnement à tout moment",
     "subscribe": "S'abonner",
     "whats_included": "Ce qui est inclus"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "description": "Un bug ? Une question ? Une suggestion ? N'hésitez pas à nous contacter",
+    "fullname": "Nom complet",
+    "email": "Email",
+    "phone": "Téléphone",
+    "subject": "Sujet",
+    "message": "Message",
+    "submit": "Envoyer",
+    "success": "Votre message a été envoyé avec succès",
+    "error": "Une erreur s'est produite lors de l'envoi de votre message"
   }
 }

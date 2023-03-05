@@ -215,5 +215,17 @@
     "terms": "Mensual subscription. You can cancel your subscription at any time.",
     "subscribe": "Subscribe",
     "whats_included": "What's included"
+  },
+  "contact": {
+    "title": "Contact us",
+    "description": "A bug? A question? A suggestion? We are here to help you.",
+    "fullname": "Fullname",
+    "email": "Email",
+    "phone": "Phone",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send",
+    "success": "Your message has been sent, we will contact you as soon as possible",
+    "error": "An error occurred while sending your message"
   }
 }
