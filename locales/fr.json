@@ -178,5 +178,8 @@
     "where_trigger": "Où votre flow doit-il être déclenché",
     "need_trigger": "Vous devez ajouter un déclencheur",
     "need_action": "Vous devez ajouter une action"
+  },
+  "home": {
+
   }
 }

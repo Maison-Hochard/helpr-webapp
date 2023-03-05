@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ArrowLongRightIcon } from "@heroicons/vue/24/outline";
 import Footer from "@/components/layout/Footer.vue";
 definePageMeta({
   title: "Home",
@@ -13,81 +14,150 @@ definePageMeta({
   <div>
     <main>
       <!-- Hero section -->
-      <div class="overflow-hidden pt-8 sm:pt-12 lg:relative lg:py-48">
-        <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-24 lg:px-8">
-          <div class="mt-10">
-            <div>
-              <div class="inline-flex space-x-4">
-                <span class="rounded bg-accent-faded px-2.5 py-1 text-sm font-semibold text-accent">What's new</span>
-                <span class="inline-flex items-center space-x-1 text-sm font-medium text-accent">
-                  <span class="mr-2">Just dropped version 0.1.0</span>
-                  <span class="relative flex h-3 w-3">
-                    <span
-                      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"
-                    ></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-accent"></span>
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div class="mt-6 sm:max-w-xl">
-              <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-5xl">
-                A better way to create your next project.
-              </h1>
-              <p class="mt-6 text-xl text-muted">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.
-              </p>
-            </div>
-            <a href="/app-release.apk" class="btn-primary mt-8" download> Download the App !!! </a>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative py-16">
+        <div
+          class="backdrop-shadow bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
+        ></div>
+        <div class="flex items-center justify-center">
+          <div class="gradient rounded-md px-6 py-4">
+            <Logo :size="12" />
           </div>
         </div>
+        <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-5xl text-center mt-4">
+          <span>
+            Built by <span class="text-gradient">developers</span><br />
+            for developers
+          </span>
+        </h1>
+        <div class="mt-5 flex justify-center gap-6">
+          <button type="button" class="btn-primary py-1 px-10 mt-4 flex items-center group">
+            Get started
+            <ArrowLongRightIcon
+              class="w-5 h-5 ml-2 text-inverted group-hover:translate-x-1 transition-transform duration-300"
+            />
+          </button>
+        </div>
+      </div>
 
-        <div class="sm:mx-auto sm:max-w-3xl sm:px-6">
-          <div class="py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-            <div class="hidden sm:block">
-              <div
-                class="absolute inset-y-0 left-1/2 w-screen rounded-l-3xl bg-secondary lg:left-80 lg:right-0 lg:w-full"
-              />
-              <svg
-                class="absolute top-8 right-1/2 -mr-3 lg:left-0 lg:m-0"
-                width="404"
-                height="392"
-                fill="none"
-                viewBox="0 0 404 392"
-              >
-                <defs>
-                  <pattern
-                    id="837c3e70-6c3a-44e6-8854-cc48c737b659"
-                    x="0"
-                    y="0"
-                    width="20"
-                    height="20"
-                    patternUnits="userSpaceOnUse"
-                  >
-                    <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
-                  </pattern>
-                </defs>
-                <rect width="404" height="392" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)" />
-              </svg>
+      <hr class="my-16 border-gray-600 w-3/4 mx-auto" />
+
+      <!-- Details section -->
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+        <div
+          class="backdrop-shadow bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
+        ></div>
+        <div class="flex flex-col items-center justify-center">
+          <div class="flex flex-col items-center">
+            <h2 class="text-2xl font-bold tracking-tight text-primary sm:text-3xl text-center">
+              Unlike any <span class="text-gradient">tool</span><br />
+              you've used before
+            </h2>
+            <p class="mt-3 text-xl text-muted text-center">
+              Designed to be fast to the last pixel, helpr<br />
+              combines UI excellence and fast performance.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
+            <div class="glass-card">
+              <img src="/images/landing/fast.webp" alt="Fast" class="rounded-md" />
+              <div class="card-content">
+                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
+                  <span>Fast</span>
+                </h3>
+                <p class="mt-3 text-lg text-muted text-center">
+                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
+                  amet fugiat veniam occaecat fugiat aliqua.
+                </p>
+              </div>
             </div>
-            <div class="relative -mr-40 pl-4 sm:mx-auto sm:max-w-3xl sm:px-0 lg:h-full lg:max-w-none lg:pl-12">
-              <img
-                class="w-full rounded-md shadow-xl ring-1 ring-black ring-opacity-5 lg:h-full lg:w-auto lg:max-w-none"
-                src="https://tailwindui.com/img/component-images/task-app-rose.jpg"
-                alt=""
-              />
+            <div class="glass-card">
+              <img src="/images/landing/dynamic.webp" alt="Dynamic" class="rounded-md" />
+              <div class="card-content">
+                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
+                  <span>Dynamic</span>
+                </h3>
+                <p class="mt-3 text-lg text-muted text-center">
+                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
+                  amet fugiat veniam occaecat fugiat aliqua.
+                </p>
+              </div>
+            </div>
+            <div class="glass-card">
+              <img src="/images/landing/integrations.webp" alt="Integrations" class="rounded-md" />
+              <div class="card-content">
+                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
+                  <span>Integrations</span>
+                </h3>
+                <p class="mt-3 text-lg text-muted text-center">
+                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
+                  amet fugiat veniam occaecat fugiat aliqua.
+                </p>
+              </div>
+            </div>
+            <div class="glass-card">
+              <img src="/images/landing/secure.webp" alt="Secure" class="rounded-md" />
+              <div class="card-content">
+                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
+                  <span>Secure</span>
+                </h3>
+                <p class="mt-3 text-lg text-muted text-center">
+                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
+                  amet fugiat veniam occaecat fugiat aliqua.
+                </p>
+              </div>
+            </div>
+            <div class="glass-card">
+              <img src="/images/landing/cross-platform.webp" alt="Cross-platform" class="rounded-md" />
+              <div class="card-content">
+                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
+                  <span>Cross-platform</span>
+                </h3>
+                <p class="mt-3 text-lg text-muted text-center">
+                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
+                  amet fugiat veniam occaecat fugiat aliqua.
+                </p>
+              </div>
+            </div>
+            <div class="glass-card">
+              <img src="/images/landing/customize.webp" alt="Customize" class="rounded-md" />
+              <div class="card-content">
+                <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
+                  <span>Customize</span>
+                </h3>
+                <p class="mt-3 text-lg text-muted text-center">
+                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
+                  amet fugiat veniam occaecat fugiat aliqua.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="bg-primary">
-        <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
-          <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
-            Ready to dive in?<br />Start your free trial today.
+
+      <hr class="my-16 border-gray-600 w-3/4 mx-auto" />
+
+      <!-- CTA section -->
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+        <div
+          class="backdrop-shadow bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
+        ></div>
+        <div
+          class="backdrop-blur-md bg-primary-opacity/30 rounded-lg py-12 px-6 sm:py-16 sm:px-12 lg:py-20 lg:px-16 flex flex-col items-center"
+        >
+          <div class="flex items-center justify-center">
+            <Logo :size="12" />
+          </div>
+          <h2 class="text-2xl font-bold tracking-tight text-primary sm:text-3xl text-center mt-4">
+            Say hello to your <br />brand new <span class="text-gradient">workflow</span>
           </h2>
-          <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0">
-            <button type="button" class="btn-primary">Get started</button>
-            <button type="button" class="btn-secondary py-2">Learn more</button>
+          <p class="mt-3 text-xl text-muted text-center">
+            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
+            fugiat veniam occaecat fugiat aliqua.
+          </p>
+          <div class="mt-10 flex justify-center gap-6">
+            <button type="button" class="btn-primary py-1">Get started</button>
+            <button type="button" class="btn-secondary py-1">Learn more</button>
           </div>
         </div>
       </div>
@@ -95,3 +165,12 @@ definePageMeta({
     </main>
   </div>
 </template>
+
+<style scoped lang="scss">
+.backdrop-shadow {
+  position: absolute;
+  filter: blur(150px);
+  width: 30%;
+  height: 30%;
+}
+</style>

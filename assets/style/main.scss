@@ -45,4 +45,23 @@ html,body, #__nuxt, #__layout{
   .gradient {
     @apply bg-gradient-to-bl from-accent-primary to-accent-secondary;
   }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    @apply bg-gradient-to-bl from-accent-primary to-accent-secondary;
+  }
+
+  .white-gradient-border {
+    @apply bg-gradient-to-bl from-white to-white;
+    @apply bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    @apply flex flex-col items-center backdrop-blur-md bg-primary-opacity/30 rounded-md p-8 shadow-lg;
+    @apply h-80 relative;
+  }
+
+  .card-content {
+    @apply absolute p-6 flex flex-col inset-0 justify-end;
+  }
 }
