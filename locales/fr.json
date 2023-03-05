@@ -8,6 +8,7 @@
     "home": "Accueil",
     "about": "À propos",
     "pricing": "Tarifs",
+    "integrations": "Intégrations",
     "team": "L'équipe",
     "contact": "Contact",
     "login": "Connexion",
@@ -237,5 +238,16 @@
     "founder": "Fondateur",
     "developer": "Développeur",
     "designer": "Designer"
+  },
+  "integrations": {
+    "title_start": "Des tonnes d'intégrations pour une infinité de ",
+    "title_end": "possibilités",
+    "description": "Améliorez votre workflow grâce à un large éventail de modules complémentaires et d'intégrations. Des éléments essentiels au quotidien aux puissants flux de travail professionnels.",
+    "featured": "Flows en vedette",
+    "featured_description": "Des flows incontournables, que vous devez ajouter à votre workflow !!!",
+    "all": "Toutes les intégrations",
+    "all_description": "Toutes les intégrations disponibles sur Helpr",
+    "search": "Rechercher une intégration",
+    "no_results": "Aucun résultat trouvé"
   }
 }

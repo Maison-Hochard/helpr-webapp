@@ -59,7 +59,7 @@ const features = computed(() => [
           <ProviderRow :nb="10" />
           <ProviderRow :nb="6" />
         </div>
-        <div class="md:-mt-32 drop-shadow-2xl">
+        <div class="lg:-mt-32 drop-shadow-2xl">
           <div class="flex items-center justify-center drop-shadow-xl">
             <div class="gradient rounded-md px-6 py-4 drop-shadow-xl">
               <Logo :size="12" />

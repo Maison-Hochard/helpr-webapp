@@ -8,6 +8,7 @@
     "home": "Home",
     "about": "About",
     "pricing": "Pricing",
+    "integrations": "Integrations",
     "team": "Team",
     "contact": "Contact",
     "login": "Login",
@@ -236,5 +237,16 @@
     "description": "Meet our awesome team of developers, designers, and entrepreneurs. We're always looking for new members to join our team.",
     "founder": "Founder",
     "developer": "Developer"
+  },
+  "integrations": {
+    "title_start": "Lots of apps, endless ",
+    "title_end": "possibilities",
+    "description": "Enhance your workflow with a wide variety of add-ons and integrations. From everyday essentials to powerful pro workflows.",
+    "featured": "Featured Flows",
+    "featured_description": "Must have flows, that you must add to your workflow !!!",
+    "all": "All integrations",
+    "all_description": "All integrations available in Helpr",
+    "search": "Search integrations",
+    "no_results": "No results found"
   }
 }
