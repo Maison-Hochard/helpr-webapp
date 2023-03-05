@@ -84,7 +84,7 @@ const features = computed(() => [
         </div>
       </div>
 
-      <hr class="my-16 border-gray-600 w-3/4 mx-auto" />
+      <hr class="my-16 border-secondary w-3/4 mx-auto" />
 
       <!-- Details section -->
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
@@ -119,7 +119,7 @@ const features = computed(() => [
         </div>
       </div>
 
-      <hr class="my-16 border-gray-600 w-3/4 mx-auto" />
+      <hr class="my-16 border-secondary w-3/4 mx-auto" />
 
       <!-- CTA section -->
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
