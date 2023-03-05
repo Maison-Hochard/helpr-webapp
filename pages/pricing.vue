@@ -8,6 +8,9 @@ definePageMeta({
   description: "Pricing page",
 });
 
+const subscription = useUserStore().getSubscription;
+console.log(subscription);
+
 const premiumPlan: Plan = {
   id: "prod_NEMP9hBJdE3WNV",
   name: "Premium",
@@ -93,6 +96,8 @@ async function redirectToLogin() {
                 :value="premiumPlan.priceId"
                 class="btn-primary mt-8 w-full"
                 :aria-describedby="user ? null : 'login-required'"
+                :disabled="subscription[0]?.name === premiumPlan.name"
+                :class="subscription[0]?.name === premiumPlan.name ? 'cursor-not-allowed' : ''"
               >
                 {{ $t("pricing.subscribe") }}
               </button>

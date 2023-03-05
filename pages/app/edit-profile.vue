@@ -124,7 +124,7 @@ const deleteAccount = async () => {
         </div>
         <div class="mt-5 flex gap-4">
           <client-only>
-            <form action="/api/stripe/subscribe" method="post">
+            <form action="/api/stripe/subscribe" method="post" v-if="!subscription || subscription.length === 0">
               <input type="hidden" name="userId" :value="user.id" />
               <button
                 name="priceId"
