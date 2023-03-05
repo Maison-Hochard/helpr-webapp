@@ -37,7 +37,8 @@ async function redirectToLogin() {
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl text-center">
         <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
-          {{ $t("pricing.title") }}
+          {{ $t("pricing.title_start") }}<span class="text-gradient">{{ $t("pricing.era") }}</span
+          >{{ $t("pricing.title_end") }}
         </h2>
         <p class="mt-6 text-lg leading-8 text-muted">
           {{ $t("pricing.description") }}

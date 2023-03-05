@@ -51,19 +51,17 @@ async function submitForm() {
     <div class="relative mx-auto max-w-7xl lg:grid lg:grid-cols-5">
       <div class="py-16 px-6 lg:col-span-2 lg:px-8 lg:py-24 xl:pr-12">
         <div class="mx-auto max-w-lg">
-          <h2 class="text-2xl font-bold tracking-tight text-primary sm:text-3xl">
-            {{ t("contact.title") }}
+          <h2 class="text-2xl font-bold tracking-tight sm:text-3xl text-gradient">
+            {{ t("contact.title") }}<span class="text-primary ml-2">.</span>
           </h2>
           <p class="mt-3 text-lg leading-6 text-muted">
             {{ t("contact.description") }}
           </p>
           <dl class="mt-8 text-base text-muted">
-            <div>
-              <dd>
-                <p>113 Boulevard René Cassin</p>
-                <p>06200 Nice, France</p>
-              </dd>
-            </div>
+            <dd>
+              <p>113 Boulevard René Cassin</p>
+              <p>06200 Nice, France</p>
+            </dd>
             <div class="mt-6">
               <dd class="flex">
                 <PhoneIcon class="h-6 w-6 flex-shrink-0 text-gray-400" aria-hidden="true" />

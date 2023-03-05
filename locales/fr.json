@@ -210,7 +210,9 @@
     }
   },
   "pricing": {
-    "title": "Entrez dans une nouvelle ère",
+    "title_start": "Entrez dans une nouvelle ",
+    "era": "ère",
+    "title_end": " de productivité",
     "description": "Repoussez les limites de votre productivité en connectant IA, traduction, API et plus encore !!!",
     "boost": "Boostez votre productivité maintenant",
     "terms": "Abonnement mensuel. Vous pouvez annuler votre abonnement à tout moment",

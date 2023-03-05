@@ -41,8 +41,8 @@ const people = [
   <div class="py-24 md:py-32">
     <div class="mx-auto grid max-w-7xl grid-cols-1 gap-y-20 gap-x-8 px-6 lg:px-8 xl:grid-cols-5">
       <div class="max-w-2xl xl:col-span-2">
-        <h2 class="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
-          {{ t("team.title") }}
+        <h2 class="text-3xl font-bold tracking-tight text-gradient sm:text-4xl">
+          {{ t("team.title") }}<span class="text-primary ml-2">.</span>
         </h2>
         <p class="mt-6 text-lg leading-8 text-muted">
           {{ t("team.description") }}

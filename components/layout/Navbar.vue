@@ -25,13 +25,13 @@ async function logout() {
   <header class="backdrop-blur-lg bg-primary-opacity/40 sticky top-0 z-50">
     <nav class="mx-auto flex max-w-7xl items-center justify-between py-3 px-4">
       <div class="flex flex-1 items-center">
-        <div class="hidden lg:flex lg:gap-x-12">
+        <div class="hidden lg:flex lg:gap-x-8">
           <NuxtLink
             v-for="item in navigation"
             :key="item.name"
             :to="item.to"
             :id="item.name.toLowerCase()"
-            class="text-sm font-semibold leading-6 text-primary hover:text-accent"
+            class="text-sm font-semibold leading-6 text-primary hover:text-gradient transition-colors duration-300 ease-in-out"
             >{{ $t("navigation." + item.name.toLowerCase()) }}
           </NuxtLink>
         </div>

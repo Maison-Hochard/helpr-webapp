@@ -210,7 +210,9 @@
     }
   },
   "pricing": {
-    "title": "Enter a new era of productivity",
+    "title_start": "Enter a new ",
+    "era": "era",
+    "title_end": " of productivity",
     "description": "Push the boundaries of your productivity by connecting AI, translation, APIs and more!!!",
     "boost": "Boost your productivity now",
     "terms": "Mensual subscription. You can cancel your subscription at any time.",
