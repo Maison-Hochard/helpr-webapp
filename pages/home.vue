@@ -147,9 +147,11 @@ const features = computed(() => [
                 {{ t("home.start") }}
               </button>
             </NuxtLink>
-            <button type="button" class="btn-secondary py-1">
-              {{ t("home.cta.download") }}
-            </button>
+            <a href="/app-release.apk" class="flex justify-center">
+              <button type="button" class="btn-secondary py-1">
+                {{ t("home.cta.download") }}
+              </button>
+            </a>
           </div>
         </div>
       </div>
