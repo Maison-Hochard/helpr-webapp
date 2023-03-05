@@ -3,6 +3,10 @@ import fr from "./locales/fr.json";
 
 export default defineNuxtConfig({
   app: {
+    layoutTransition: {
+      name: "fade",
+      mode: "out-in",
+    },
     pageTransition: {
       name: "fade",
       mode: "out-in",

@@ -101,12 +101,16 @@ const integrations = [
         <ProviderCard :size="2" provider="deepl" />
         <ProviderCard :size="4" provider="github" />
         <ProviderCard :size="8" provider="linear" />
-        <div class="flex relative justify-center items-center p-4 gradient rounded-full shadow-2xl">
+        <NuxtLink
+          to="/app/builder/new-flow"
+          class="flex relative justify-center items-center p-4 gradient rounded-full shadow-2xl group hover:scale-110 transition-all cursor-pointer duration-300 ease-in-out"
+        >
           <div
-            class="animate-ping absolute inline-flex h-full w-full rounded-full gradient opacity-75 delay-300 duration-700"
+            class="group-hover:animate-ping absolute inline-flex h-full w-full rounded-full gradient opacity-75 delay-300 duration-700"
           ></div>
-          <PlusSmallIcon class="h-20 w-20 text-primary" />
-        </div>
+          <div class="absolute inline-flex rounded-full h-2/3 w-2/3 gradient animate-spin delay-300 duration-700"></div>
+          <PlusSmallIcon class="h-20 w-20 text-primary z-10" />
+        </NuxtLink>
         <ProviderCard :size="8" provider="openai" />
         <ProviderCard :size="4" provider="slack" />
         <ProviderCard :size="2" provider="calendar" />
