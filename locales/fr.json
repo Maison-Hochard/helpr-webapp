@@ -183,7 +183,10 @@
     "enhance_by_ia": "Améliorer par l'intelligence artificielle",
     "enhance_error": "Une erreur s'est produite lors de l'amélioration",
     "translate": "Traduire",
-    "translate_error": "Une erreur s'est produite lors de la traduction"
+    "translate_error": "Une erreur s'est produite lors de la traduction",
+    "test_action": "Tester l'action",
+    "test_success": "L'action a été exécutée avec succès !!!",
+    "test_error": "Oups, l'action a échoué :("
   },
   "home": {
     "start": "Commencer",

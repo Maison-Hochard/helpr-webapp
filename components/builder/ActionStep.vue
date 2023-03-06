@@ -145,9 +145,21 @@ async function translateText(key: string, text: string) {
   }
 }
 
-function isDisabled(payload: any) {
-  if (typeof payload === "object" && payload !== null) {
-    return Object.values(payload).some((value) => value === "");
+async function testAction() {
+  if (selectedAction.value?.name !== "empty") {
+    const variables = payload.value;
+    const { data } = await useAPI(
+      `/${selectedProvider.value.name.toLowerCase()}/${selectedAction.value.name.toLowerCase()}`,
+      "POST",
+      {
+        ...variables,
+      },
+    );
+    if (data) {
+      useSuccessToast(t("builder.test_success"));
+    } else {
+      useErrorToast(t("builder.test_error"));
+    }
   }
 }
 </script>
@@ -194,6 +206,7 @@ function isDisabled(payload: any) {
               />
               <div class="flex flex-col gap-6 md:items-center md:flex-row" v-if="isPremium">
                 <button
+                  type="button"
                   class="flex flex-row gap-2 mt-2 cursor-pointer group items-center"
                   @click="enhanceByAI(field.key, payload[field.key])"
                   :disabled="!(payload[field.key] !== undefined && payload[field.key] !== '')"
@@ -209,6 +222,7 @@ function isDisabled(payload: any) {
                 </button>
                 <div class="flex flex-col gap-2 mt-2 md:items-center md:flex-row">
                   <button
+                    type="button"
                     class="flex flex-row gap-2 cursor-pointer group items-center"
                     @click="translateText(field.key, payload[field.key])"
                     :disabled="!(payload[field.key] !== undefined && payload[field.key] !== '')"
@@ -275,26 +289,31 @@ function isDisabled(payload: any) {
         </div>
       </div>
     </div>
-    <div class="flex flex-row gap-2 items-center mt-4">
-      <button class="btn-secondary" type="submit">
-        {{ $t("builder.save_action") }}
-      </button>
-      <button
-        class="btn-secondary flex flex-row gap-2 items-center"
-        type="button"
-        @click="getProviderDataForAction(selectedProvider.name)"
-        :disabled="!selectedProvider"
-        :class="{ 'cursor-not-allowed': !selectedProvider }"
-      >
-        <span>{{ $t("builder.get_data_action") }}</span>
-        <Icon name="line-md:loading-twotone-loop" size="1em" v-if="variable_loading" class="text-primary" />
-      </button>
-      <div class="flex flex-row gap-2 items-center" v-if="variablesValues && Object.keys(variablesValues).length > 0">
-        <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />
-        <span class="text-sm text-muted">
-          {{ $t("builder.data_fetched") }}
-        </span>
+    <div class="flex justify-between mt-4 flex-col md:flex-row">
+      <div class="flex flex-row gap-2 items-center">
+        <button class="btn-secondary" type="submit">
+          {{ $t("builder.save_action") }}
+        </button>
+        <button
+          class="btn-secondary flex flex-row gap-2 items-center"
+          type="button"
+          @click="getProviderDataForAction(selectedProvider.name)"
+          :disabled="!selectedProvider"
+          :class="{ 'cursor-not-allowed': !selectedProvider }"
+        >
+          <span>{{ $t("builder.get_data_action") }}</span>
+          <Icon name="line-md:loading-twotone-loop" size="1em" v-if="variable_loading" class="text-primary" />
+        </button>
+        <div class="flex flex-row gap-2 items-center" v-if="variablesValues && Object.keys(variablesValues).length > 0">
+          <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />
+          <span class="text-sm text-muted">
+            {{ $t("builder.data_fetched") }}
+          </span>
+        </div>
       </div>
+      <button class="btn-secondary mt-4 md:mt-0" type="button" @click="testAction">
+        {{ $t("builder.test_action") }}
+      </button>
     </div>
   </form>
 </template>

@@ -183,7 +183,10 @@
     "enhance_by_ia": "Enhance by IA",
     "enhance_error": "An error occurred while enhancing",
     "translate": "Translate",
-    "translate_error": "An error occurred while translating"
+    "translate_error": "An error occurred while translating",
+    "test_action": "Test action",
+    "test_success": "Action tested successfully !!!",
+    "test_error": "Oups, the action failed :("
   },
   "home": {
     "start": "Get started",
