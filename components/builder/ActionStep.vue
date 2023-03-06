@@ -193,6 +193,8 @@ async function translateText(key: string, text: string) {
                 <button
                   class="flex flex-row gap-2 mt-2 cursor-pointer group items-center"
                   @click="enhanceByAI(field.key, payload[field.key])"
+                  :disabled="payload[field.key].length < 4"
+                  :class="{ 'opacity-50 cursor-not-allowed': payload[field.key].length < 4 }"
                 >
                   <SparklesIcon class="h-5 w-5 text-muted cursor-pointer group-item group-hover:text-blue-600" />
                   <span class="group-item text-muted text-sm">Enhance by AI</span>
@@ -202,6 +204,8 @@ async function translateText(key: string, text: string) {
                   <button
                     class="flex flex-row gap-2 cursor-pointer group items-center"
                     @click="translateText(field.key, payload[field.key])"
+                    :disabled="payload[field.key].length < 4"
+                    :class="{ 'opacity-50 cursor-not-allowed': payload[field.key].length < 4 }"
                   >
                     <LanguageIcon class="h-5 w-5 text-muted cursor-pointer group-item group-hover:text-blue-600" />
                     <span class="group-item text-muted text-sm">Translate</span>
