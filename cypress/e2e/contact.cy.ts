@@ -5,7 +5,7 @@ const contactpage = 'http://localhost:8080/contact'
 
 describe('Contact', () => {
     it('Testing Contact Form', () => {
-        cy.visit(contactpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#full-name').type("Firstname Lastname", { force: true })

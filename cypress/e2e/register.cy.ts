@@ -5,7 +5,7 @@ const registerpage = 'http://localhost:8080/signup'
 
 describe('Register Page', () => {
     it('Testing Register Button', () => {
-        cy.visit(registerpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#username').type("username", { force: true })

@@ -5,7 +5,7 @@ const loginpage = 'http://localhost:8080/login'
 
 describe('Login Page', () => {
     it('Testing Login Button', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -15,14 +15,14 @@ describe('Login Page', () => {
     })
 
     it('Testing Forgot Password Button', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.get('.text-sm > .font-medium').click()
         cy.url().should('include', 'password/forgot')
     })
 
     it('Testing Register Button', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.get('.mt-12 > .btn-secondary').click()
         cy.url().should('include', 'signup')
@@ -30,7 +30,7 @@ describe('Login Page', () => {
 
 
     it('Testing Login Button with wrong password', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", {force: true})
@@ -40,7 +40,7 @@ describe('Login Page', () => {
     })
 
     it('Testing Login Button with wrong username', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("wrongusername", {force: true})
@@ -50,7 +50,7 @@ describe('Login Page', () => {
     })
 
     it('Testing Login Button with wrong username and password', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("wrongusername", {force: true})
@@ -60,7 +60,7 @@ describe('Login Page', () => {
     })
 
     it('Testing Login Button with empty fields', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type(" ", {force: true})
