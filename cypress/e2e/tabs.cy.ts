@@ -5,7 +5,7 @@ const loginpage = 'http://localhost:8080/login'
 
 describe('Tabs navigation', () => {
     it('Testing Create Flow', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -17,7 +17,7 @@ describe('Tabs navigation', () => {
     })
 
     it('Testing My Flows', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -29,7 +29,7 @@ describe('Tabs navigation', () => {
     })
 
     it('Testing Providers', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -41,7 +41,7 @@ describe('Tabs navigation', () => {
     })
 
     it('Testing Community', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -53,7 +53,7 @@ describe('Tabs navigation', () => {
     })
 
     it('Testing Profile', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -65,7 +65,7 @@ describe('Tabs navigation', () => {
     })
 
     it('Testing Edit Profile', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -77,7 +77,7 @@ describe('Tabs navigation', () => {
     })
 
     it('Testing Settings', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
@@ -89,7 +89,7 @@ describe('Tabs navigation', () => {
     })
 
     it('Testing Logout', () => {
-        cy.visit(loginpage)
+        cy.visit(url)
         cy.viewport(1280, 720)
         cy.wait(500)
         cy.get('#login').type("testUser", { force: true })
