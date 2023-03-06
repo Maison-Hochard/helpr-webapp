@@ -1,7 +1,14 @@
 <script setup>
 import { computed, ref } from "vue";
-import { MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
-import { DocumentPlusIcon, FolderIcon, FolderPlusIcon, HashtagIcon, TagIcon } from "@heroicons/vue/24/outline";
+import { MagnifyingGlassIcon, LanguageIcon } from "@heroicons/vue/20/solid";
+import {
+  DocumentIcon,
+  FolderIcon,
+  HashtagIcon,
+  PlusCircleIcon,
+  SparklesIcon,
+  InformationCircleIcon,
+} from "@heroicons/vue/24/outline";
 import {
   Combobox,
   ComboboxInput,
@@ -12,37 +19,92 @@ import {
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
+const { locale } = useI18n();
+const globalStore = useGlobalStore();
 
-const projects = [
-  { id: 1, name: "Workflow Inc. / Website Redesign", url: "#" },
-  // More projects...
-];
-const recent = [projects[0]];
-const quickActions = [
-  { name: "Add new file...", icon: DocumentPlusIcon, shortcut: "N", url: "#" },
-  { name: "Add new folder...", icon: FolderPlusIcon, shortcut: "F", url: "#" },
-  { name: "Add hashtag...", icon: HashtagIcon, shortcut: "H", url: "#" },
-  { name: "Add label...", icon: TagIcon, shortcut: "L", url: "#" },
+const consoleActions = [
+  {
+    name: "Créer un Flow",
+    shortcut: "⌘ + Ctrl + N",
+    action: () => useRouter().push("/app/builder/new-flow"),
+    icon: PlusCircleIcon,
+  },
+  {
+    name: "Mettre en francais",
+    shortcut: "⌘ + F",
+    action: () => {
+      locale.value = "fr";
+      globalStore.setLocale("fr");
+    },
+    icon: LanguageIcon,
+  },
+  {
+    name: "Mettre en anglais",
+    shortcut: "⌘ + E",
+    action: () => {
+      locale.value = "en";
+      globalStore.setLocale("en");
+    },
+    icon: LanguageIcon,
+  },
+  {
+    name: "Retourner à l'accueil",
+    shortcut: "⌘ + A",
+    action: () => useRouter().push("/"),
+    icon: DocumentIcon,
+  },
+  {
+    name: "Passer à l'abonnement Premium",
+    action: () => useRouter().push("/pricing"),
+    icon: SparklesIcon,
+  },
+  {
+    name: "Afficher l'aide",
+    shortcut: "⌘ + H",
+    action: () => console.log("Afficher l'aide"),
+    icon: InformationCircleIcon,
+  },
 ];
 
 const open = ref(false);
 const query = ref("");
-const filteredProjects = computed(() =>
+const filteredActions = computed(() =>
   query.value === ""
     ? []
-    : projects.filter((project) => {
-        return project.name.toLowerCase().includes(query.value.toLowerCase());
-      }),
+    : consoleActions.filter((action) => action.name.toLowerCase().includes(query.value.toLowerCase())),
 );
 
 function onSelect(item) {
-  window.location = item.url;
+  item.action();
+  open.value = false;
 }
 
 onMounted(() => {
   if (process.client) {
     document.addEventListener("keydown", (event) => {
       if (event.metaKey && event.key === "k") open.value = !open.value;
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.metaKey && event.key === "a") {
+        event.preventDefault();
+        consoleActions.find((action) => action.shortcut === "⌘ + A").action();
+      }
+      if (event.metaKey && event.key === "h") {
+        event.preventDefault();
+        consoleActions.find((action) => action.shortcut === "Ctrl + H").action();
+      }
+      if (event.metaKey && event.key === "n" && event.ctrlKey) {
+        event.preventDefault();
+        consoleActions.find((action) => action.shortcut === "⌘ + Ctrl + N").action();
+      }
+      if (event.metaKey && event.key === "f") {
+        event.preventDefault();
+        consoleActions.find((action) => action.shortcut === "⌘ + F").action();
+      }
+      if (event.metaKey && event.key === "e") {
+        event.preventDefault();
+        consoleActions.find((action) => action.shortcut === "⌘ + E").action();
+      }
     });
   }
 });
@@ -90,17 +152,17 @@ onMounted(() => {
               </div>
 
               <ComboboxOptions
-                v-if="query === '' || filteredProjects.length > 0"
+                v-if="query === '' || filteredActions.length > 0"
                 static
                 class="max-h-80 scroll-py-2 divide-y divide-gray-800 overflow-y-auto"
               >
                 <li class="p-2">
-                  <h2 v-if="query === ''" class="mt-4 mb-2 px-3 text-xs font-semibold text-muted">Recent searches</h2>
+                  <h2 v-if="query === ''" class="mt-4 mb-2 px-3 text-xs font-semibold text-muted">Searches</h2>
                   <ul class="text-sm text-primary">
                     <ComboboxOption
-                      v-for="project in query === '' ? recent : filteredProjects"
-                      :key="project.id"
-                      :value="project"
+                      v-for="action in query === '' ? filteredActions : filteredActions"
+                      :key="action.id"
+                      :value="action"
                       as="template"
                       v-slot="{ active }"
                     >
@@ -110,14 +172,15 @@ onMounted(() => {
                           active && 'bg-accent text-primary',
                         ]"
                       >
-                        <FolderIcon
-                          :class="['h-6 w-6 flex-none', active ? 'text-primary' : 'text-muted']"
+                        <component
+                          :is="action.icon"
+                          :class="['h-6 w-6 flex-none', active ? 'text-white' : 'text-gray-400']"
                           aria-hidden="true"
                         />
                         <span class="ml-3 flex-auto truncate" :class="[active ? 'text-primary' : 'text-muted']">
-                          {{ project.name }}
+                          {{ action.name }}
                         </span>
-                        <span v-if="active" class="ml-3 flex-none text-primary">Jump to...</span>
+                        <!--                        <span v-if="active" class="ml-3 flex-none text-primary">Jump to...</span>-->
                       </li>
                     </ComboboxOption>
                   </ul>
@@ -126,7 +189,7 @@ onMounted(() => {
                   <h2 class="sr-only">Quick actions</h2>
                   <ul class="text-sm text-muted">
                     <ComboboxOption
-                      v-for="action in quickActions"
+                      v-for="action in consoleActions"
                       :key="action.shortcut"
                       :value="action"
                       as="template"
@@ -150,7 +213,6 @@ onMounted(() => {
                             active ? 'text-indigo-100' : 'text-gray-400',
                           ]"
                         >
-                          <kbd class="font-sans">⌘</kbd>
                           <kbd class="font-sans">{{ action.shortcut }}</kbd>
                         </span>
                       </li>
@@ -159,7 +221,7 @@ onMounted(() => {
                 </li>
               </ComboboxOptions>
 
-              <div v-if="query !== '' && filteredProjects.length === 0" class="py-14 px-6 text-center sm:px-14">
+              <div v-if="query !== '' && filteredActions.length === 0" class="py-14 px-6 text-center sm:px-14">
                 <FolderIcon class="mx-auto h-6 w-6 text-primary" aria-hidden="true" />
                 <p class="mt-4 text-sm text-primary">We couldn't find any projects with that term. Please try again.</p>
               </div>

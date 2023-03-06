@@ -9,7 +9,6 @@ definePageMeta({
 });
 
 const subscription = useUserStore().getSubscription;
-console.log(subscription);
 
 const premiumPlan: Plan = {
   id: "prod_NEMP9hBJdE3WNV",
