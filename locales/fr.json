@@ -179,7 +179,11 @@
     "data_fetched": "L'intégration est connectée",
     "where_trigger": "Où votre flow doit-il être déclenché",
     "need_trigger": "Vous devez ajouter un déclencheur",
-    "need_action": "Vous devez ajouter une action"
+    "need_action": "Vous devez ajouter une action",
+    "enhance_by_ia": "Améliorer par l'intelligence artificielle",
+    "enhance_error": "Une erreur s'est produite lors de l'amélioration",
+    "translate": "Traduire",
+    "translate_error": "Une erreur s'est produite lors de la traduction"
   },
   "home": {
     "start": "Commencer",

@@ -179,7 +179,11 @@
     "data_fetched": "Connected to provider",
     "where_trigger": "Where your flow will be triggered",
     "need_trigger": "You need to add a trigger",
-    "need_action": "You need to add an action"
+    "need_action": "You need to add an action",
+    "enhance_by_ia": "Enhance by IA",
+    "enhance_error": "An error occurred while enhancing",
+    "translate": "Translate",
+    "translate_error": "An error occurred while translating"
   },
   "home": {
     "start": "Get started",

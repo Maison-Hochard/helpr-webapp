@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { TrashIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
 import { SparklesIcon, LanguageIcon, ArrowRightIcon } from "@heroicons/vue/24/solid";
-import { is } from "prisma/build/child";
 const { t } = useI18n();
+
 const props = defineProps({
   providers: {
     type: Array,
@@ -80,6 +80,7 @@ const loading_ai = ref(false);
 const loading_translate = ref(false);
 const to_language = ref("en-US");
 const from_language = ref("en-US");
+
 const locales = [
   {
     value: "en-US",
@@ -100,10 +101,6 @@ const locales = [
   {
     value: "DE",
     name: "🇩🇪 German",
-  },
-  {
-    value: "NL",
-    name: "🇳🇱 Dutch",
   },
   {
     value: "CH",
@@ -127,7 +124,7 @@ async function enhanceByAI(key: string, value: string) {
     }
     loading_ai.value = false;
   } catch (error) {
-    useErrorToast("Error while enhancing data");
+    useErrorToast(t("builder.enhance_error"));
     loading_ai.value = false;
   }
 }
@@ -144,7 +141,13 @@ async function translateText(key: string, text: string) {
       payload.value[key] = deepl_response;
     }
   } catch (error) {
-    useErrorToast("Error while translating data");
+    useErrorToast(t("builder.translate_error"));
+  }
+}
+
+function isDisabled(payload: any) {
+  if (typeof payload === "object" && payload !== null) {
+    return Object.values(payload).some((value) => value === "");
   }
 }
 </script>
@@ -189,45 +192,55 @@ async function translateText(key: string, text: string) {
                 v-model="payload[field.key]"
                 :required="field.required"
               />
-              <div class="flex flex-row gap-6 items-center" v-if="isPremium">
+              <div class="flex flex-col gap-6 md:items-center md:flex-row" v-if="isPremium">
                 <button
                   class="flex flex-row gap-2 mt-2 cursor-pointer group items-center"
                   @click="enhanceByAI(field.key, payload[field.key])"
-                  :disabled="payload[field.key] && payload[field.key].length < 4"
-                  :class="{ 'opacity-50 cursor-not-allowed': payload[field.key] && payload[field.key].length < 4 }"
+                  :disabled="!(payload[field.key] !== undefined && payload[field.key] !== '')"
+                  :class="{
+                    'opacity-50 cursor-not-allowed': !(payload[field.key] !== undefined && payload[field.key] !== ''),
+                  }"
                 >
                   <SparklesIcon class="h-5 w-5 text-muted cursor-pointer group-item group-hover:text-blue-600" />
-                  <span class="group-item text-muted text-sm">Enhance by AI</span>
+                  <span class="group-item text-muted text-sm">
+                    {{ $t("builder.enhance_by_ia") }}
+                  </span>
                   <Icon name="line-md:loading-twotone-loop" size="1em" v-if="loading_ai" />
                 </button>
-                <div class="flex flex-row gap-2 mt-2 items-center">
+                <div class="flex flex-col gap-2 mt-2 md:items-center md:flex-row">
                   <button
                     class="flex flex-row gap-2 cursor-pointer group items-center"
                     @click="translateText(field.key, payload[field.key])"
-                    :disabled="payload[field.key] && payload[field.key].length < 4"
-                    :class="{ 'opacity-50 cursor-not-allowed': payload[field.key] && payload[field.key].length < 4 }"
+                    :disabled="!(payload[field.key] !== undefined && payload[field.key] !== '')"
+                    :class="{
+                      'opacity-50 cursor-not-allowed': !(payload[field.key] !== undefined && payload[field.key] !== ''),
+                    }"
                   >
                     <LanguageIcon class="h-5 w-5 text-muted cursor-pointer group-item group-hover:text-blue-600" />
-                    <span class="group-item text-muted text-sm">Translate</span>
+                    <span class="group-item text-muted text-sm">
+                      {{ $t("builder.translate") }}
+                    </span>
                     <Icon name="line-md:loading-twotone-loop" size="1em" v-if="loading_translate" />
                   </button>
-                  <select
-                    class="rounded-md border border-muted bg-primary py-1 px-2 shadow-sm focus:outline-none sm:text-sm"
-                    v-model="from_language"
-                  >
-                    <option v-for="locale in locales" :key="locale.value" :value="locale.value">
-                      {{ locale.name }}
-                    </option>
-                  </select>
-                  <ArrowRightIcon class="h-5 w-5 text-muted" />
-                  <select
-                    class="rounded-md border border-muted bg-primary py-1 px-2 shadow-sm focus:outline-none sm:text-sm"
-                    v-model="to_language"
-                  >
-                    <option v-for="locale in locales" :key="locale.value" :value="locale.value">
-                      {{ locale.name }}
-                    </option>
-                  </select>
+                  <div class="flex flex-row gap-2 items-center">
+                    <select
+                      class="rounded-md border border-muted bg-primary py-1 px-2 shadow-sm focus:outline-none sm:text-sm"
+                      v-model="from_language"
+                    >
+                      <option v-for="locale in locales" :key="locale.value" :value="locale.value">
+                        {{ locale.name }}
+                      </option>
+                    </select>
+                    <ArrowRightIcon class="h-5 w-5 text-muted" />
+                    <select
+                      class="rounded-md border border-muted bg-primary py-1 px-2 shadow-sm focus:outline-none sm:text-sm"
+                      v-model="to_language"
+                    >
+                      <option v-for="locale in locales" :key="locale.value" :value="locale.value">
+                        {{ locale.name }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
