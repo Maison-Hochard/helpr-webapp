@@ -204,17 +204,23 @@
     },
     "features": {
       "fast": "Rapide",
-      "fastDescription": "Les flows sont exécutés en temps réel, vous n'avez pas besoin de créer des applications pour automatiser vos tâches",
+      "fastDescription": "Helpr est rapide, vraiment rapide, vous pouvez créer votre premier flow en moins de 2 minutes",
       "dynamic": "Dynamique",
-      "dynamicDescription": "Vous pouvez utiliser des variables dans vos flows, vous pouvez aussi utiliser des conditions pour déclencher des actions",
+      "dynamicDescription": "Créez des flow puissants avec nos actions dynamiques, utilisez des variables, des textes générés par l'IA et plus encore",
       "integrations": "Intégrations",
-      "integrationsDescription": "Vous pouvez connecter plus de 100 intégrations à votre compte, vous pouvez aussi créer vos propres intégrations",
+      "integrationsDescription": "Intégré avec de nombreux fournisseurs, vous pouvez également créer vos propres intégrations",
       "secure": "Sécurisé",
-      "secureDescription": "Toutes les données sont stockées de manière sécurisée, vous pouvez aussi créer des flows privés",
-      "crossPlatform": "Multi-plateformes",
-      "crossPlatformDescription": "Vous pouvez utiliser Helpr sur votre ordinateur, votre tablette ou votre smartphone",
+      "secureDescription": "Sécurisé, vos données sont cryptées et nous ne stockons pas vos données",
+      "crossPlatform": "Multiplateforme",
+      "crossPlatformDescription": "Disponible sur toutes les plateformes, vous pouvez utiliser Helpr sur votre ordinateur, votre tablette ou votre téléphone",
       "customizable": "Personnalisable",
-      "customizableDescription": "Vous pouvez créer vos propres intégrations, vous pouvez aussi créer vos propres thèmes"
+      "customizableDescription": "Entièrement personnalisable, changez votre thème, votre langue ou créez même vos propres intégrations",
+      "console": "Console",
+      "consoleDescription": "Rencontrez notre console, un outil puissant pour améliorer votre expérience, taper ⌘ + K pour que la magie opère",
+      "keyboard_first": "Clavier",
+      "keyboardDescription": "Conçu pour être utilisé avec votre clavier et fournir de nombreux raccourcis, essayez de tous les attraper ;)",
+      "privacy": "Confidentialité",
+      "privacyDescription": "Axé sur la confidentialité, nous ne stockons pas vos données et ne vous suivons pas, et en plus vos connexions API sont entièrement cryptées"
     }
   },
   "pricing": {

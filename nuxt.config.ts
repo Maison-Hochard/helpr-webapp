@@ -52,6 +52,7 @@ export default defineNuxtConfig({
       stripeSecretKey: process.env.STRIPE_SECRET_KEY,
       authSecret: process.env.AUTH_TOKEN_SECRET,
       refreshTokenSecret: process.env.REFRESH_TOKEN_SECRET,
+      openAiKey: process.env.OPENAI_API_KEY,
     },
     public: {
       googleClientId: process.env.GOOGLE_CLIENT_ID,

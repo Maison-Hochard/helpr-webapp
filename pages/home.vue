@@ -43,6 +43,21 @@ const features = computed(() => [
     description: t("home.features.customizableDescription"),
     image: "/images/landing/customize.webp",
   },
+  {
+    name: t("home.features.console"),
+    description: t("home.features.consoleDescription"),
+    image: "/images/landing/console.webp",
+  },
+  {
+    name: t("home.features.keyboard_first"),
+    description: t("home.features.keyboardDescription"),
+    image: "/images/landing/keyboard-first.webp",
+  },
+  {
+    name: t("home.features.privacy"),
+    description: t("home.features.privacyDescription"),
+    image: "/images/landing/privacy.webp",
+  },
 ]);
 </script>
 

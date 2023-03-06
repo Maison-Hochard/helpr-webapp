@@ -204,17 +204,23 @@
     },
     "features": {
       "fast": "Fast",
-      "fastDescription": "Helpr is fast, you can create your first flow in less than 5 minutes",
+      "fastDescription": "Helpr is fast, really fast, you can create your first flow in less than 2 minutes",
       "dynamic": "Dynamic",
-      "dynamicDescription": "You can create dynamic flows, you can also create your own variables",
+      "dynamicDescription": "Create powerful flows with our dynamic actions, use variables, ai generated text, and more",
       "integrations": "Integrations",
-      "integrationsDescription": "Helpr is integrated with many providers, you can also create your own integrations",
+      "integrationsDescription": "Integrated with many providers, you can also create your own integrations",
       "secure": "Secure",
-      "secureDescription": "Helpr is secure, your data is encrypted and we don't store your credentials",
+      "secureDescription": "Secure, your data is encrypted and we don't store your data",
       "crossPlatform": "Cross-platform",
-      "crossPlatformDescription": "Helpr is available on all platforms, you can use it on your computer, tablet, or phone",
+      "crossPlatformDescription": "Available on all platforms, you can use Helpr on your computer, tablet or phone",
       "customizable": "Customizable",
-      "customizableDescription": "Helpr is customizable, you can create your own themes and integrations"
+      "customizableDescription": "Fully customizable, change your theme, language, or even create your own integrations",
+      "console": "Console",
+      "consoleDescription": "Meet our console, A powerful tool to enhance your experience, type in ⌘ K for the magic to happen",
+      "keyboard_first": "Keyboard first",
+      "keyboardDescription": "Designed to be used with your keyboard and provide many shortcuts, try to catch them all ;)",
+      "privacy": "Privacy",
+      "privacyDescription": "Privacy focused, we don't store your data and we don't track you, and more your API connections are fully encrypted"
     }
   },
   "pricing": {
