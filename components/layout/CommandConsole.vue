@@ -4,7 +4,6 @@ import { MagnifyingGlassIcon, LanguageIcon } from "@heroicons/vue/20/solid";
 import {
   DocumentIcon,
   FolderIcon,
-  HashtagIcon,
   PlusCircleIcon,
   SparklesIcon,
   InformationCircleIcon,

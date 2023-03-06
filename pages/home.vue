@@ -67,7 +67,7 @@ const features = computed(() => [
       <!-- Hero section -->
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative py-16">
         <div
-          class="backdrop-shadow bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
+          class="backdrop-shadow bg-accent scale-150 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
         ></div>
         <div class="flex flex-col items-center justify-center z-10 gap-4 hidden lg:flex">
           <ProviderRow :nb="6" />
