@@ -32,14 +32,17 @@ type VariablesValues = {
 };
 
 const variablesValues = ref<VariablesValues>({});
+const variable_loading = ref(false);
 
 async function getProviderDataForAction(provider: string) {
-  // get the 'linear_team_id', 'github_repository', etc... to send to the API to get more precise data
   try {
+    variable_loading.value = true;
     const { data } = await useAPI(`/${provider}/data`, "POST");
     variablesValues.value = data;
+    variable_loading.value = false;
   } catch (error) {
     useErrorToast("Error while fetching data from provider");
+    variable_loading.value = false;
   }
 }
 
@@ -116,13 +119,14 @@ function saveTrigger() {
           {{ $t("builder.save_trigger") }}
         </button>
         <button
-          class="btn-secondary"
+          class="btn-secondary flex flex-row gap-2 items-center"
           type="button"
           @click="getProviderDataForAction(selectedProvider.name)"
           :disabled="!selectedProvider"
           :class="{ 'cursor-not-allowed': !selectedProvider }"
         >
-          {{ $t("builder.get_data_trigger") }}
+          <span>{{ $t("builder.get_data_trigger") }}</span>
+          <Icon name="line-md:loading-twotone-loop" size="1em" v-if="variable_loading" class="text-primary" />
         </button>
         <div class="flex flex-row gap-2 items-center" v-if="variablesValues && Object.keys(variablesValues).length > 0">
           <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />

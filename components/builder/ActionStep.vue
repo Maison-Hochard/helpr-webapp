@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { TrashIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
 import { SparklesIcon, LanguageIcon, ArrowRightIcon } from "@heroicons/vue/24/solid";
+import { is } from "prisma/build/child";
 const { t } = useI18n();
 const props = defineProps({
   providers: {
@@ -17,6 +18,9 @@ const props = defineProps({
   },
 });
 const flowStore = useFlowStore();
+const userStore = useUserStore();
+
+const isPremium = userStore.isPremium;
 
 const flow = flowStore.getFlow;
 
@@ -51,6 +55,7 @@ type VariablesValues = {
 };
 
 const variablesValues = ref<VariablesValues>({});
+const variable_loading = ref(false);
 
 function removeAction() {
   flowStore.deleteAction(props.index);
@@ -59,12 +64,15 @@ function removeAction() {
 
 async function getProviderDataForAction(provider: string) {
   try {
+    variable_loading.value = true;
     const { data } = await useAPI(`/${provider}/data`, "POST", {
       variables: payload.value,
     });
     variablesValues.value = data;
+    variable_loading.value = false;
   } catch (error) {
     useErrorToast("Error while fetching data from provider");
+    variable_loading.value = false;
   }
 }
 
@@ -181,13 +189,13 @@ async function translateText(key: string, text: string) {
                 v-model="payload[field.key]"
                 :required="field.required"
               />
-              <div class="flex flex-row gap-6 items-center">
+              <div class="flex flex-row gap-6 items-center" v-if="isPremium">
                 <button
                   class="flex flex-row gap-2 mt-2 cursor-pointer group items-center"
                   @click="enhanceByAI(field.key, payload[field.key])"
                 >
-                  <SparklesIcon class="h-5 w-5 text-muted cursor-pointer group-hover:text-blue-600" />
-                  <span class="text-muted text-sm">Enhance by AI</span>
+                  <SparklesIcon class="h-5 w-5 text-muted cursor-pointer group-item group-hover:text-blue-600" />
+                  <span class="group-item text-muted text-sm">Enhance by AI</span>
                   <Icon name="line-md:loading-twotone-loop" size="1em" v-if="loading_ai" />
                 </button>
                 <div class="flex flex-row gap-2 mt-2 items-center">
@@ -195,8 +203,8 @@ async function translateText(key: string, text: string) {
                     class="flex flex-row gap-2 cursor-pointer group items-center"
                     @click="translateText(field.key, payload[field.key])"
                   >
-                    <LanguageIcon class="h-5 w-5 text-muted cursor-pointer group-hover:text-blue-600" />
-                    <span class="text-muted text-sm">Translate</span>
+                    <LanguageIcon class="h-5 w-5 text-muted cursor-pointer group-item group-hover:text-blue-600" />
+                    <span class="group-item text-muted text-sm">Translate</span>
                     <Icon name="line-md:loading-twotone-loop" size="1em" v-if="loading_translate" />
                   </button>
                   <select
@@ -246,15 +254,6 @@ async function translateText(key: string, text: string) {
               v-model="payload[field.key]"
               :required="field.required"
             />
-            <button
-              :disabled="payload[field.key]"
-              class="flex flex-row gap-2 mt-2"
-              @click="enhanceByAI(field.key, payload[field.key])"
-            >
-              <SparklesIcon class="h-5 w-5 text-muted cursor-pointer hover:text-blue-600" />
-              <span class="text-muted text-sm">Enhance by AI</span>
-              <Loader v-if="loading_ai" />
-            </button>
           </div>
         </div>
       </div>
@@ -264,13 +263,14 @@ async function translateText(key: string, text: string) {
         {{ $t("builder.save_action") }}
       </button>
       <button
-        class="btn-secondary"
+        class="btn-secondary flex flex-row gap-2 items-center"
         type="button"
         @click="getProviderDataForAction(selectedProvider.name)"
         :disabled="!selectedProvider"
         :class="{ 'cursor-not-allowed': !selectedProvider }"
       >
-        {{ $t("builder.get_data_action") }}
+        <span>{{ $t("builder.get_data_action") }}</span>
+        <Icon name="line-md:loading-twotone-loop" size="1em" v-if="variable_loading" class="text-primary" />
       </button>
       <div class="flex flex-row gap-2 items-center" v-if="variablesValues && Object.keys(variablesValues).length > 0">
         <CheckBadgeIcon class="h-6 w-6 text-muted text-green-600" />
