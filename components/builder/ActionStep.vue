@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { TrashIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
+import { SparklesIcon, LanguageIcon, ArrowRightIcon } from "@heroicons/vue/24/solid";
 const { t } = useI18n();
 const props = defineProps({
   providers: {
@@ -58,10 +59,84 @@ function removeAction() {
 
 async function getProviderDataForAction(provider: string) {
   try {
-    const { data } = await useAPI(`/${provider}/data`, "GET");
+    const { data } = await useAPI(`/${provider}/data`, "POST", {
+      variables: payload.value,
+    });
     variablesValues.value = data;
   } catch (error) {
     useErrorToast("Error while fetching data from provider");
+  }
+}
+
+const loading_ai = ref(false);
+const loading_translate = ref(false);
+const to_language = ref("en-US");
+const from_language = ref("en-US");
+const locales = [
+  {
+    value: "en-US",
+    name: "🇺🇸 English",
+  },
+  {
+    value: "FR",
+    name: "🇫🇷 French",
+  },
+  {
+    value: "ES",
+    name: "🇪🇸 Spanish",
+  },
+  {
+    value: "IT",
+    name: "🇮🇹 Italian",
+  },
+  {
+    value: "DE",
+    name: "🇩🇪 German",
+  },
+  {
+    value: "NL",
+    name: "🇳🇱 Dutch",
+  },
+  {
+    value: "CH",
+    name: "🇨🇭 Chinese",
+  },
+  {
+    value: "JP",
+    name: "🇯🇵 Japanese",
+  },
+];
+
+async function enhanceByAI(key: string, value: string) {
+  try {
+    loading_ai.value = true;
+    const { data } = await useAPI("/openai/enhance", "POST", {
+      text: value,
+    });
+    const openai_response = data.openai_response;
+    if (openai_response) {
+      payload.value[key] = openai_response;
+    }
+    loading_ai.value = false;
+  } catch (error) {
+    useErrorToast("Error while enhancing data");
+    loading_ai.value = false;
+  }
+}
+
+async function translateText(key: string, text: string) {
+  try {
+    const { data } = await useAPI("/deepl", "POST", {
+      text,
+      from: from_language.value,
+      to: to_language.value,
+    });
+    const deepl_response = data.deepl_response;
+    if (deepl_response) {
+      payload.value[key] = deepl_response;
+    }
+  } catch (error) {
+    useErrorToast("Error while translating data");
   }
 }
 </script>
@@ -98,13 +173,52 @@ async function getProviderDataForAction(provider: string) {
             <span v-if="field.required" class="text-red-600">*</span>
           </div>
           <div v-if="variablesValues && Object.keys(variablesValues).length > 0">
-            <textarea
-              v-if="field.type === 'textarea'"
-              type="text"
-              class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
-              v-model="payload[field.key]"
-              :required="field.required"
-            />
+            <div v-if="field.type === 'textarea'">
+              <textarea
+                type="text"
+                rows="3"
+                class="w-full rounded-md border border-muted bg-primary py-2 pl-3 pr-10 shadow-sm focus:outline-none sm:text-sm"
+                v-model="payload[field.key]"
+                :required="field.required"
+              />
+              <div class="flex flex-row gap-6 items-center">
+                <button
+                  class="flex flex-row gap-2 mt-2 cursor-pointer group items-center"
+                  @click="enhanceByAI(field.key, payload[field.key])"
+                >
+                  <SparklesIcon class="h-5 w-5 text-muted cursor-pointer group-hover:text-blue-600" />
+                  <span class="text-muted text-sm">Enhance by AI</span>
+                  <Icon name="line-md:loading-twotone-loop" size="1em" v-if="loading_ai" />
+                </button>
+                <div class="flex flex-row gap-2 mt-2 items-center">
+                  <button
+                    class="flex flex-row gap-2 cursor-pointer group items-center"
+                    @click="translateText(field.key, payload[field.key])"
+                  >
+                    <LanguageIcon class="h-5 w-5 text-muted cursor-pointer group-hover:text-blue-600" />
+                    <span class="text-muted text-sm">Translate</span>
+                    <Icon name="line-md:loading-twotone-loop" size="1em" v-if="loading_translate" />
+                  </button>
+                  <select
+                    class="rounded-md border border-muted bg-primary py-1 px-2 shadow-sm focus:outline-none sm:text-sm"
+                    v-model="from_language"
+                  >
+                    <option v-for="locale in locales" :key="locale.value" :value="locale.value">
+                      {{ locale.name }}
+                    </option>
+                  </select>
+                  <ArrowRightIcon class="h-5 w-5 text-muted" />
+                  <select
+                    class="rounded-md border border-muted bg-primary py-1 px-2 shadow-sm focus:outline-none sm:text-sm"
+                    v-model="to_language"
+                  >
+                    <option v-for="locale in locales" :key="locale.value" :value="locale.value">
+                      {{ locale.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
             <Switch v-else-if="field.type === 'boolean'" v-model="payload[field.key]" :required="field.required" />
             <select
               v-else-if="field.type === 'select'"
@@ -132,6 +246,15 @@ async function getProviderDataForAction(provider: string) {
               v-model="payload[field.key]"
               :required="field.required"
             />
+            <button
+              :disabled="payload[field.key]"
+              class="flex flex-row gap-2 mt-2"
+              @click="enhanceByAI(field.key, payload[field.key])"
+            >
+              <SparklesIcon class="h-5 w-5 text-muted cursor-pointer hover:text-blue-600" />
+              <span class="text-muted text-sm">Enhance by AI</span>
+              <Loader v-if="loading_ai" />
+            </button>
           </div>
         </div>
       </div>

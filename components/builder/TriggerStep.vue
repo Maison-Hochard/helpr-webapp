@@ -34,8 +34,9 @@ type VariablesValues = {
 const variablesValues = ref<VariablesValues>({});
 
 async function getProviderDataForAction(provider: string) {
+  // get the 'linear_team_id', 'github_repository', etc... to send to the API to get more precise data
   try {
-    const { data } = await useAPI(`/${provider}/data`, "GET");
+    const { data } = await useAPI(`/${provider}/data`, "POST");
     variablesValues.value = data;
   } catch (error) {
     useErrorToast("Error while fetching data from provider");

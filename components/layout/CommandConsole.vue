@@ -60,7 +60,7 @@ onMounted(() => {
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity" />
+        <div class="fixed inset-0 bg-gray-700 bg-opacity-50 transition-opacity" />
       </TransitionChild>
 
       <div class="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
