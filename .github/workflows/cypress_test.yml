@@ -21,8 +21,7 @@ jobs:
         run: npm install
 
       - name: Start the app in the background
-        run: npm start &
-        background: true
+        run: npm start
 
       - name: Wait for the app to start
         run: npx wait-on http://localhost:3000
