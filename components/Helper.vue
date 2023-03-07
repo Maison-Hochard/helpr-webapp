@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from "@headlessui/vue";
-import { CheckIcon, ChatBubbleBottomCenterIcon, XMarkIcon } from "@heroicons/vue/24/outline";
+import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
+import { ChatBubbleBottomCenterIcon } from "@heroicons/vue/24/outline";
 
 definePageMeta({
   name: "Help",
@@ -43,8 +43,12 @@ const open = ref(false);
                 class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
               >
                 <div>
-                  <div class="flex justify-center">
+                  <div class="flex flex-col justify-center text-center">
                     <nuxt-img class="hidden w-auto lg:block h-8" :src="'/supabase/logo/dark/helpr-logo.svg'" />
+                    <p class="text-sm text-muted mt-4">
+                      <span class="font-bold">Helpr</span> est un assistant virtuel qui vous aide à trouver des réponses
+                      à vos questions.
+                    </p>
                   </div>
                   <div class="mt-3 text-center sm:mt-5">
                     <client-only>
