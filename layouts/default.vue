@@ -6,6 +6,7 @@ import CommandConsole from "~/components/layout/CommandConsole.vue";
 <template>
   <div>
     <CommandConsole />
+    <Helper />
     <Navbar />
     <slot />
   </div>

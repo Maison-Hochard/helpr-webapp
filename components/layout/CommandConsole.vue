@@ -60,7 +60,7 @@ const consoleActions = [
   {
     name: "Afficher l'aide",
     shortcut: "⌘ + H",
-    action: () => console.log("Afficher l'aide"),
+    action: () => useRouter().push("/help"),
     icon: InformationCircleIcon,
   },
 ];
