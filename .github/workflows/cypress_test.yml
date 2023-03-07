@@ -1,37 +1,19 @@
-name: Cypress Tests
+name: Cypress Tests using Cypress Docker Image
 
-on:
-  push:
-    branches:
-      - master  # ou la branche de votre choix
+on: [push]
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Use Node.js 16.x
-        uses: actions/setup-node@v2
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5.x.x # use the explicit version number
         with:
-          node-version: '16.x'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Start the app in the background
-        run: npm start
-
-      - name: Wait for the app to start
-        run: npx wait-on http://localhost:3000
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v2
-        with:
-          start: npm start
-          wait-on: 'http://localhost:3000'
-          browser: chrome
-          record: true
-          parallel: true
-          group: 'Cypress Tests'
+          # Specify Browser since container image is compile with Firefox
+          browser: firefox
