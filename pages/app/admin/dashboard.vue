@@ -23,6 +23,18 @@ async function updateUser(user: User) {
     editMode.value = false;
   }
 }
+
+async function deleteUser(user: User) {
+  if (confirm("Are you sure you want to delete user " + user.email + "?")) {
+    const { data } = await useFetch("/api/admin/" + user.id, {
+      method: "DELETE",
+    });
+    if (data.value?.statusCode === "200") {
+      useSuccessToast("User deleted successfully");
+      refresh();
+    }
+  }
+}
 </script>
 
 <template>
@@ -112,9 +124,7 @@ async function updateUser(user: User) {
                     </div>
                   </td>
                   <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                    <a href="#" class="text-red-600 hover:text-red-900"
-                      >Delete<span class="sr-only">, {{ user.firstname }} {{ user.lastname }}</span></a
-                    >
+                    <button class="text-red-600 hover:text-red-900" @click="deleteUser(user)">Delete</button>
                   </td>
                 </tr>
               </tbody>

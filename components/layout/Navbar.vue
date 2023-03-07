@@ -31,7 +31,7 @@ async function logout() {
             :key="item.name"
             :to="item.to"
             :id="item.name.toLowerCase()"
-            class="text-sm font-semibold leading-6 hover:text-gradient transition-colors duration-300 ease-in-out"
+            class="text-xs font-semibold leading-6 hover:text-gradient transition-colors duration-300 ease-in-out"
             :class="[item.name === $route.name ? 'text-gradient' : 'text-primary']"
           >
             {{ $t("navigation." + item.name.toLowerCase()) }}
