@@ -2,10 +2,6 @@
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { ChatBubbleBottomCenterIcon } from "@heroicons/vue/24/outline";
 
-definePageMeta({
-  name: "Help",
-});
-
 const open = ref(false);
 </script>
 

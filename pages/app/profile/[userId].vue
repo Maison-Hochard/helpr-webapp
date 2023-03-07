@@ -40,7 +40,7 @@ useHead({
             <nuxt-img
               preload
               class="h-32 w-full object-cover lg:h-48"
-              :src="user.cover"
+              :src="`${user.cover}?${new Date().getTime()}`"
               sizes="sm:100vw md:50vw lg:400px"
               :alt="user.firstname + ' ' + user.lastname"
             />
@@ -51,7 +51,7 @@ useHead({
                 <nuxt-img
                   preload
                   class="h-24 w-24 rounded-full sm:h-32 sm:w-32 object-cover"
-                  :src="user.avatar"
+                  :src="`${user.avatar}?${new Date().getTime()}`"
                   sizes="sm:100vw md:50vw lg:400px"
                   :alt="user.firstname + ' ' + user.lastname"
                 />

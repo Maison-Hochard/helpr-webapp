@@ -31,16 +31,6 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
   ],
 
-  content: {
-    documentDriven: true,
-    markdown: {
-      mdc: true,
-    },
-    highlight: {
-      theme: "github-dark",
-    },
-  },
-
   imports: {
     dirs: ["store"],
   },

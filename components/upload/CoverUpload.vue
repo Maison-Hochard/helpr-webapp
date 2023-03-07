@@ -36,8 +36,14 @@ async function uploadCover() {
             stroke-linejoin="round"
           />
         </svg>
-        <img :src="user.cover" alt="" class="rounded-md h-32 w-full object-cover" />
-        <div class="flex text-sm text-gray-600">
+        <nuxt-img
+          preload
+          class="rounded-md h-32 w-full object-cover"
+          :src="`${user.cover}?${new Date().getTime()}`"
+          sizes="sm:100vw md:50vw lg:400px"
+          :alt="user.firstname + ' ' + user.lastname + ' cover'"
+        />
+        <div class="flex text-sm text-gray-600 justify-center">
           <label
             for="cover-upload"
             class="relative cursor-pointer rounded-md font-medium text-accent hover:text-accent-hover"

@@ -22,7 +22,13 @@ async function uploadAvatar() {
     <label class="block text-sm font-medium text-muted">{{ $t("profile.avatar") }}</label>
     <div class="mt-1 flex items-center space-x-5">
       <span class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-        <img :src="user.avatar" alt="" />
+        <nuxt-img
+          preload
+          class="h-12 w-12 rounded-full object-cover"
+          :src="`${user.avatar}?${new Date().getTime()}`"
+          sizes="sm:100vw md:50vw lg:400px"
+          :alt="user.firstname + ' ' + user.lastname"
+        />
       </span>
       <div>
         <label
