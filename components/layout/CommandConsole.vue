@@ -52,9 +52,14 @@ const consoleActions = [
     icon: SparklesIcon,
   },
   {
-    name: "Afficher l'aide",
+    name: "Afficher l'aide (documentation)",
     shortcut: "⌘ + H",
-    action: () => useRouter().push("/help"),
+    action: () => {
+      navigateTo("https://www.notion.so/hugorichard/helpr-documentation-c514c812ae604fa1851189c9b0b122df", {
+        newTab: true,
+        external: true,
+      });
+    },
     icon: InformationCircleIcon,
   },
 ];

@@ -25,7 +25,7 @@ const people = [
     githubUrl: "https://github.com/paulmarniquet",
   },
   {
-    id: 3,
+    id: 9,
     name: "Johann Cavallucci",
     role: t("team.developer"),
     imageUrl: "/team/johann-cavallucci.jpg",
