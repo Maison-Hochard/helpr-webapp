@@ -55,7 +55,7 @@
     "jsonwebtoken": "^9.0.0",
     "nuxt": "3.1.1",
     "nuxt-headlessui": "^1.1.1",
-    "nuxt-icon": "^0.2.6",
+    "nuxt-icon": "^0.3.2",
     "nuxt-mailer": "^0.11.0",
     "nuxt-vue3-google-signin": "^0.0.8",
     "pinia": "^2.0.30",
