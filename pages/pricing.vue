@@ -71,6 +71,7 @@ async function redirectToLogin() {
             </li>
           </ul>
         </div>
+        <!-- HERE IS A SECRET PROMO CODE : ERICMODE ;) -->
         <form
           action="/api/stripe/subscribe"
           method="post"
