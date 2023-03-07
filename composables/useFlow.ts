@@ -10,11 +10,6 @@ interface createFlowInput {
   actions: Action[];
 }
 
-// create webhook if flowData.trigger.webhook is true
-
-// 9ee6881b-3afa-4cca-9b23-fc14c78181a3 Cooperantis
-// 34b08c67-0366-4cc0-8a32-07d481c045f1 Area
-
 async function createWebhook(provider: string, flowName: string, where: string) {
   const response = await useAPI<ApiResponse>(`/${provider}/create-webhook`, "POST", {
     name: "Helpr - " + flowName,
@@ -31,6 +26,10 @@ async function createWebhook(provider: string, flowName: string, where: string) 
 export async function addFlow(flowData: createFlowInput, where: string) {
   if (flowData.trigger.webhook) {
     await createWebhook(flowData.trigger.provider, flowData.name, where);
+  }
+  if (!flowData.trigger || flowData.actions.length === 0) {
+    useErrorToast("Please select a trigger and at least one action");
+    return;
   }
   const response = await useAPI<ApiResponse>("/flow", "POST", {
     name: flowData.name,
