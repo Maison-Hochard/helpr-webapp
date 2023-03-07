@@ -3,7 +3,7 @@ name: Cypress Tests
 on:
   push:
     branches:
-      - main  # ou la branche de votre choix
+      - master  # ou la branche de votre choix
 
 jobs:
   cypress-run:
