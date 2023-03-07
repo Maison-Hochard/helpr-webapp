@@ -68,11 +68,7 @@ watchEffect(() => {
           class="col-span-1 flex flex-col text-center cursor-pointer"
           @click="goToProfile(user.id)"
         >
-          <nuxt-img
-            class="mx-auto h-24 w-24 rounded-full object-cover"
-            :src="user.avatar"
-            sizes="sm:100vw md:50vw lg:400px"
-          />
+          <Avatar :user="user" size="community" />
           <h3 class="mt-6 text-center text-lg font-medium text-primary">{{ user.firstname }} {{ user.lastname }}</h3>
           <p class="mt-2 text-center text-sm text-muted">{{ user.bio }}</p>
         </li>

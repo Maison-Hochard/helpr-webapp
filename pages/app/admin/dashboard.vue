@@ -63,9 +63,7 @@ async function updateUser(user: User) {
                 <tr v-for="user in users" :key="user.email">
                   <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                     <div class="flex items-center">
-                      <div class="h-10 w-10 flex-shrink-0">
-                        <img class="h-10 w-10 rounded-full object-cover" :src="user.avatar" alt="" />
-                      </div>
+                      <Avatar :user="user" />
                       <div class="ml-4">
                         <div class="font-medium text-primary">{{ user.firstname }} {{ user.lastname }}</div>
                         <div class="text-muted">{{ user.email }}</div>
