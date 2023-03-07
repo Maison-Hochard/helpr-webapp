@@ -1,10 +1,10 @@
 FROM node:18-alpine as helpr-app
 
 ARG DATABASE_URL
-ARG MAIL_HOST
-ARG MAIL_PORT
-ARG MAIL_USER
-ARG MAIL_PASSWORD
+ARG MAILER_HOST
+ARG MAILER_PORT
+ARG MAILER_USER
+ARG MAILER_PASSWORD
 ARG AUTH_TOKEN_SECRET
 ARG REFRESH_TOKEN_SECRET
 ARG AUTH_TOKEN_EXPIRATION
@@ -31,17 +31,16 @@ ARG DEEPL_API_KEY
 
 WORKDIR /app
 
-RUN npm install -g pnpm
+COPY . .
 
 RUN apk add --update --no-cache python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
 
-COPY . .
-
-RUN pnpm install
-RUN pnpm build
+RUN npm install --force
 
 RUN npx prisma generate
 
-CMD ["pnpm", "start"]
+RUN npx nuxi build
 
-EXPOSE 8080
+CMD ["node", ".output/server/index.mjs"]
+
+EXPOSE 3000
