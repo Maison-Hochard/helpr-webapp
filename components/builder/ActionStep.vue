@@ -80,6 +80,7 @@ const loading_ai = ref(false);
 const loading_translate = ref(false);
 const to_language = ref("en-US");
 const from_language = ref("en-US");
+const action_loading = ref(false);
 
 const locales = [
   {
@@ -147,6 +148,7 @@ async function translateText(key: string, text: string) {
 
 async function testAction() {
   if (selectedAction.value?.name !== "empty") {
+    action_loading.value = true;
     const variables = payload.value;
     const { data } = await useAPI(
       `/${selectedProvider.value.name.toLowerCase()}/${selectedAction.value.name.toLowerCase()}`,
@@ -157,8 +159,10 @@ async function testAction() {
     );
     if (data) {
       useSuccessToast(t("builder.test_success"));
+      action_loading.value = false;
     } else {
       useErrorToast(t("builder.test_error"));
+      action_loading.value = false;
     }
   }
 }
@@ -312,7 +316,8 @@ async function testAction() {
         </div>
       </div>
       <button class="btn-secondary mt-4 md:mt-0" type="button" @click="testAction">
-        {{ $t("builder.test_action") }}
+        <span>{{ $t("builder.test_action") }}</span>
+        <Icon name="line-md:loading-twotone-loop" size="1em" v-if="action_loading" class="text-primary" />
       </button>
     </div>
   </form>
