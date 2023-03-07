@@ -32,12 +32,15 @@ export async function getSubscribeUrl(priceId: string, user: User) {
 
   if (!user.stripeCustomerId) {
     shouldUpdateUser = true;
-    const customer = await stripe.customers.create({ email: customerEmail });
+    const customer = await stripe.customers.create({
+      email: customerEmail,
+    });
     user.stripeCustomerId = customer.id;
   }
 
   const session = await stripe.checkout.sessions.create({
     billing_address_collection: "auto",
+    allow_promotion_codes: true,
     line_items: [
       {
         price: price.id,
