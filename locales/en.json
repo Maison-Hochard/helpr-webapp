@@ -239,11 +239,15 @@
     "fullname": "Fullname",
     "email": "Email",
     "phone": "Phone",
-    "subject": "Subject",
+    "ticket_type": "Request type",
+    "ticket_type_bug": "Report a bug",
+    "ticket_type_question": "Ask a question",
+    "ticket_type_suggestion": "Propose a suggestion",
+    "ticket_type_feature": "Request a feature",
     "message": "Message",
     "submit": "Send",
-    "success": "Your message has been sent, we will contact you as soon as possible",
-    "error": "An error occurred while sending your message"
+    "success": "Your message to the team has been sent successfully",
+    "error": "Oups, an error occurred while sending your message"
   },
   "team": {
     "title": "Our team",

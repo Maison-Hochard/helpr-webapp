@@ -52,6 +52,7 @@ export default defineNuxtConfig({
         callbackUrl: process.env.GITHUB_CALLBACK_URL,
       },
       linear: {
+        apiKey: process.env.LINEAR_API_KEY,
         clientId: process.env.LINEAR_CLIENT_ID,
         clientSecret: process.env.LINEAR_CLIENT_SECRET,
         callbackUrl: process.env.LINEAR_CALLBACK_URL,

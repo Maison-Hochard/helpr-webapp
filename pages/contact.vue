@@ -9,9 +9,16 @@ definePageMeta({
   description: "Contact us",
 });
 
+const ticketValues = [
+  { name: t("contact.ticket_type_question"), value: "0c61f7c3-4951-4b99-8091-c9e7ac8974c3" },
+  { name: t("contact.ticket_type_bug"), value: "d8f17993-72f0-4326-b269-b2c011ce9301" },
+  { name: t("contact.ticket_type_suggestion"), value: "811dc093-8908-4c20-8ae9-258a4f3b2f53" },
+  { name: t("contact.ticket_type_feature"), value: "33ec183f-643b-409e-9cd9-be3193d8b3c1" },
+];
+
 const email = ref("");
 const message = ref("");
-const subject = ref("");
+const ticket_type = ref("");
 const phone = ref("");
 const fullname = ref("");
 
@@ -19,12 +26,12 @@ const loading = ref(false);
 
 async function submitForm() {
   loading.value = true;
-  const { data } = await useFetch("/api/mailer/sendMailToSupport", {
+  const { data } = await useFetch("/api/support", {
     method: "POST",
     body: {
       email: email.value,
       message: message.value,
-      subject: subject.value,
+      ticket_type: ticket_type.value,
       phone: phone.value,
       fullname: fullname.value,
     },
@@ -32,7 +39,7 @@ async function submitForm() {
   if (data) {
     email.value = "";
     message.value = "";
-    subject.value = "";
+    ticket_type.value = "";
     phone.value = "";
     fullname.value = "";
     useSuccessToast(t("contact.success"));
@@ -88,6 +95,7 @@ async function submitForm() {
               <input
                 v-model="fullname"
                 type="text"
+                required
                 name="fullname"
                 id="full-name"
                 autocomplete="name"
@@ -126,17 +134,16 @@ async function submitForm() {
             </div>
             <div>
               <label for="text" class="sr-only">
-                {{ t("contact.subject") }}
+                {{ t("contact.ticket_type") }}
               </label>
-              <input
-                required
-                v-model="subject"
-                type="text"
-                name="subject"
-                id="subject"
-                class="input w-full"
-                :placeholder="t('contact.subject')"
-              />
+              <select required v-model="ticket_type" id="ticket_type" name="ticket_type" class="input w-full">
+                <option value="" disabled selected>
+                  {{ t("contact.ticket_type") }}
+                </option>
+                <option v-for="ticket in ticketValues" :value="ticket.value" :key="ticket.value">
+                  {{ ticket.name }}
+                </option>
+              </select>
             </div>
             <div>
               <label for="message" class="sr-only">
