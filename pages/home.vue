@@ -139,7 +139,7 @@ const features = computed(() => [
       <!-- CTA section -->
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
         <div
-          class="backdrop-shadow bg-accent top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
+          class="backdrop-shadow bg-accent scale-150 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 absolute z-0"
         ></div>
         <div
           class="backdrop-blur-md bg-primary-opacity/30 rounded-lg py-12 px-6 sm:py-16 sm:px-12 lg:py-20 lg:px-16 flex flex-col items-center"
