@@ -1,13 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { MagnifyingGlassIcon, LanguageIcon } from "@heroicons/vue/20/solid";
-import {
-  DocumentIcon,
-  FolderIcon,
-  PlusCircleIcon,
-  SparklesIcon,
-  InformationCircleIcon,
-} from "@heroicons/vue/24/outline";
+import { DocumentIcon, PlusCircleIcon, SparklesIcon, InformationCircleIcon } from "@heroicons/vue/24/outline";
 import {
   Combobox,
   ComboboxInput,
@@ -76,6 +70,25 @@ const filteredActions = computed(() =>
 function onSelect(item) {
   item.action();
   open.value = false;
+}
+
+const ai_loading = ref(false);
+const ai_response = ref("");
+
+async function askGPT() {
+  try {
+    ai_loading.value = true;
+    const { data } = await useFetch("/api/askGPT", {
+      method: "POST",
+      body: {
+        question: query.value,
+      },
+    });
+    ai_response.value = data.value.response;
+    ai_loading.value = false;
+  } catch (error) {
+    ai_loading.value = false;
+  }
 }
 
 onMounted(() => {
@@ -220,9 +233,35 @@ onMounted(() => {
                 </li>
               </ComboboxOptions>
 
-              <div v-if="query !== '' && filteredActions.length === 0" class="py-14 px-6 text-center sm:px-14">
-                <FolderIcon class="mx-auto h-6 w-6 text-primary" aria-hidden="true" />
-                <p class="mt-4 text-sm text-primary">We couldn't find any projects with that term. Please try again.</p>
+              <div v-if="query !== '' && filteredActions.length === 0" class="p-2">
+                <h2 class="sr-only">AI assistant</h2>
+                <ul class="text-sm text-muted">
+                  <li class="flex items-center rounded-md px-3 py-6">
+                    <span class="ml-3 flex-auto truncate" v-if="!ai_response">
+                      Press enter to get a response from AI assistant
+                    </span>
+                    <span class="text-xs text-muted" v-else>
+                      {{ ai_response }}
+                    </span>
+                    <button
+                      v-if="ai_response"
+                      class="ml-3 flex-none text-xs font-semibold text-primary"
+                      @click="ai_response = ''"
+                    >
+                      <kbd class="font-sans">Clear</kbd>
+                    </button>
+                  </li>
+                </ul>
+                <div>
+                  <button
+                    type="button"
+                    @click="askGPT"
+                    class="w-full inline-flex justify-center gap-2 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                  >
+                    <span>Ask AI assistant</span>
+                    <Icon name="line-md:loading-twotone-loop" size="1em" v-if="ai_loading" class="text-primary" />
+                  </button>
+                </div>
               </div>
             </Combobox>
           </DialogPanel>
