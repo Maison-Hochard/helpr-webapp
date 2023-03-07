@@ -3,6 +3,7 @@ import { Subscription, User } from "@prisma/client";
 import { createOrUpdateSubscription, getSubscriptionById, getUserByStripeCustomerId } from "~/server/app/userService";
 import { createUserInput } from "~/server/api/user/user.dto";
 import { Plans } from "~/types/Pricing";
+import prisma from "~/server/database/client";
 
 const config = useRuntimeConfig();
 const stripe = new Stripe(config.private.stripeSecretKey, {
@@ -63,6 +64,15 @@ export async function handleSubscriptionChange(
   const localSubscription = (await getSubscriptionById(subscription.id)) as Subscription;
 
   if (localSubscription?.lastEventDate > lastEventDate) {
+    return true;
+  }
+
+  if (subscription.status === "canceled") {
+    await prisma.subscription.delete({
+      where: {
+        stripeId: subscription.id,
+      },
+    });
     return true;
   }
 

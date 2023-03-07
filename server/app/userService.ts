@@ -217,17 +217,6 @@ async function deleteSubscription(stripeId: string) {
 
 export async function createOrUpdateSubscription(data: Subscription) {
   const subName = data.stripePriceId === Plans.PREMIUM.priceId ? "Premium" : "";
-  if (!subName) {
-    await prisma.subscription.delete({
-      where: {
-        stripeId: data.stripeId,
-      },
-    });
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: "Subscription deleted" }),
-    };
-  }
   if (data.stripeStatus === "canceled") {
     await deleteSubscription(data.stripeId);
   }
