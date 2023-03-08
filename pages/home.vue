@@ -2,6 +2,7 @@
 import { ArrowLongRightIcon } from "@heroicons/vue/24/outline";
 import Footer from "@/components/layout/Footer.vue";
 import ProviderRow from "~/components/ProviderRow.vue";
+import Promo from "~/components/Promo.vue";
 const { t } = useI18n();
 
 definePageMeta({
@@ -59,6 +60,7 @@ const features = computed(() => [
     image: "/images/landing/privacy.webp",
   },
 ]);
+const video_open = ref(false);
 </script>
 
 <template>
@@ -99,7 +101,10 @@ const features = computed(() => [
         </div>
       </div>
 
-      <hr class="my-16 border-secondary w-3/4 mx-auto" />
+      <div class="relative w-3/4 mx-auto my-16">
+        <hr class="border-secondary" />
+        <Promo class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+      </div>
 
       <!-- Details section -->
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
