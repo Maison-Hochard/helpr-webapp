@@ -27,7 +27,12 @@ definePageMeta({
                 </span>
               </div>
               <div class="w-2/3 h-2/3">
-                <img :src="article.img" :alt="article.title" class="rounded-xl shadow-xl" />
+                <nuxt-img
+                  preload
+                  class="rounded-xl shadow-xl"
+                  :src="'/supabase/assets/changelog/' + article.img"
+                  :alt="article.title"
+                />
                 <div class="text-primary leading-8 text-lg font-medium mt-4">
                   {{ article.description }}
                 </div>

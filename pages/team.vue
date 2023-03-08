@@ -10,7 +10,7 @@ const people = [
     id: 2,
     name: "Hugo Richard",
     role: "Co-Founder / CEO",
-    imageUrl: "/team/hugo-richard.jpeg",
+    imageUrl: "hugo-richard.jpeg",
     bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
     linkedinUrl: "https://www.linkedin.com/in/hugo-richard-0801/",
     githubUrl: "https://github.com/HugoRCD",
@@ -19,7 +19,7 @@ const people = [
     id: 1,
     name: "Paul Marniquet",
     role: t("team.developer"),
-    imageUrl: "/team/paul-marniquet.jpeg",
+    imageUrl: "paul-marniquet.jpeg",
     bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
     linkedinUrl: "https://www.linkedin.com/in/paul-marniquet/",
     githubUrl: "https://github.com/paulmarniquet",
@@ -28,7 +28,7 @@ const people = [
     id: 9,
     name: "Johann Cavallucci",
     role: t("team.developer"),
-    imageUrl: "/team/johann-cavallucci.jpg",
+    imageUrl: "johann-cavallucci.jpg",
     bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
     linkedinUrl: "https://www.linkedin.com/in/johann-cavallucci/",
     githubUrl: "https://github.com/cavalluccijohann",
@@ -37,7 +37,7 @@ const people = [
     id: 4,
     name: "Morgan Wolff",
     role: t("team.developer"),
-    imageUrl: "/team/morgan-wolff.jpeg",
+    imageUrl: "morgan-wolff.jpeg",
     bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
     linkedinUrl: "https://www.linkedin.com/in/morganwolff/",
     githubUrl: "https://github.com/morganwolff",
@@ -58,7 +58,13 @@ const people = [
       </div>
       <ul role="list" class="-mt-12 space-y-12 divide-y divide-secondary xl:col-span-3">
         <li v-for="person in people" :key="person.name" class="flex flex-col gap-10 pt-12 sm:flex-row">
-          <img class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover" :src="person.imageUrl" alt="" />
+          <nuxt-img
+            preload
+            class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+            :src="'/supabase/assets/team/' + person.imageUrl"
+            :alt="person.name"
+            sizes="sm:100vw md:50vw lg:400px"
+          />
           <div class="max-w-xl flex-auto">
             <NuxtLink :to="`/app/profile/${person.id}`" class="text-primary hover:underline">
               <h3 class="text-lg font-semibold leading-8 tracking-tight cursor-pointer">

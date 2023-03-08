@@ -17,50 +17,49 @@ const features = computed(() => [
   {
     name: t("home.features.fast"),
     description: t("home.features.fastDescription"),
-    image: "/images/landing/fast.webp",
+    image: "fast.webp",
   },
   {
     name: t("home.features.dynamic"),
     description: t("home.features.dynamicDescription"),
-    image: "/images/landing/dynamic.webp",
+    image: "dynamic.webp",
   },
   {
     name: t("home.features.integrations"),
     description: t("home.features.integrationsDescription"),
-    image: "/images/landing/integrations.webp",
+    image: "integrations.webp",
   },
   {
     name: t("home.features.secure"),
     description: t("home.features.secureDescription"),
-    image: "/images/landing/secure.webp",
+    image: "secure.webp",
   },
   {
     name: t("home.features.crossPlatform"),
     description: t("home.features.crossPlatformDescription"),
-    image: "/images/landing/cross-platform.webp",
+    image: "cross-platform.webp",
   },
   {
     name: t("home.features.customizable"),
     description: t("home.features.customizableDescription"),
-    image: "/images/landing/customize.webp",
+    image: "customize.webp",
   },
   {
     name: t("home.features.console"),
     description: t("home.features.consoleDescription"),
-    image: "/images/landing/console.webp",
+    image: "console.webp",
   },
   {
     name: t("home.features.keyboard_first"),
     description: t("home.features.keyboardDescription"),
-    image: "/images/landing/keyboard-first.webp",
+    image: "keyboard-first.webp",
   },
   {
     name: t("home.features.privacy"),
     description: t("home.features.privacyDescription"),
-    image: "/images/landing/privacy.webp",
+    image: "privacy.webp",
   },
 ]);
-const video_open = ref(false);
 </script>
 
 <template>
@@ -125,7 +124,13 @@ const video_open = ref(false);
 
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
             <div class="glass-card" v-for="feature in features" :key="feature.name">
-              <img :src="feature.image" :alt="feature.name" class="w-full h-48 object-cover" />
+              <nuxt-img
+                preload
+                class="w-full h-48 object-cover"
+                :src="'/supabase/assets/landing/' + feature.image"
+                :alt="feature.name"
+                sizes="sm:100vw md:50vw lg:400px"
+              />
               <div class="card-content">
                 <h3 class="text-xl font-bold tracking-tight text-primary sm:text-2xl text-center mt-4">
                   <span>{{ feature.name }}</span>
