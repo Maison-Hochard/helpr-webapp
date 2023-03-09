@@ -9,7 +9,7 @@ const people = [
   {
     id: 2,
     name: "Hugo Richard",
-    role: "Founder & CTO",
+    role: "CTO",
     imageUrl: "hugo-richard.jpeg",
     bio: "Ultricies massa malesuada viverra cras lobortis. Tempor orci hac ligula dapibus mauris sit ut eu. Eget turpis urna maecenas cras. Nisl dictum.",
     linkedinUrl: "https://www.linkedin.com/in/hugo-richard-0801/",
